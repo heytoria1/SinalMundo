@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SinalMundo — Línguas de Sinais</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --pink: #ff4fa3;
+      --blue: #3b82f6;
+      --yellow: #ffd43b;
+      --purple: #7c3aed;
+      --black: #171717;
+      --white: #ffffff;
+      --bg: #fff8fc;
+      --gray: #666;
+      --border: #eeeeee;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      min-height: 100vh;
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+    }
+
+    .topbar {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      color: var(--pink);
+    }
+
+    .logo span {
+      color: var(--blue);
+    }
+
+    .desktop-nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    .desktop-nav button {
+      background: transparent;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .desktop-nav button:hover {
+      background: #fff0f7;
+      color: var(--pink);
+    }
+
+    main {
+      max-width: 1150px;
+      margin: auto;
+      padding: 30px 20px 100px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+      color: white;
+      border-radius: 30px;
+      padding: 45px 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 15px 40px rgba(124,58,237,.18);
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 7vw, 58px);
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 650px;
+      line-height: 1.6;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      background: white;
+      padding: 8px;
+      border-radius: 18px;
+      margin-top: 25px;
+      max-width: 700px;
+    }
+
+    .search-box input {
+      flex: 1;
+      border: 0;
+      outline: 0;
+      padding: 14px;
+      font-size: 16px;
+    }
+
+    .primary {
+      background: var(--pink);
+      color: white;
+      padding: 13px 20px;
+      border-radius: 14px;
+      font-weight: 800;
+    }
+
+    .primary:hover {
+      transform: translateY(-1px);
+    }
+
+    .section-title {
+      margin: 30px 0 18px;
+      font-size: 28px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 22px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      transition: .2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .language-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .language-card:nth-child(1) {
+      border-top: 7px solid var(--green, #20c997);
+    }
+
+    .language-card:nth-child(2) {
+      border-top: 7px solid var(--blue);
+    }
+
+    .language-card:nth-child(3) {
+      border-top: 7px solid var(--pink);
+    }
+
+    .flag {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    .category {
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    .category-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .category button,
+    .sign-button {
+      margin-top: 14px;
+      background: var(--blue);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .sign-card {
+      position: relative;
+    }
+
+    .favorite {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      background: #fff0f7;
+      color: var(--pink);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 20px;
+    }
+
+    .sign-symbol {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 65px;
+      background: linear-gradient(135deg,#fff0f7,#eef5ff);
+      border-radius: 18px;
+      margin-bottom: 15px;
+    }
+
+    .premium {
+      background: linear-gradient(135deg, #171717, #3d246d);
+      color: white;
+      border-radius: 28px;
+      padding: 35px;
+      margin-top: 30px;
+    }
+
+    .premium h2 {
+      color: var(--yellow);
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 40px;
+      font-weight: 900;
+      margin: 15px 0;
+    }
+
+    .premium button {
+      background: var(--yellow);
+      color: var(--black);
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-weight: 900;
+    }
+
+    .profile {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .profile-box {
+      background: white;
+      border-radius: 25px;
+      padding: 30px;
+      border: 1px solid var(--border);
+    }
+
+    .avatar {
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(135deg,var(--pink),var(--purple));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .results {
+      margin-top: 20px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 35px;
+      color: var(--gray);
+      background: white;
+      border-radius: 20px;
+    }
+
+    .bottom-nav {
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--gray);
+      padding: 30px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media(max-width: 700px) {
+      .topbar {
+        padding: 14px 18px;
+      }
+
+      .desktop-nav {
+        display: none;
+      }
+
+      main {
+        padding: 20px 15px 100px;
+      }
+
+      .hero {
+        padding: 30px 20px;
+        border-radius: 24px;
+      }
+
+      .search-box {
+        flex-direction: column;
+      }
+
+      .bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        border-top: 1px solid var(--border);
+        justify-content: space-around;
+        padding: 9px 4px;
+        z-index: 200;
+      }
+
+      .bottom-nav button {
+        background: transparent;
+        font-size: 12px;
+        font-weight: 700;
+        color: #555;
+        padding: 5px;
+      }
+
+      .bottom-nav button span {
+        display: block;
+        font-size: 22px;
+        margin-bottom: 3px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="logo">Sinal<span>Mundo</span> 🌎</div>
+
+  <nav class="desktop-nav">
+    <button onclick="showPage('home')">Início</button>
+    <button onclick="showPage('search')">Pesquisa</button>
+    <button onclick="showPage('categories')">Categorias</button>
+    <button onclick="showPage('favorites')">❤️ Favoritos</button>
+    <button onclick="showPage('premium')">⭐ Premium</button>
+    <button onclick="showPage('profile')">👤 Perfil</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- INÍCIO -->
+  <section id="home" class="page active">
+
+    <div class="hero">
+      <h1>Aprenda. Sinalize. Conecte.</h1>
+      <p>
+        Explore línguas de sinais do mundo de forma simples,
+        visual e acessível.
+      </p>
+
+      <div class="search-box">
+        <input id="homeSearch" placeholder="🔎 Pesquise uma palavra...">
+        <button class="primary" onclick="searchFromHome()">Pesquisar</button>
+      </div>
+    </div>
+
+    <h2 class="section-title">Explore as línguas de sinais</h2>
+
+    <div class="grid">
+
+      <div class="card language-card">
+        <div class="flag">🇧🇷</div>
+        <h3>Libras</h3>
+        <p>Língua Brasileira de Sinais.</p>
+        <button class="sign-button" onclick="searchLanguage('Libras')">
+          Explorar
+        </button>
+      </div>
+
+      <div class="card language-card">
+        <div class="flag">🇺🇸</div>
+        <h3>ASL</h3>
+        <p>American Sign Language.</p>
+        <button class="sign-button" onclick="searchLanguage('ASL')">
+          Explorar
+        </button>
+      </div>
+
+      <div class="card language-card">
+        <div class="flag">🇬🇧</div>
+        <h3>BSL</h3>
+        <p>British Sign Language.</p>
+        <button class="sign-button" onclick="searchLanguage('BSL')">
+          Explorar
+        </button>
+      </div>
+
+    </div>
+
+    <h2 class="section-title">Categorias populares</h2>
+
+    <div class="grid">
+
+      <div class="card category">
+        <div class="category-icon">👋</div>
+        <h3>Cumprimentos</h3>
+        <button onclick="openCategory('Cumprimentos')">Ver sinais</button>
+      </div>
+
+      <div class="card category">
+        <div class="category-icon">👨‍👩‍👧</div>
+        <h3>Família</h3>
+        <button onclick="openCategory('Família')">Ver sinais</button>
+      </div>
+
+      <div class="card category">
+        <div class="category-icon">🍎</div>
+        <h3>Alimentos</h3>
+        <button onclick="openCategory('Alimentos')">Ver sinais</button>
+      </div>
+
+      <div class="card category">
+        <div class="category-icon">❤️</div>
+        <h3>Sentimentos</h3>
+        <button onclick="openCategory('Sentimentos')">Ver sinais</button>
+      </div>
+
+    </div>
+
+    <div class="premium">
+      <h2>⭐ SinalMundo Premium</h2>
+      <p>Aprenda mais. Explore sem limites.</p>
+      <div class="price">R$ 20,00</div>
+      <p>Pagamento único • Acesso vitalício</p>
+      <br>
+      <button onclick="showPage('premium')">Conhecer Premium</button>
+    </div>
+
+  </section>
+
+
+  <!-- PESQUISA -->
+  <section id="search" class="page">
+
+    <h1 class="section-title">🔎 Pesquisa</h1>
+
+    <div class="search-box">
+      <input id="searchInput" placeholder="Digite uma palavra...">
+      <button class="primary" onclick="performSearch()">Pesquisar</button>
+    </div>
+
+    <div id="searchResults" class="results"></div>
+
+  </section>
+
+
+  <!-- CATEGORIAS -->
+  <section id="categories" class="page">
+
+    <h1 class="section-title">📚 Categorias</h1>
+
+    <div class="grid">
+
+      <div class="card category">
+        <div class="category-icon">🔤</div>
+        <h3>Alfabeto</h3>
+        <button onclick="openCategory('Alfabeto')">Explorar</button>
+      </div>
+
+      <div class="card category">
+        <div class="category-icon">🔢</div>
+        <h3>Números</h3>
+        <button onclick="openCategory('Números')">Explorar</button>
+      </div>
+
+      <div class="card category">
+        <div class="category-icon">👋</div>
+        <h3>Cumprimentos</h3>
+        <button onclick="openCategory('Cumprimentos')">Explorar</button>
+      </div>
+
+      <div class="card category">
+        <div class="category-icon">👨‍👩‍👧</div>
+        <h3>Família</h3>
+        <button onclick="openCategory('Família')">Explorar</button>
+      </div>
+
+      <div class="card category">
+        <div class="category-icon">🍎</div>
+        <h3>Alimentos</h3>
+        <button onclick="openCategory('Alimentos')">Explorar</button>
+      </div>
+
+      <div class="card category">
+        <div class="category-icon">🐶</div>
+        <h3>Animais</h3>
+        <button onclick="openCategory('Animais')">Explorar</button>
+      </div>
+
+      <div class="card category">
+        <div class="category-icon">🌈</div>
+        <h3>Cores</h3>
+        <button onclick="openCategory('Cores')">Explorar</button>
+      </div>
+
+      <div class="card category">
+        <div class="category-icon">❤️</div>
+        <h3>Sentimentos</h3>
+        <button onclick="openCategory('Sentimentos')">Explorar</button>
+      </div>
+
+      <div class="card category">
+        <div class="category-icon">🏠</div>
+        <h3>Lugares</h3>
+        <button onclick="openCategory('Lugares')">Explorar</button>
+      </div>
+
+      <div class="card category">
+        <div class="category-icon">🏃</div>
+        <h3>Verbos</h3>
+        <button onclick="openCategory('Verbos')">Explorar</button>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FAVORITOS -->
+  <section id="favorites" class="page">
+
+    <h1 class="section-title">❤️ Meus favoritos</h1>
+
+    <div id="favoriteList"></div>
+
+  </section>
+
+
+  <!-- PREMIUM -->
+  <section id="premium" class="page">
+
+    <div class="premium">
+      <h2>⭐ SinalMundo Premium</h2>
+
+      <h1>Aprenda mais. Explore sem limites.</h1>
+
+      <div class="price">R$ 20,00</div>
+
+      <p>Pagamento único • Acesso vitalício</p>
+
+      <br>
+
+      <p>✨ Conteúdos especiais</p>
+      <p>✨ Mais sinais e categorias</p>
+      <p>✨ Experiência sem limites</p>
+      <p>✨ Acesso vitalício</p>
+
+      <br>
+
+      <button onclick="activatePremium()">
+        Quero o Premium
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- PERFIL -->
+  <section id="profile" class="page profile">
+
+    <h1 class="section-title">👤 Meu perfil</h1>
+
+    <div class="profile-box">
+
+      <div class="avatar">🤟</div>
+
+      <h2>SinalMundo</h2>
+
+      <p style="margin:10px 0;color:#666;">
+        Seu espaço para aprender línguas de sinais.
+      </p>
+
+      <hr style="margin:20px 0;border:0;border-top:1px solid #eee;">
+
+      <p>🌎 Língua principal: Libras</p>
+      <p style="margin-top:10px;">❤️ Favoritos: <span id="favoriteCount">0</span></p>
+      <p style="margin-top:10px;">⭐ Premium: <span id="premiumStatus">Não ativado</span></p>
+
+    </div>
+
+  </section>
+
+
+  <!-- DETALHE DO SINAL -->
+  <section id="signDetail" class="page">
+
+    <button class="primary" onclick="showPage('search')">
+      ← Voltar
+    </button>
+
+    <div id="detailContent" style="margin-top:20px;"></div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  <strong>SinalMundo 🌎</strong>
+  <p style="margin-top:8px;">
+    Aprendendo e conectando pessoas através das línguas de sinais.
+  </p>
+</footer>
+
+
+<!-- MENU MOBILE -->
+<nav class="bottom-nav">
+
+  <button onclick="showPage('home')">
+    <span>🏠</span>
+    Início
+  </button>
+
+  <button onclick="showPage('search')">
+    <span>🔎</span>
+    Pesquisa
+  </button>
+
+  <button onclick="showPage('categories')">
+    <span>📚</span>
+    Categorias
+  </button>
+
+  <button onclick="showPage('favorites')">
+    <span>❤️</span>
+    Favoritos
+  </button>
+
+  <button onclick="showPage('profile')">
+    <span>👤</span>
+    Perfil
+  </button>
+
+</nav>
+
+
+<script>
+
+  const signs = [
+    {
+      word: "Olá",
+      category: "Cumprimentos",
+      language: "Libras",
+      emoji: "👋",
+      description: "Um cumprimento usado para dizer olá."
+    },
+    {
+      word: "Amor",
+      category: "Sentimentos",
+      language: "Libras",
+      emoji: "❤️",
+      description: "Sinal relacionado ao sentimento de amor."
+    },
+    {
+      word: "Família",
+      category: "Família",
+      language: "Libras",
+      emoji: "👨‍👩‍👧",
+      description: "Sinal relacionado à família."
+    },
+    {
+      word: "Comer",
+      category: "Alimentos",
+      language: "Libras",
+      emoji: "🍎",
+      description: "Sinal relacionado ao ato de comer."
+    },
+    {
+      word: "Casa",
+      category: "Lugares",
+      language: "Libras",
+      emoji: "🏠",
+      description: "Sinal relacionado à casa."
+    },
+    {
+      word: "Cachorro",
+      category: "Animais",
+      language: "Libras",
+      emoji: "🐶",
+      description: "Sinal relacionado ao animal cachorro."
+    },
+    {
+      word: "Azul",
+      category: "Cores",
+      language: "Libras",
+      emoji: "💙",
+      description: "Sinal relacionado à cor azul."
+    },
+    {
+      word: "Obrigado",
+      category: "Cumprimentos",
+      language: "Libras",
+      emoji: "🙏",
+      description: "Expressão de agradecimento."
+    }
+  ];
+
+  let favorites =
+    JSON.parse(localStorage.getItem("sinalmundo_favorites") || "[]");
+
+  let premium =
+    localStorage.getItem("sinalmundo_premium") === "true";
+
+
+  function showPage(pageId) {
+
+    document.querySelectorAll(".page").forEach(page => {
+      page.classList.remove("active");
+    });
+
+    const page = document.getElementById(pageId);
+
+    if(page) {
+      page.classList.add("active");
+      window.scrollTo(0,0);
+    }
+
+    updateProfile();
+    renderFavorites();
+  }
+
+
+  function searchFromHome() {
+
+    const value =
+      document.getElementById("homeSearch").value.trim();
+
+    document.getElementById("searchInput").value = value;
+
+    showPage("search");
+
+    if(value) {
+      performSearch();
+    }
+  }
+
+
+  function performSearch() {
+
+    const query =
+      document.getElementById("searchInput").value
+      .toLowerCase()
+      .trim();
+
+    const results =
+      document.getElementById("searchResults");
+
+    if(!query) {
+      results.innerHTML =
+        '<div class="empty">🔎 Digite uma palavra para pesquisar.</div>';
+      return;
+    }
+
+    const found = signs.filter(sign =>
+      sign.word.toLowerCase().includes(query) ||
+      sign.category.toLowerCase().includes(query) ||
+      sign.language.toLowerCase().includes(query)
+    );
+
+    if(found.length === 0) {
+
+      results.innerHTML =
+        '<div class="empty">😕 Nenhum sinal encontrado.</div>';
+
+      return;
+    }
+
+    results.innerHTML =
+      '<div class="grid">' +
+      found.map(createSignCard).join("") +
+      '</div>';
+  }
+
+
+  function createSignCard(sign) {
+
+    const isFavorite =
+      favorites.includes(sign.word);
+
+    return `
+      <div class="card sign-card">
+
+        <button class="favorite"
+          onclick="toggleFavorite('${sign.word}')">
+          ${isFavorite ? "♥" : "♡"}
+        </button>
+
+        <div class="sign-symbol">
+          ${sign.emoji}
+        </div>
+
+        <h3>${sign.word}</h3>
+
+        <p>${sign.language} • ${sign.category}</p>
+
+        <button class="sign-button"
+          onclick="showSign('${sign.word}')">
+          Ver sinal
+        </button>
+
+      </div>
+    `;
+  }
+
+
+  function showSign(word) {
+
+    const sign =
+      signs.find(item => item.word === word);
+
+    if(!sign) return;
+
+    document.getElementById("detailContent").innerHTML = `
+
+      <div class="card">
+
+        <div class="sign-symbol">
+          ${sign.emoji}
+        </div>
+
+        <h1>${sign.word}</h1>
+
+        <p style="margin-top:10px;">
+          <strong>Língua:</strong> ${sign.language}
+        </p>
+
+        <p style="margin-top:8px;">
+          <strong>Categoria:</strong> ${sign.category}
+        </p>
+
+        <p style="margin-top:18px;line-height:1.7;">
+          ${sign.description}
+        </p>
+
+        <button class="primary"
+          style="margin-top:20px;"
+          onclick="toggleFavorite('${sign.word}')">
+          ${favorites.includes(sign.word)
+            ? "♥ Remover dos favoritos"
+            : "♡ Adicionar aos favoritos"}
+        </button>
+
+      </div>
+    `;
+
+    showPage("signDetail");
+  }
+
+
+  function toggleFavorite(word) {
+
+    if(favorites.includes(word)) {
+
+      favorites =
+        favorites.filter(item => item !== word);
+
+    } else {
+
+      favorites.push(word);
+    }
+
+    localStorage.setItem(
+      "sinalmundo_favorites",
+      JSON.stringify(favorites)
+    );
+
+    updateProfile();
+    renderFavorites();
+
+    const input =
+      document.getElementById("searchInput");
+
+    if(input && input.value) {
+      performSearch();
+    }
+  }
+
+
+  function renderFavorites() {
+
+    const container =
+      document.getElementById("favoriteList");
+
+    if(!container) return;
+
+    if(favorites.length === 0) {
+
+      container.innerHTML =
+        '<div class="empty">❤️ Você ainda não tem favoritos.</div>';
+
+      return;
+    }
+
+    const favoriteSigns =
+      signs.filter(sign =>
+        favorites.includes(sign.word)
+      );
+
+    container.innerHTML =
+      '<div class="grid">' +
+      favoriteSigns.map(createSignCard).join("") +
+      '</div>';
+  }
+
+
+  function openCategory(category) {
+
+    const results =
+      signs.filter(sign =>
+        sign.category === category
+      );
+
+    document.getElementById("searchInput").value =
