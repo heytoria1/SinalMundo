@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SinalMundo</title>
+    <style>
+        :root {
+            --azul-principal: #0b57d0;
+            --azul-claro: #e8f0fe;
+            --roxo: #7c3aed;
+            --verde: #10b981;
+            --cinza-fundo: #f0f4f9;
+            --texto-escuro: #1e293b;
+            --card-bg: white;
+            --border-color: #e2e8f0;
+        }
+
+        .dark-theme {
+            --azul-principal: #3b82f6;
+            --azul-claro: #1e3a8a;
+            --roxo: #a78bfa;
+            --verde: #34d399;
+            --cinza-fundo: #0f172a;
+            --texto-escuro: #f8fafc;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--cinza-fundo);
+            color: var(--texto-escuro);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* 1. TELA DE ABERTURA */
+        #splash-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .splash-logo-circle {
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            border: 4px solid var(--azul-claro);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 5rem;
+            background: linear-gradient(135deg, var(--azul-claro), var(--card-bg));
+            box-shadow: 0 10px 25px rgba(11, 87, 208, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* 2. AUTENTICAÇÃO */
+        #auth-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--cinza-fundo);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            padding: 24px;
+            z-index: 150;
+        }
+
+        .auth-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 28px 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+        }
+
+        .auth-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--azul-principal);
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .form-group { margin-bottom: 16px; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--texto-escuro);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            outline: none;
+            background-color: var(--cinza-fundo);
+            color: var(--texto-escuro);
+        }
+
+        /* 3. INTERFACE PRINCIPAL */
+        #app-layout {
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .app-header {
+            background-color: var(--card-bg);
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
+        }
+
+        .header-top { display: flex; justify-content: space-between; align-items: center; }
+        .brand-title { font-size: 1.4rem; font-weight: 800; color: var(--azul-principal); }
+
+        .btn-premium-top {
+            background: linear-gradient(135deg, var(--roxo), var(--azul-principal));
+            color: white; border: none; padding: 6px 12px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 700; cursor: pointer;
+        }
+
+        .search-container { position: relative; width: 100%; }
+        .search-input {
+            width: 100%; padding: 10px 16px 10px 40px;
+            border: 1px solid var(--border-color); border-radius: 24px;
+            background-color: var(--cinza-fundo); color: var(--texto-escuro);
+            font-size: 0.95rem; outline: none;
+        }
+
+        .app-container { flex: 1; overflow-y: auto; padding-bottom: 80px; }
+        .app-page { display: none; padding: 16px; }
+        .app-page.active { display: block; }
+
+        .premium-banner {
+            background: linear-gradient(135deg, #1e3a8a, var(--roxo));
+            color: white; padding: 16px; border-radius: 16px; margin-bottom: 20px; cursor: pointer;
+        }
+
+        .category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+        
+        .category-card {
+            background: var(--card-bg); border-radius: 16px; padding: 14px;
+            text-align: center; font-size: 0.8rem; font-weight: 700;
+            border: 1px solid var(--border-color); cursor: pointer;
+        }
+
+        .cat-icon-box {
+            width: 45px; height: 45px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 8px; font-size: 1.4rem;
+        }
+
+        .video-card { background: var(--card-bg); border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 14px; }
+        
+        .video-thumb {
+            width: 100%; height: 160px; background-color: #1e293b;
+            display: flex; justify-content: center; align-items: center;
+            color: white; font-size: 2.5rem; position: relative;
+        }
+
+        .play-overlay {
+            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px);
+            border-radius: 50%; width: 55px; height: 55px;
+            display: flex; justify-content: center; align-items: center;
+            border: 2px solid white; cursor: pointer;
+        }
+
+        .compare-split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+        .compare-box { background: var(--card-bg); border-radius: 14px; padding: 12px; text-align: center; border: 1px solid var(--border-color); }
+
+        /* Chave Toggle Modo Escuro */
+        .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .3s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: white; transition: .3s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--azul-principal); }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        /* Menu Inferior */
+        .app-nav {
+            position: fixed; bottom: 0; left: 0; right: 0; height: 65px;
+            background-color: var(--card-bg); display: flex; justify-content: space-around; align-items: center;
+            border-top: 1px solid var(--border-color); z-index: 10;
+        }
+
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: #64748b; background: none; border: none; font-size: 0.75rem; cursor: pointer; flex: 1; }
+        .nav-item.active { color: var(--azul-principal); font-weight: 700; }
+        .nav-icon { font-size: 1.3rem; }
+
+        /* Modal Premium */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); display: none; justify-content: center; align-items: flex-end; z-index: 100; }
+        .modal-content { background: var(--card-bg); width: 100%; max-width: 500px; border-top-left-radius: 24px; border-top-right-radius: 24px; padding: 24px; animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .price-tag { background: var(--cinza-fundo); border: 2px solid var(--roxo); border-radius: 12px; padding: 16px; text-align: center; margin: 16px 0; }
+        .btn-checkout { width: 100%; background: linear-gradient(135deg, var(--roxo), var(--azul-principal)); color: white; border: none; padding: 14px; border-radius: 24px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+        .modal-close { background: var(--cinza-fundo); color: var(--texto-escuro); border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <!-- TELA 1: SPLASH SCREEN -->
+    <div id="splash-screen">
+        <div class="splash-logo-circle">🤟</div>
+        <h1 style="color: var(--azul-principal); font-weight: 900; font-size: 1.8rem; margin-bottom: 6px;">SinalMundo</h1>
+        <p style="color: #64748b; font-size: 0.9rem; text-align: center; padding: 0 20px;">Mais que sinais, conexões entre pessoas e culturas. ❤️</p>
+        <div style="margin-top: 30px; font-weight: bold; color: var(--azul-principal);">Carregando...</div>
+    </div>
+
+    <!-- TELA 2: LOGIN / CADASTRO -->
+    <div id="auth-screen">
+        <div class="auth-card">
+            <div id="login-form-area">
+                <div class="auth-title">Entrar no SinalMundo</div>
+                <p style="text-align: center; font-size: 0.85rem; color: #64748b; margin-bottom: 20px;">Acesse sua conta para continuar seus estudos</p>
