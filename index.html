@@ -2232,3 +2232,37 @@ const homeUserName = document.getElementById("homeUserName");
 if (homeUserName) {
   homeUserName.textContent = user.name;
 }
+
+.welcome-user {
+  margin: 18px 0 24px;
+  padding: 22px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #6C4DF6, #4D8CFF, #20C997);
+  color: white;
+  box-shadow: 0 12px 28px rgba(108, 77, 246, .20);
+  animation: welcomeIn .5s ease;
+}
+
+.welcome-user h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.welcome-user p {
+  margin: 8px 0 0;
+  font-size: 14px;
+  opacity: .95;
+}
+
+@keyframes welcomeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
