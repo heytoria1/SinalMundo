@@ -1,288 +1,1096 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SinalMundo</title>
-    <style>
-        :root {
-            --azul-principal: #0b57d0;
-            --azul-claro: #e8f0fe;
-            --roxo: #7c3aed;
-            --verde: #10b981;
-            --cinza-fundo: #f0f4f9;
-            --texto-escuro: #1e293b;
-            --card-bg: white;
-            --border-color: #e2e8f0;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2563eb">
+<title>SinalMundo</title>
 
-        .dark-theme {
-            --azul-principal: #3b82f6;
-            --azul-claro: #1e3a8a;
-            --roxo: #a78bfa;
-            --verde: #34d399;
-            --cinza-fundo: #0f172a;
-            --texto-escuro: #f8fafc;
-            --card-bg: #1e293b;
-            --border-color: #334155;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--cinza-fundo);
-            color: var(--texto-escuro);
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        /* 1. TELA DE ABERTURA (SPLASH SCREEN) */
-        #splash-screen {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: #ffffff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 200;
-        }
-
-        .splash-logo-container {
-            position: relative;
-            width: 280px;
-            height: 280px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .splash-logo-planet {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: #2563eb;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(11, 87, 208, 0.25);
-            border: 4px solid #ffffff;
-        }
-
-        .splash-logo-planet::before {
-            content: "";
-            position: absolute;
-            width: 90px; height: 110px;
-            background: #22c55e;
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-            top: 10px; left: 15px;
-        }
-
-        .splash-logo-planet::after {
-            content: "";
-            position: absolute;
-            width: 80px; height: 90px;
-            background: #22c55e;
-            border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%;
-            bottom: 15px; right: 10px;
-        }
-
-        .splash-hand-vector {
-            position: absolute;
-            width: 110px;
-            height: 110px;
-            z-index: 10;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M10 18v-3a2 2 0 0 1 4 0v3M6 14a2 2 0 0 1 2-2M18 10a2 2 0 0 0-2-2h-1M6 14v4a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-8'/><path d='M6 14c0-2.5 1.5-4.5 4-4.5s3.5 1 3.5 3.5M18 10V5a2 2 0 0 0-4 0v5M6 14V8a2 2 0 0 1 4 0v4'/></svg>");
-            background-size: contain;
-            background-repeat: no-repeat;
-            filter: drop-shadow(0px 6px 10px rgba(0, 0, 0, 0.3));
-        }
-
-        .splash-heart-1 {
-            position: absolute;
-            top: 35px; right: 25px;
-            font-size: 1.8rem;
-            color: #0b57d0;
-            transform: rotate(15deg);
-        }
-
-        .splash-heart-2 {
-            position: absolute;
-            bottom: 30px; right: 5px;
-            font-size: 1.5rem;
-            color: #0b57d0;
-            transform: rotate(-10deg);
-        }
-
-        .splash-title {
-            color: #0d47a1;
-            font-weight: 800;
-            font-size: 2.5rem;
-            letter-spacing: -0.8px;
-            margin-bottom: 8px;
-        }
-
-        .splash-subtitle {
-            color: #1e293b;
-            font-size: 1rem;
-            font-weight: 500;
-            text-align: center;
-            max-width: 250px;
-            line-height: 1.4;
-            opacity: 0.9;
-        }
-
-        /* 2. AUTENTICAÇÃO */
-        #auth-screen {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--cinza-fundo);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            padding: 24px;
-            z-index: 150;
-        }
-
-        .auth-card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 28px 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-            border: 1px solid var(--border-color);
-        }
-
-        .auth-title {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--azul-principal);
-            margin-bottom: 6px;
-            text-align: center;
-        }
-
-        .form-group { margin-bottom: 16px; }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: var(--texto-escuro);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            font-size: 0.95rem;
-            outline: none;
-            background-color: var(--cinza-fundo);
-            color: var(--texto-escuro);
-        }
-
-        /* 3. INTERFACE PRINCIPAL */
-        #app-layout {
-            display: none;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        .app-header {
-            background-color: var(--card-bg);
-            padding: 12px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            border-bottom: 1px solid var(--border-color);
-            z-index: 10;
-        }
-
-        .header-top { display: flex; justify-content: space-between; align-items: center; }
-        .brand-title { font-size: 1.4rem; font-weight: 800; color: var(--azul-principal); }
-
-        .btn-premium-top {
-            background: linear-gradient(135deg, var(--roxo), var(--azul-principal));
-            color: white; border: none; padding: 6px 12px; border-radius: 20px;
-            font-size: 0.75rem; font-weight: 700; cursor: pointer;
-        }
-
-        .search-container { position: relative; width: 100%; }
-        .search-input {
-            width: 100%; padding: 10px 16px 10px 40px;
-            border: 1px solid var(--border-color); border-radius: 24px;
-            background-color: var(--cinza-fundo); color: var(--texto-escuro);
-            font-size: 0.95rem; outline: none;
-        }
-
-        .app-container { flex: 1; overflow-y: auto; padding-bottom: 80px; }
-        .app-page { display: none; padding: 16px; }
-        .app-page.active { display: block; }
-
-        .premium-banner {
-            background: linear-gradient(135deg, #1e3a8a, var(--roxo));
-            color: white; padding: 16px; border-radius: 16px; margin-bottom: 20px; cursor: pointer;
-        }
-
-        .category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
-        
-        .category-card {
-            background: var(--card-bg); border-radius: 16px; padding: 14px;
-            text-align: center; font-size: 0.8rem; font-weight: 700;
-            border: 1px solid var(--border-color); cursor: pointer;
-        }
-
-        .cat-icon-box {
-            width: 45px; height: 45px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 8px; font-size: 1.4rem;
-        }
-
-        .video-card { background: var(--card-bg); border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 14px; }
-        
-        .video-thumb {
-            width: 100%; height: 160px; background-color: #1e293b;
-            display: flex; justify-content: center; align-items: center;
-            color: white; font-size: 2.5rem; position: relative;
-        }
-
-        .play-overlay {
-            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(4px);
-            border-radius: 50%; width: 55px; height: 55px;
-            display: flex; justify-content: center; align-items: center;
-            border: 2px solid white; cursor: pointer;
-        }
-
-        .compare-split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
-        .compare-box { background: var(--card-bg); border-radius: 14px; padding: 12px; text-align: center; border: 1px solid var(--border-color); }
-
-        .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .3s; border-radius: 24px; }
-        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: white; transition: .3s; border-radius: 50%; }
-        input:checked + .slider { background-color: var(--azul-principal); }
-        input:checked + .slider:before { transform: translateX(20px); }
-
-        /* Menu Inferior */
-        .app-nav {
-            position: fixed; bottom: 0; left: 0; right: 0; height: 65px;
-            background-color: var(--card-bg); display: flex; justify-content: space-around; align-items: center;
-            border-top: 1px solid var(--border-color); z-index: 10;
-        }
-.app-nav {
-    position: fixed;
-    ...
+<style>
+:root{
+    --blue:#2563eb;
+    --blue2:#0ea5e9;
+    --purple:#7c3aed;
+    --green:#10b981;
+    --pink:#ec4899;
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#172033;
+    --muted:#64748b;
+    --border:#e2e8f0;
+    --shadow:0 8px 25px rgba(15,23,42,.08);
 }
-.app-nav {
-    position: fixed;
-    ...
+
+.dark{
+    --bg:#0f172a;
+    --card:#1e293b;
+    --text:#f8fafc;
+    --muted:#cbd5e1;
+    --border:#334155;
 }
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,
+input{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* SPLASH */
+#splash{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    color:white;
+}
+
+.splash-content{
+    text-align:center;
+    animation:entrada 1s ease;
+}
+
+.logo{
+    width:110px;
+    height:110px;
+    border-radius:35px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:55px;
+    margin:auto auto 20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+.splash-content h1{
+    font-size:42px;
+    margin-bottom:8px;
+}
+
+.splash-content p{
+    opacity:.9;
+}
+
+@keyframes entrada{
+    from{
+        opacity:0;
+        transform:scale(.85);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+/* AUTH */
+#auth{
+    min-height:100vh;
+    padding:25px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.auth-card{
+    width:100%;
+    max-width:430px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:28px;
+    box-shadow:var(--shadow);
+}
+
+.auth-logo{
+    width:70px;
+    height:70px;
+    border-radius:22px;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:35px;
+    margin:0 auto 18px;
+}
+
+.auth-card h1{
+    text-align:center;
+    font-size:25px;
+    margin-bottom:8px;
+}
+
+.auth-card .subtitle{
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:25px;
+    line-height:1.5;
+}
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    display:block;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-control{
+    width:100%;
+    padding:14px 15px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    outline:none;
+}
+
+.form-control:focus{
+    border-color:var(--blue);
+}
+
+.password-box{
+    position:relative;
+}
+
+.password-box input{
+    padding-right:50px;
+}
+
+.eye{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    border:0;
+    background:none;
+    font-size:20px;
+}
+
+.primary-btn{
+    width:100%;
+    padding:14px;
+    border:0;
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    color:white;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.secondary-btn{
+    width:100%;
+    padding:13px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:var(--card);
+    color:var(--text);
+    font-weight:bold;
+}
+
+.auth-link{
+    text-align:center;
+    margin-top:18px;
+    color:var(--blue);
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.small-link{
+    display:block;
+    text-align:right;
+    margin:8px 0 15px;
+    color:var(--blue);
+    font-size:13px;
+    cursor:pointer;
+}
+
+/* APP */
+#app{
+    min-height:100vh;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    padding:13px 16px;
+}
+
+.header-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.brand-logo{
+    width:40px;
+    height:40px;
+    border-radius:13px;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+}
+
+.brand-name{
+    font-size:21px;
+    font-weight:800;
+    color:var(--blue);
+}
+
+.header-actions{
+    display:flex;
+    gap:7px;
+}
+
+.icon-btn{
+    width:40px;
+    height:40px;
+    border-radius:13px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+}
+
+.search-mini{
+    width:100%;
+    padding:12px 15px;
+    border-radius:20px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    outline:none;
+}
+
+.content{
+    max-width:900px;
+    margin:auto;
+    padding:20px 16px 95px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* HOME */
+.hero{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    border-radius:25px;
+    padding:25px;
+    margin-bottom:22px;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero:after{
+    content:"🌎";
+    position:absolute;
+    right:-5px;
+    bottom:-18px;
+    font-size:110px;
+    opacity:.15;
+}
+
+.hero h1{
+    font-size:28px;
+    max-width:600px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    line-height:1.5;
+    opacity:.92;
+    max-width:600px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.white-btn{
+    border:0;
+    background:white;
+    color:#2563eb;
+    padding:12px 17px;
+    border-radius:13px;
+    font-weight:bold;
+}
+
+.outline-white{
+    border:1px solid rgba(255,255,255,.7);
+    background:transparent;
+    color:white;
+    padding:12px 17px;
+    border-radius:13px;
+    font-weight:bold;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:25px 0 13px;
+}
+
+.section-title h2{
+    font-size:20px;
+}
+
+.see-all{
+    color:var(--blue);
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* CARDS */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:16px;
+    box-shadow:var(--shadow);
+}
+
+.language-card{
+    cursor:pointer;
+    transition:.2s;
+}
+
+.language-card:active{
+    transform:scale(.97);
+}
+
+.language-icon{
+    width:52px;
+    height:52px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    margin-bottom:11px;
+}
+
+.blue{
+    background:#dbeafe;
+}
+
+.purple{
+    background:#ede9fe;
+}
+
+.green{
+    background:#d1fae5;
+}
+
+.pink{
+    background:#fce7f3;
+}
+
+.language-card h3{
+    margin-bottom:5px;
+}
+
+.language-card p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* CATEGORIES */
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.category{
+    padding:18px;
+    border-radius:18px;
+    background:var(--card);
+    border:1px solid var(--border);
+    cursor:pointer;
+}
+
+.category span{
+    font-size:30px;
+    display:block;
+    margin-bottom:8px;
+}
+
+.category strong{
+    display:block;
+    margin-bottom:4px;
+}
+
+.category small{
+    color:var(--muted);
+}
+
+/* SEARCH */
+.search-large{
+    width:100%;
+    padding:16px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    border-radius:17px;
+    outline:none;
+    margin-bottom:15px;
+}
+
+.search-results{
+    display:grid;
+    gap:12px;
+}
+
+.sign-result{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:15px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:17px;
+    cursor:pointer;
+}
+
+.sign-image{
+    width:65px;
+    height:65px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#dbeafe,#ede9fe);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    flex-shrink:0;
+}
+
+.sign-info{
+    flex:1;
+}
+
+.sign-info h3{
+    margin-bottom:5px;
+}
+
+.sign-info p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.favorite-btn{
+    border:0;
+    background:none;
+    font-size:24px;
+}
+
+/* PREMIUM */
+.premium-card{
+    background:linear-gradient(135deg,#1e3a8a,#7c3aed,#ec4899);
+    color:white;
+    border-radius:25px;
+    padding:27px;
+}
+
+.premium-card h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.price{
+    font-size:40px;
+    font-weight:900;
+    margin:20px 0;
+}
+
+.price small{
+    font-size:15px;
+    font-weight:normal;
+}
+
+.features{
+    margin:20px 0;
+    display:grid;
+    gap:12px;
+}
+
+.feature{
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.buy-btn{
+    width:100%;
+    border:0;
+    padding:15px;
+    border-radius:15px;
+    background:white;
+    color:#5b21b6;
+    font-weight:900;
+}
+
+/* PROFILE */
+.profile-card{
+    text-align:center;
+    padding:25px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:22px;
+}
+
+.avatar{
+    width:90px;
+    height:90px;
+    margin:auto auto 13px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:38px;
+}
+
+.profile-email{
+    color:var(--muted);
+    margin-top:5px;
+}
+
+.profile-actions{
+    display:grid;
+    gap:10px;
+    margin-top:20px;
+}
+
+.menu-card{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:16px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    cursor:pointer;
+}
+
+.menu-icon{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    background:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+}
+
+.menu-text{
+    flex:1;
+}
+
+.menu-text strong{
+    display:block;
+    margin-bottom:3px;
+}
+
+.menu-text small{
+    color:var(--muted);
+}
+
+/* DETAIL */
+.detail-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:23px;
+    padding:20px;
+}
+
+.detail-video{
+    height:250px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:75px;
+    margin-bottom:20px;
+}
+
+.play{
+    position:absolute;
+    font-size:40px;
+}
+
+.detail-card h1{
+    margin-bottom:8px;
+}
+
+.detail-language{
+    color:var(--blue);
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.back-btn{
+    border:0;
+    background:none;
+    color:var(--blue);
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+/* SETTINGS */
+.settings-list{
+    display:grid;
+    gap:10px;
+}
+
+.setting-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:16px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+}
+
+.setting-row .grow{
+    flex:1;
+}
+
+.setting-row small{
+    color:var(--muted);
+    display:block;
+    margin-top:3px;
+}
+
+.toggle{
+    width:46px;
+    height:26px;
+    border-radius:20px;
+    border:0;
+    background:#cbd5e1;
+    position:relative;
+}
+
+.toggle.on{
+    background:var(--blue);
+}
+
+.toggle:after{
+    content:"";
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:white;
+    border-radius:50%;
+    top:3px;
+    left:3px;
+    transition:.2s;
+}
+
+.toggle.on:after{
+    left:23px;
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:72px;
+    background:var(--card);
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:200;
+    box-shadow:0 -5px 20px rgba(0,0,0,.05);
+}
+
+.nav-item{
+    border:0;
+    background:none;
+    color:var(--muted);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+    font-size:11px;
+    min-width:60px;
+}
+
+.nav-item span{
+    font-size:22px;
+}
+
+.nav-item.active{
+    color:var(--blue);
+    font-weight:bold;
+}
+
+/* TOAST */
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:88px;
+    transform:translateX(-50%) translateY(20px);
+    background:#172033;
+    color:white;
+    padding:12px 18px;
+    border-radius:13px;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+    z-index:1000;
+    max-width:90%;
+    text-align:center;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVO */
+@media(min-width:700px){
+    .grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .category-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .bottom-nav{
+        left:50%;
+        transform:translateX(-50%);
+        max-width:700px;
+        border-radius:20px 20px 0 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+    <div class="splash-content">
+        <div class="logo">🤟</div>
+        <h1>SinalMundo</h1>
+        <p>Mais que sinais, conexões entre pessoas e culturas.</p>
+    </div>
+</div>
+
+
+<!-- LOGIN / CADASTRO -->
+<section id="auth" class="hidden">
+
+    <div class="auth-card">
+
+        <div class="auth-logo">🤟</div>
+
+        <div id="login-form">
+
+            <h1>Bem-vindo de volta! 🌎🤟</h1>
+
+            <p class="subtitle">
+                Entre na sua conta para continuar aprendendo.
+            </p>
+
+            <div class="form-group">
+                <label>E-mail</label>
+                <input
+                    id="login-email"
+                    class="form-control"
+                    type="email"
+                    placeholder="seuemail@email.com"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Senha</label>
+
+                <div class="password-box">
+                    <input
+                        id="login-password"
+                        class="form-control"
+                        type="password"
+                        placeholder="Digite sua senha"
+                    >
+
+                    <button
+                        class="eye"
+                        onclick="togglePassword('login-password',this)"
+                    >👁️</button>
+                </div>
+            </div>
+
+            <span class="small-link" onclick="forgotPassword()">
+                Esqueceu sua senha?
+            </span>
+
+            <button class="primary-btn" onclick="login()">
+                Entrar
+            </button>
+
+            <div class="auth-link" onclick="showRegister()">
+                Ainda não tem uma conta? Criar minha conta →
+            </div>
+
+        </div>
+
+
+        <div id="register-form" class="hidden">
+
+            <h1>Criar conta 🌎🤟</h1>
+
+            <p class="subtitle">
+                Crie sua conta para acompanhar seu aprendizado.
+            </p>
+
+            <div class="form-group">
+                <label>Nome</label>
+                <input
+                    id="register-name"
+                    class="form-control"
+                    type="text"
+                    placeholder="Seu nome"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>E-mail</label>
+                <input
+                    id="register-email"
+                    class="form-control"
+                    type="email"
+                    placeholder="seuemail@email.com"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Senha</label>
+
+                <div class="password-box">
+                    <input
+                        id="register-password"
+                        class="form-control"
+                        type="password"
+                        placeholder="Crie uma senha"
+                    >
+
+                    <button
+                        class="eye"
+                        onclick="togglePassword('register-password',this)"
+                    >👁️</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Confirmar senha</label>
+
+                <input
+                    id="register-confirm"
+                    class="form-control"
+                    type="password"
+                    placeholder="Repita a senha"
+                >
+            </div>
+
+            <label style="display:flex;gap:8px;align-items:center;font-size:13px;margin-bottom:15px;">
+                <input id="terms" type="checkbox">
+                Aceito os termos de uso e a política de privacidade.
+            </label>
+
+            <button class="primary-btn" onclick="register()">
+                Criar minha conta
+            </button>
+
+            <div class="auth-link" onclick="showLogin()">
+                ← Já tenho uma conta
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- APP -->
+<div id="app" class="hidden">
+
+    <header class="header">
+
+        <div class="header-top">
+
+            <div class="brand">
+
+                <div class="brand-logo">🤟</div>
+
+                <div class="brand-name">
+                    SinalMundo
+                </div>
+
+            </div>
+
+            <div class="header-actions">
+
+                <button class="icon-btn" onclick="toggleTheme()">
+                    🌙
+                </button>
+
+                <button class="icon-btn" onclick="navigate('perfil')">
+                    👤
+                </button>
+
+            </div>
+
+        </div>
+
+        <input
+            class="search-mini"
+            placeholder="🔎 Buscar sinais, palavras ou frases..."
+            onclick="navigate('pesquisa')"
+        >
+
+    </header>
+
+
+    <main class="content">
+
+        <!-- INÍCIO -->
+        <section id="inicio" class="page active">
+
+            <div class="hero">
+
+                <h1>
+                    Mais que sinais, conexões entre pessoas e culturas. 🌎
+                </h1>
+
+                <p>
+                    Aprenda línguas de sinais de forma simples,
+                    visual e acessível.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <button
+                        class="white-btn"
+                        onclick="navigate('idiomas')"
+                    >
+                        Começar a aprender
+                    </button>
+
+                    <button
+                        class="outline-white"
+                        onclick="navigate('pesquisa')"
+                    >
+                        Pesquisar sinais
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="section-title">
+                <h2>🌎 Idiomas de sinais</h2>
+                <span class="see-all" onclick="navigate('idiomas')">
+                    Ver todos
+                </span>
+            </div>
+
+
+            <div class="grid">
+
+                <div class="card language-card" onclick="openLanguage('Libras')">
+                    <div class="language-icon blue">🇧🇷</div>
+                    <h3>Libras</h3>
+                    <p>Língua Brasileira de Sinais</p>
+                </div>
+
+                <div class="card language-card" onclick="openLanguage('ASL')">
+                    <div class="language-icon purple">🇺🇸</div>
+                    <h3>ASL</h3>
+                    <p>American Sign Language</p>
+                </div>
+
+                <div class="card language-card" onclick="openLanguage('BSL')">
+                    <div class="language-icon green">🇬🇧</div>
+                    <h3>BSL</h3>
+                    <p>British Sign Language</p>
+                </div>
+
+                <div class="card language-card" onclick="openLanguage('Mais idiomas')">
+                    <div class="language-icon pink">🌎</div>
+                    <h3>Mais</h3>
+                    <p>Outros idiomas</p>
+                </div>
+
+            </div>
+
+
+            <div class="section-title">
+                <h2>📚 Categorias</h2>
+                <span class="see-all" onclick="navigate('categorias')">
+                    Ver todas
+                </span>
+           
