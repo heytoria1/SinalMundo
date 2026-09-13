@@ -2080,3 +2080,23 @@ function togglePassword(inputId, button) {
     button.textContent = "👁️";
   }
 }
+
+.password-box {
+  position: relative;
+}
+
+.password-box input {
+  padding-right: 50px;
+}
+
+.password-box button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+}
