@@ -1,959 +1,1584 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#6C4DF6">
-
-  <title>SinalMundo — Línguas de Sinais</title>
-
-  <style>
-    :root {
-      --primary: #6C4DF6;
-      --blue: #4D8CFF;
-      --green: #20C997;
-      --pink: #FF4FA3;
-      --dark: #202124;
-      --gray: #6B7280;
-      --light: #F5F7FB;
-      --white: #FFFFFF;
-      --border: #E5E7EB;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: var(--light);
-      color: var(--dark);
-      padding-bottom: 80px;
-    }
-
-    button,
-    input {
-      font-family: inherit;
-    }
-
-    button {
-      cursor: pointer;
-      border: none;
-    }
-
-    .page {
-      display: none;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    header {
-      height: 70px;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 21px;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 13px;
-      background: linear-gradient(135deg, var(--primary), var(--blue));
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 21px;
-    }
-
-    .header-button {
-      background: #F0ECFF;
-      color: var(--primary);
-      padding: 10px 15px;
-      border-radius: 12px;
-      font-weight: 700;
-    }
-
-    .hero {
-      background: linear-gradient(135deg, #6C4DF6, #4D8CFF);
-      color: white;
-      padding: 42px 22px;
-      border-radius: 0 0 30px 30px;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.18);
-      padding: 8px 13px;
-      border-radius: 30px;
-      font-size: 13px;
-      margin-bottom: 18px;
-    }
-
-    .hero h1 {
-      font-size: 34px;
-      line-height: 1.12;
-      margin-bottom: 16px;
-    }
-
-    .hero p {
-      font-size: 16px;
-      line-height: 1.6;
-      margin-bottom: 25px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .white-button,
-    .transparent-button {
-      width: 100%;
-      padding: 14px;
-      border-radius: 14px;
-      font-size: 15px;
-      font-weight: 800;
-    }
-
-    .white-button {
-      background: white;
-      color: var(--primary);
-    }
-
-    .transparent-button {
-      background: rgba(255,255,255,0.15);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.5);
-    }
-
-    .section {
-      padding: 28px 20px;
-    }
-
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-
-    .section-title h2 {
-      font-size: 22px;
-    }
-
-    .section-title span {
-      color: var(--primary);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .language-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    .language-card {
-      background: white;
-      border-radius: 20px;
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    }
-
-    .language-icon {
-      width: 58px;
-      height: 58px;
-      border-radius: 17px;
-      background: #F0ECFF;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 29px;
-    }
-
-    .language-card h3 {
-      margin-bottom: 5px;
-    }
-
-    .language-card p {
-      color: var(--gray);
-      font-size: 13px;
-    }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .category {
-      background: white;
-      padding: 20px 15px;
-      border-radius: 18px;
-      text-align: center;
-    }
-
-    .category-icon {
-      font-size: 29px;
-      margin-bottom: 8px;
-    }
-
-    .category p {
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .search-box {
-      background: white;
-      padding: 18px;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.07);
-      margin-bottom: 18px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 15px;
-      border: 2px solid var(--border);
-      border-radius: 14px;
-      font-size: 15px;
-      outline: none;
-    }
-
-    .search-box input:focus {
-      border-color: var(--primary);
-    }
-
-    .filters {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      margin-top: 12px;
-      padding-bottom: 3px;
-    }
-
-    .filter-button {
-      flex-shrink: 0;
-      padding: 9px 14px;
-      border-radius: 20px;
-      background: #F0ECFF;
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 13px;
-    }
-
-    .filter-button.active {
-      background: var(--primary);
-      color: white;
-    }
-
-    .sign-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 13px;
-    }
-
-    .sign-card {
-      background: white;
-      border-radius: 18px;
-      padding: 14px;
-      box-shadow: 0 7px 22px rgba(0,0,0,0.07);
-      position: relative;
-    }
-
-    .sign-visual {
-      height: 125px;
-      border-radius: 15px;
-      background: linear-gradient(135deg, #F0ECFF, #E8F1FF);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      margin-bottom: 12px;
-    }
-
-    .sign-card h3 {
-      font-size: 16px;
-      margin-bottom: 5px;
-    }
-
-    .sign-language {
-      color: var(--gray);
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
-
-    .sign-card button {
-      width: 100%;
-      padding: 10px;
-      border-radius: 11px;
-      background: var(--primary);
-      color: white;
-      font-weight: 700;
-      font-size: 12px;
-    }
-
-    .detail-card {
-      background: white;
-      border-radius: 24px;
-      padding: 22px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-
-    .detail-visual {
-      height: 230px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #F0ECFF, #E8F1FF);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 80px;
-      margin-bottom: 20px;
-    }
-
-    .detail-card h1 {
-      font-size: 30px;
-      margin-bottom: 8px;
-    }
-
-    .detail-language {
-      color: var(--primary);
-      font-weight: 800;
-      margin-bottom: 18px;
-    }
-
-    .favorite-button {
-      width: 100%;
-      padding: 14px;
-      border-radius: 14px;
-      background: var(--pink);
-      color: white;
-      font-weight: 800;
-      margin-top: 18px;
-    }
-
-    .back-button {
-      background: #F0ECFF;
-      color: var(--primary);
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .bottom-nav {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 68px;
-      background: white;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid var(--border);
-      box-shadow: 0 -4px 18px rgba(0,0,0,0.08);
-      z-index: 100;
-    }
-
-    .bottom-nav button {
-      background: white;
-      color: var(--gray);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .bottom-nav button span {
-      display: block;
-      font-size: 20px;
-      margin-bottom: 3px;
-    }
-
-    .bottom-nav button.active {
-      color: var(--primary);
-    }
-
-    @media (min-width: 700px) {
-      .hero {
-        padding: 65px 12%;
-      }
-
-      .section {
-        padding-left: 12%;
-        padding-right: 12%;
-      }
-
-      .language-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .sign-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      .hero-buttons {
-        flex-direction: row;
-      }
-
-      .white-button,
-      .transparent-button {
-        width: auto;
-        padding-left: 24px;
-        padding-right: 24px;
-      }
-    }
-
-  </style>
-</head>
-<body>
-
-  <header>
-    <div class="logo">
-      <div class="logo-icon">🤟</div>
-      SinalMundo
-    </div>
-
-    <button class="header-button" onclick="openPage('search')">
-      Pesquisar
-    </button>
-  </header>
-
-  <!-- INÍCIO -->
-  <main id="home" class="page active">
-
-    <section class="hero">
-      <div class="hero-badge">🌎 Línguas de sinais do mundo</div>
-
-      <h1>
-        Mais que sinais,<br>
-        conexões entre pessoas e culturas.
-      </h1>
-
-      <p>
-  Aprenda línguas de sinais de forma simples,
-  visual e acessível.
-</p>
-
-<div style="
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.25);
-  padding: 18px;
-  border-radius: 18px;
-  margin: 20px 0;
-">
-  <h2 style="font-size: 22px; margin-bottom: 8px;">
-    Olá, eu sou Angela Vytorya! 👋💜
-  </h2>
-
-  <p style="font-size: 14px; line-height: 1.6; margin: 0;">
-    Que bom ter você por aqui!
-  </p>
-
-  <p style="font-size: 14px; line-height: 1.6; margin: 8px 0 0;">
-    Sou a criadora do SinalMundo, um projeto criado para aproximar
-    pessoas e culturas através das línguas de sinais. 🌎🤟
-  </p>
-</div>
-
-      <div class="hero-buttons">
-        <button class="white-button" onclick="openPage('search')">
-          Começar a aprender
-        </button>
-
-        <button class="transparent-button" onclick="openPage('search')">
-          Pesquisar sinais
-        </button>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-title">
-        <h2>🌎 Idiomas</h2>
-        <span>Ver todos</span>
-      </div>
-
-      <div class="language-grid">
-
-        <div class="language-card" onclick="setLanguageFilter('Libras')">
-          <div class="language-icon">🇧🇷</div>
-          <div>
-            <h3>Libras</h3>
-            <p>Língua Brasileira de Sinais</p>
-          </div>
-        </div>
-
-        <div class="language-card" onclick="setLanguageFilter('ASL')">
-          <div class="language-icon">🇺🇸</div>
-          <div>
-            <h3>ASL</h3>
-            <p>American Sign Language</p>
-          </div>
-        </div>
-
-        <div class="language-card" onclick="setLanguageFilter('BSL')">
-          <div class="language-icon">🇬🇧</div>
-          <div>
-            <h3>BSL</h3>
-            <p>British Sign Language</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-title">
-        <h2>📚 Categorias</h2>
-      </div>
-
-      <div class="category-grid">
-
-        <div class="category">
-          <div class="category-icon">👋</div>
-          <p>Saudações</p>
-        </div>
-
-        <div class="category">
-          <div class="category-icon">❤️</div>
-          <p>Sentimentos</p>
-        </div>
-
-        <div class="category">
-          <div class="category-icon">👨‍👩‍👧</div>
-          <p>Família</p>
-        </div>
-
-        <div class="category">
-          <div class="category-icon">🙏</div>
-          <p>Expressões</p>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- PESQUISA -->
-  <main id="search" class="page">
-
-    <section class="section">
-
-      <div class="section-title">
-        <h2>🔎 Pesquisar sinais</h2>
-      </div>
-
-      <div class="search-box">
-
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Buscar sinais, palavras ou frases..."
-          oninput="renderSearch()"
-        >
-
-        <div class="filters">
-
-          <button
-            class="filter-button active"
-            id="filterTodos"
-            onclick="setLanguageFilter('Todos')">
-            Todos
-          </button>
-
-          <button
-            class="filter-button"
-            id="filterLibras"
-            onclick="setLanguageFilter('Libras')">
-            🇧🇷 Libras
-          </button>
-
-          <button
-            class="filter-button"
-            id="filterASL"
-            onclick="setLanguageFilter('ASL')">
-            🇺🇸 ASL
-          </button>
-
-          <button
-            class="filter-button"
-            id="filterBSL"
-            onclick="setLanguageFilter('BSL')">
-            🇬🇧 BSL
-          </button>
-
-        </div>
-      </div>
-
-      <div id="searchResults" class="sign-grid"></div>
-
-    </section>
-
-  </main>
-
-  <!-- DETALHE DO SINAL -->
-  <main id="detail" class="page">
-
-    <section class="section">
-
-      <button class="back-button" onclick="openPage('search')">
-        ← Voltar para pesquisa
-      </button>
-
-      <div class="detail-card">
-
-        <div id="detailVisual" class="detail-visual">
-          🤟
-        </div>
-
-        <h1 id="detailWord">Olá</h1>
-
-        <div id="detailLanguage" class="detail-language">
-          Libras 🇧🇷
-        </div>
-
-        <p id="detailDescription">
-          Aprenda este sinal e descubra novas formas
-          de se comunicar.
-        </p>
-
-        <button
-          id="favoriteButton"
-          class="favorite-button"
-          onclick="favoriteSign()">
-          ❤️ Adicionar aos favoritos
-        </button>
-
-      </div>
-
-    </section>
-
-  </main>
-
-  <!-- MENU INFERIOR -->
-  <nav class="bottom-nav">
-
-    <button
-      id="navHome"
-      class="active"
-      onclick="openPage('home')">
-      <span>🏠</span>
-      Início
-    </button>
-
-    <button
-      id="navSearch"
-      onclick="openPage('search')">
-      <span>🔎</span>
-      Pesquisa
-    </button>
-
-    <button
-      onclick="showComingSoon()">
-      <span>❤️</span>
-      Favoritos
-    </button>
-
-    <button
-      onclick="showComingSoon()">
-      <span>👤</span>
-      Perfil
-    </button>
-
-  </nav>
-
-<script>
-  const signs = [
-    {
-      word: "Olá",
-      language: "Libras",
-      flag: "🇧🇷",
-      emoji: "👋",
-      description: "Um sinal usado para cumprimentar alguém."
-    },
-    {
-      word: "Amor",
-      language: "Libras",
-      flag: "🇧🇷",
-      emoji: "❤️",
-      description: "Um sinal relacionado ao sentimento de amor e carinho."
-    },
-    {
-      word: "Família",
-      language: "Libras",
-      flag: "🇧🇷",
-      emoji: "👨‍👩‍👧",
-      description: "Um sinal usado para falar sobre família."
-    },
-    {
-      word: "Obrigado",
-      language: "Libras",
-      flag: "🇧🇷",
-      emoji: "🙏",
-      description: "Um sinal usado para agradecer."
-    },
-
-    {
-      word: "Hello",
-      language: "ASL",
-      flag: "🇺🇸",
-      emoji: "👋",
-      description: "A common greeting in American Sign Language."
-    },
-    {
-      word: "Love",
-      language: "ASL",
-      flag: "🇺🇸",
-      emoji: "❤️",
-      description: "A sign related to love and affection."
-    },
-    {
-      word: "Family",
-      language: "ASL",
-      flag: "🇺🇸",
-      emoji: "👨‍👩‍👧",
-      description: "A sign used to talk about family."
-    },
-    {
-      word: "Thank you",
-      language: "ASL",
-      flag: "🇺🇸",
-      emoji: "🙏",
-      description: "A sign used to express thanks."
-    },
-
-    {
-      word: "Hello",
-      language: "BSL",
-      flag: "🇬🇧",
-      emoji: "👋",
-      description: "A greeting in British Sign Language."
-    },
-    {
-      word: "Love",
-      language: "BSL",
-      flag: "🇬🇧",
-      emoji: "❤️",
-      description: "A sign related to love and affection."
-    },
-    {
-      word: "Family",
-      language: "BSL",
-      flag: "🇬🇧",
-      emoji: "👨‍👩‍👧",
-      description: "A sign used to talk about family."
-    }
-  ];
-
-  let currentLanguage = "Todos";
-  let currentSign = null;
-
-  function openPage(page) {
-    document.querySelectorAll(".page").forEach(function(item) {
-      item.classList.remove("active");
-    });
-
-    const selectedPage = document.getElementById(page);
-
-    if (selectedPage) {
-      selectedPage.classList.add("active");
-    }
-
-    document.querySelectorAll(".bottom-nav button").forEach(function(button) {
-      button.classList.remove("active");
-    });
-
-    if (page === "home") {
-      document.getElementById("navHome").classList.add("active");
-    }
-
-    if (page === "search") {
-      document.getElementById("navSearch").classList.add("active");
-      renderSearch();
-    }
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6C4DF6">
+
+<title>SinalMundo — Línguas de Sinais</title>
+
+<style>
+:root{
+  --primary:#6C4DF6;
+  --blue:#4D8CFF;
+  --green:#20C997;
+  --pink:#FF4FA3;
+  --dark:#202124;
+  --gray:#6B7280;
+  --light:#F5F7FB;
+  --white:#fff;
+  --border:#E5E7EB;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Arial,sans-serif;
+  background:var(--light);
+  color:var(--dark);
+  padding-bottom:80px;
+}
+
+button,input,select{font-family:inherit}
+button{cursor:pointer;border:0}
+
+.page{display:none}
+.page.active{display:block}
+
+header{
+  height:70px;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:21px;
+  font-weight:800;
+  color:var(--primary);
+}
+
+.logo-icon{
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  background:linear-gradient(135deg,var(--primary),var(--blue));
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:21px;
+}
+
+.header-button{
+  background:#F0ECFF;
+  color:var(--primary);
+  padding:10px 15px;
+  border-radius:12px;
+  font-weight:700;
+}
+
+.hero{
+  background:linear-gradient(135deg,#6C4DF6,#4D8CFF);
+  color:white;
+  padding:42px 22px;
+  border-radius:0 0 30px 30px;
+}
+
+.hero-badge{
+  display:inline-block;
+  background:rgba(255,255,255,.18);
+  padding:8px 13px;
+  border-radius:30px;
+  font-size:13px;
+  margin-bottom:18px;
+}
+
+.hero h1{
+  font-size:34px;
+  line-height:1.12;
+  margin-bottom:16px;
+}
+
+.hero p{
+  font-size:16px;
+  line-height:1.6;
+}
+
+.creator{
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.25);
+  padding:18px;
+  border-radius:18px;
+  margin:20px 0;
+}
+
+.creator h2{
+  font-size:22px;
+  margin-bottom:8px;
+}
+
+.creator p{
+  font-size:14px;
+  line-height:1.6;
+  margin:0;
+}
+
+.hero-buttons{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:20px;
+}
+
+.white-button,
+.transparent-button{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  font-size:15px;
+  font-weight:800;
+}
+
+.white-button{
+  background:white;
+  color:var(--primary);
+}
+
+.transparent-button{
+  background:rgba(255,255,255,.15);
+  color:white;
+  border:1px solid rgba(255,255,255,.5);
+}
+
+.section{padding:28px 20px}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:16px;
+}
+
+.section-title h2{font-size:22px}
+
+.section-title span{
+  color:var(--primary);
+  font-size:13px;
+  font-weight:700;
+}
+
+.language-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+
+.language-card{
+  background:white;
+  border-radius:20px;
+  padding:20px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+  cursor:pointer;
+}
+
+.language-icon{
+  width:58px;
+  height:58px;
+  border-radius:17px;
+  background:#F0ECFF;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:29px;
+  flex-shrink:0;
+}
+
+.language-card h3{margin-bottom:5px}
+
+.language-card p{
+  color:var(--gray);
+  font-size:13px;
+}
+
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.category{
+  background:white;
+  padding:20px 15px;
+  border-radius:18px;
+  text-align:center;
+}
+
+.category-icon{
+  font-size:29px;
+  margin-bottom:8px;
+}
+
+.category p{
+  font-weight:700;
+  font-size:14px;
+}
+
+/* PESQUISA */
+
+.search-hero{
+  background:linear-gradient(135deg,#6C4DF6,#4D8CFF);
+  color:white;
+  padding:28px 20px;
+}
+
+.search-hero h1{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.search-hero p{
+  font-size:14px;
+  opacity:.9;
+}
+
+.search-box{
+  background:white;
+  padding:18px;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+  margin-top:-5px;
+  margin-bottom:18px;
+}
+
+.search-input{
+  width:100%;
+  padding:15px;
+  border:2px solid var(--border);
+  border-radius:14px;
+  font-size:15px;
+  outline:none;
+}
+
+.search-input:focus{
+  border-color:var(--primary);
+}
+
+.filters{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  margin-top:12px;
+  padding-bottom:5px;
+}
+
+.filter-button{
+  flex-shrink:0;
+  padding:9px 14px;
+  border-radius:20px;
+  background:#F0ECFF;
+  color:var(--primary);
+  font-weight:700;
+  font-size:13px;
+}
+
+.filter-button.active{
+  background:var(--primary);
+  color:white;
+}
+
+.sign-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+}
+
+.sign-card{
+  background:white;
+  border-radius:18px;
+  padding:14px;
+  box-shadow:0 7px 22px rgba(0,0,0,.07);
+  position:relative;
+}
+
+.sign-visual{
+  height:120px;
+  border-radius:15px;
+  background:linear-gradient(135deg,#F0ECFF,#E8F1FF);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:48px;
+  margin-bottom:12px;
+}
+
+.sign-card h3{
+  font-size:16px;
+  margin-bottom:5px;
+}
+
+.sign-language{
+  color:var(--gray);
+  font-size:12px;
+  margin-bottom:10px;
+}
+
+.card-buttons{
+  display:grid;
+  grid-template-columns:1fr 42px;
+  gap:7px;
+}
+
+.view-button{
+  padding:10px;
+  border-radius:11px;
+  background:var(--primary);
+  color:white;
+  font-weight:700;
+  font-size:12px;
+}
+
+.heart-button{
+  border-radius:11px;
+  background:#FFE8F2;
+  color:var(--pink);
+  font-size:18px;
+}
+
+.compare-button{
+  width:100%;
+  margin-top:7px;
+  padding:9px;
+  border-radius:10px;
+  background:#E9FFF8;
+  color:#159B74;
+  font-size:12px;
+  font-weight:700;
+}
+
+/* DETALHE */
+
+.detail-card{
+  background:white;
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.detail-visual{
+  height:230px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#F0ECFF,#E8F1FF);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:80px;
+  margin-bottom:20px;
+}
+
+.detail-card h1{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.detail-language{
+  color:var(--primary);
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.favorite-button{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  background:var(--pink);
+  color:white;
+  font-weight:800;
+  margin-top:18px;
+}
+
+.back-button{
+  background:#F0ECFF;
+  color:var(--primary);
+  padding:10px 14px;
+  border-radius:12px;
+  font-weight:700;
+  margin-bottom:16px;
+}
+
+/* COMPARAÇÃO */
+
+.compare-box{
+  background:white;
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,.07);
+}
+
+.compare-title{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.compare-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.compare-item{
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:15px;
+  text-align:center;
+}
+
+.compare-item .emoji{
+  font-size:45px;
+  margin:12px 0;
+}
+
+.compare-item strong{
+  display:block;
+  color:var(--primary);
+}
+
+.compare-item small{
+  color:var(--gray);
+}
+
+/* FAVORITOS */
+
+.favorite-list{
+  display:grid;
+  gap:12px;
+}
+
+.favorite-item{
+  background:white;
+  padding:16px;
+  border-radius:17px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  box-shadow:0 5px 18px rgba(0,0,0,.06);
+}
+
+.favorite-item .emoji{
+  font-size:35px;
+}
+
+.empty{
+  background:white;
+  border-radius:20px;
+  padding:35px 20px;
+  text-align:center;
+  color:var(--gray);
+}
+
+.empty div{
+  font-size:45px;
+  margin-bottom:10px;
+}
+
+/* NAV */
+
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:68px;
+  background:white;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);
+  box-shadow:0 -4px 18px rgba(0,0,0,.08);
+  z-index:100;
+}
+
+.bottom-nav button{
+  background:white;
+  color:var(--gray);
+  font-size:11px;
+  font-weight:700;
+}
+
+.bottom-nav button span{
+  display:block;
+  font-size:20px;
+  margin-bottom:3px;
+}
+
+.bottom-nav button.active{
+  color:var(--primary);
+}
+
+@media(min-width:700px){
+  .hero{padding:65px 12%}
+  .section{padding-left:12%;padding-right:12%}
+
+  .language-grid{
+    grid-template-columns:repeat(3,1fr);
   }
 
-  function setLanguageFilter(language) {
-    currentLanguage = language;
+  .sign-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
 
-    openPage("search");
+  .hero-buttons{
+    flex-direction:row;
+  }
 
-    document.querySelectorAll(".filter-button").forEach(function(button) {
+  .white-button,
+  .transparent-button{
+    width:auto;
+    padding-left:24px;
+    padding-right:24px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🤟</div>
+    SinalMundo
+  </div>
+
+  <button class="header-button" onclick="openPage('search')">
+    Pesquisar
+  </button>
+</header>
+
+<!-- INÍCIO -->
+
+<main id="home" class="page active">
+
+<section class="hero">
+
+  <div class="hero-badge">
+    🌎 Línguas de sinais do mundo
+  </div>
+
+  <h1>
+    Mais que sinais,<br>
+    conexões entre pessoas e culturas.
+  </h1>
+
+  <p>
+    Aprenda línguas de sinais de forma simples,
+    visual e acessível.
+  </p>
+
+  <div class="creator">
+    <h2>Olá, eu sou Angela Vytorya! 👋💜</h2>
+
+    <p>
+      Que bom ter você por aqui!
+    </p>
+
+    <p style="margin-top:8px">
+      Sou a criadora do SinalMundo, um projeto criado
+      para aproximar pessoas e culturas através das
+      línguas de sinais. 🌎🤟
+    </p>
+  </div>
+
+  <div class="hero-buttons">
+    <button class="white-button" onclick="openPage('search')">
+      Começar a aprender
+    </button>
+
+    <button class="transparent-button" onclick="openPage('search')">
+      Pesquisar sinais
+    </button>
+  </div>
+
+</section>
+
+<section class="section">
+
+  <div class="section-title">
+    <h2>🌎 Idiomas</h2>
+    <span onclick="openPage('search')">Ver todos</span>
+  </div>
+
+  <div class="language-grid" id="homeLanguages"></div>
+
+</section>
+
+<section class="section">
+
+  <div class="section-title">
+    <h2>📚 Categorias</h2>
+  </div>
+
+  <div class="category-grid">
+
+    <div class="category">
+      <div class="category-icon">👋</div>
+      <p>Saudações</p>
+    </div>
+
+    <div class="category">
+      <div class="category-icon">❤️</div>
+      <p>Sentimentos</p>
+    </div>
+
+    <div class="category">
+      <div class="category-icon">👨‍👩‍👧</div>
+      <p>Família</p>
+    </div>
+
+    <div class="category">
+      <div class="category-icon">🙏</div>
+      <p>Expressões</p>
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+<!-- PESQUISA -->
+
+<main id="search" class="page">
+
+<section class="search-hero">
+  <h1>🔎 Pesquisar sinais</h1>
+  <p>
+    Encontre palavras, frases e sinais em diferentes
+    línguas de sinais.
+  </p>
+</section>
+
+<section class="section">
+
+<div class="search-box">
+
+  <input
+    class="search-input"
+    id="searchInput"
+    type="text"
+    placeholder="Buscar palavra ou frase..."
+    oninput="renderSearch()"
+  >
+
+  <div class="filters" id="languageFilters"></div>
+
+</div>
+
+<div id="searchResults" class="sign-grid"></div>
+
+</section>
+
+</main>
+
+<!-- DETALHE -->
+
+<main id="detail" class="page">
+
+<section class="section">
+
+<button class="back-button" onclick="openPage('search')">
+  ← Voltar para pesquisa
+</button>
+
+<div class="detail-card">
+
+  <div id="detailVisual" class="detail-visual">🤟</div>
+
+  <h1 id="detailWord">Olá</h1>
+
+  <div id="detailLanguage" class="detail-language">
+    Libras 🇧🇷
+  </div>
+
+  <p id="detailDescription">
+    Aprenda este sinal e descubra novas formas
+    de se comunicar.
+  </p>
+
+  <button
+    id="favoriteButton"
+    class="favorite-button"
+    onclick="favoriteSign()">
+    ❤️ Adicionar aos favoritos
+  </button>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- FAVORITOS -->
+
+<main id="favorites" class="page">
+
+<section class="section">
+
+<div class="section-title">
+  <h2>❤️ Meus favoritos</h2>
+</div>
+
+<div id="favoriteList" class="favorite-list"></div>
+
+</section>
+
+</main>
+
+<!-- COMPARAR -->
+
+<main id="compare" class="page">
+
+<section class="section">
+
+<button class="back-button" onclick="openPage('search')">
+  ← Voltar
+</button>
+
+<div class="compare-box">
+
+  <div class="compare-title">
+    <h2>🔄 Comparar sinais</h2>
+    <p style="color:#6B7280;margin-top:7px">
+      Veja como a mesma palavra aparece em diferentes
+      línguas de sinais.
+    </p>
+  </div>
+
+  <div id="compareResults" class="compare-grid"></div>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- MENU -->
+
+<nav class="bottom-nav">
+
+<button id="navHome" class="active" onclick="openPage('home')">
+  <span>🏠</span>
+  Início
+</button>
+
+<button id="navSearch" onclick="openPage('search')">
+  <span>🔎</span>
+  Pesquisa
+</button>
+
+<button id="navFavorites" onclick="openPage('favorites')">
+  <span>❤️</span>
+  Favoritos
+</button>
+
+<button onclick="showComingSoon()">
+  <span>👤</span>
+  Perfil
+</button>
+
+</nav>
+
+<script>
+
+/* =========================
+   IDIOMAS
+========================= */
+
+const languages = [
+  {name:"Libras",full:"Língua Brasileira de Sinais",flag:"🇧🇷"},
+  {name:"ASL",full:"American Sign Language",flag:"🇺🇸"},
+  {name:"BSL",full:"British Sign Language",flag:"🇬🇧"},
+  {name:"LSF",full:"Langue des Signes Française",flag:"🇫🇷"},
+  {name:"DGS",full:"Deutsche Gebärdensprache",flag:"🇩🇪"},
+  {name:"JSL",full:"Japanese Sign Language",flag:"🇯🇵"},
+  {name:"LIS",full:"Lingua dei Segni Italiana",flag:"🇮🇹"},
+  {name:"LSE",full:"Lengua de Signos Española",flag:"🇪🇸"},
+  {name:"LGP",full:"Língua Gestual Portuguesa",flag:"🇵🇹"},
+  {name:"Auslan",full:"Australian Sign Language",flag:"🇦🇺"},
+  {name:"NZSL",full:"New Zealand Sign Language",flag:"🇳🇿"},
+  {name:"CSL",full:"Chinese Sign Language",flag:"🇨🇳"},
+  {name:"KSL",full:"Korean Sign Language",flag:"🇰🇷"},
+  {name:"ISL",full:"Indian Sign Language",flag:"🇮🇳"},
+  {name:"RSL",full:"Russian Sign Language",flag:"🇷🇺"}
+];
+
+
+/* =========================
+   SINAIS
+========================= */
+
+const signs = [
+
+  {
+    word:"Olá",
+    language:"Libras",
+    flag:"🇧🇷",
+    emoji:"👋",
+    category:"Saudações",
+    description:"Um sinal usado para cumprimentar alguém."
+  },
+
+  {
+    word:"Amor",
+    language:"Libras",
+    flag:"🇧🇷",
+    emoji:"❤️",
+    category:"Sentimentos",
+    description:"Um sinal relacionado ao sentimento de amor e carinho."
+  },
+
+  {
+    word:"Família",
+    language:"Libras",
+    flag:"🇧🇷",
+    emoji:"👨‍👩‍👧",
+    category:"Família",
+    description:"Um sinal usado para falar sobre família."
+  },
+
+  {
+    word:"Obrigado",
+    language:"Libras",
+    flag:"🇧🇷",
+    emoji:"🙏",
+    category:"Expressões",
+    description:"Um sinal usado para agradecer."
+  },
+
+  {
+    word:"Hello",
+    language:"ASL",
+    flag:"🇺🇸",
+    emoji:"👋",
+    category:"Saudações",
+    description:"A common greeting in American Sign Language."
+  },
+
+  {
+    word:"Love",
+    language:"ASL",
+    flag:"🇺🇸",
+    emoji:"❤️",
+    category:"Sentimentos",
+    description:"A sign related to love and affection."
+  },
+
+  {
+    word:"Family",
+    language:"ASL",
+    flag:"🇺🇸",
+    emoji:"👨‍👩‍👧",
+    category:"Família",
+    description:"A sign used to talk about family."
+  },
+
+  {
+    word:"Thank you",
+    language:"ASL",
+    flag:"🇺🇸",
+    emoji:"🙏",
+    category:"Expressões",
+    description:"A sign used to express thanks."
+  },
+
+  {
+    word:"Hello",
+    language:"BSL",
+    flag:"🇬🇧",
+    emoji:"👋",
+    category:"Saudações",
+    description:"A greeting in British Sign Language."
+  },
+
+  {
+    word:"Love",
+    language:"BSL",
+    flag:"🇬🇧",
+    emoji:"❤️",
+    category:"Sentimentos",
+    description:"A sign related to love and affection."
+  },
+
+  {
+    word:"Family",
+    language:"BSL",
+    flag:"🇬🇧",
+    emoji:"👨‍👩‍👧",
+    category:"Família",
+    description:"A sign used to talk about family."
+  },
+
+  {
+    word:"Hello",
+    language:"LSF",
+    flag:"🇫🇷",
+    emoji:"👋",
+    category:"Saudações",
+    description:"Greeting in French Sign Language."
+  },
+
+  {
+    word:"Love",
+    language:"LSF",
+    flag:"🇫🇷",
+    emoji:"❤️",
+    category:"Sentimentos",
+    description:"Love in French Sign Language."
+  },
+
+  {
+    word:"Hallo",
+    language:"DGS",
+    flag:"🇩🇪",
+    emoji:"👋",
+    category:"Saudações",
+    description:"Greeting in German Sign Language."
+  },
+
+  {
+    word:"こんにちは",
+    language:"JSL",
+    flag:"🇯🇵",
+    emoji:"👋",
+    category:"Saudações",
+    description:"Greeting in Japanese Sign Language."
+  },
+
+  {
+    word:"Ciao",
+    language:"LIS",
+    flag:"🇮🇹",
+    emoji:"👋",
+    category:"Saudações",
+    description:"Greeting in Italian Sign Language."
+  },
+
+  {
+    word:"Hola",
+    language:"LSE",
+    flag:"🇪🇸",
+    emoji:"👋",
+    category:"Saudações",
+    description:"Greeting in Spanish Sign Language."
+  },
+
+  {
+    word:"Olá",
+    language:"LGP",
+    flag:"🇵🇹",
+    emoji:"👋",
+    category:"Saudações",
+    description:"Greeting in Portuguese Sign Language."
+  },
+
+  {
+    word:"Hello",
+    language:"Auslan",
+    flag:"🇦🇺",
+    emoji:"👋",
+    category:"Saudações",
+    description:"Greeting in Australian Sign Language."
+  },
+
+  {
+    word:"Hello",
+    language:"NZSL",
+    flag:"🇳🇿",
+    emoji:"👋",
+    category:"Saudações",
+    description:"Greeting in New Zealand Sign Language."
+  },
+
+  {
+    word:"你好",
+    language:"CSL",
+    flag:"🇨🇳",
+    emoji:"👋",
+    category:"Saudações",
+    description:"Greeting in Chinese Sign Language."
+  },
+
+  {
+    word:"안녕하세요",
+    language:"KSL",
+    flag:"🇰🇷",
+    emoji:"👋",
+    category:"Saudações",
+    description:"Greeting in Korean Sign Language."
+  },
+
+  {
+    word:"Hello",
+    language:"ISL",
+    flag:"🇮🇳",
+    emoji:"👋",
+    category:"Saudações",
+    description:"Greeting in Indian Sign Language."
+  },
+
+  {
+    word:"Привет",
+    language:"RSL",
+    flag:"🇷🇺",
+    emoji:"👋",
+    category:"Saudações",
+    description:"Greeting in Russian Sign Language."
+  }
+
+];
+
+let currentLanguage = "Todos";
+let currentSign = null;
+
+
+/* =========================
+   NAVEGAÇÃO
+========================= */
+
+function openPage(page){
+
+  document.querySelectorAll(".page").forEach(function(item){
+    item.classList.remove("active");
+  });
+
+  const selected = document.getElementById(page);
+
+  if(selected){
+    selected.classList.add("active");
+  }
+
+  document.querySelectorAll(".bottom-nav button")
+    .forEach(function(button){
       button.classList.remove("active");
     });
 
-    if (language === "Todos") {
-      document.getElementById("filterTodos").classList.add("active");
-    }
+  if(page==="home"){
+    document.getElementById("navHome").classList.add("active");
+  }
 
-    if (language === "Libras") {
-      document.getElementById("filterLibras").classList.add("active");
-    }
-
-    if (language === "ASL") {
-      document.getElementById("filterASL").classList.add("active");
-    }
-
-    if (language === "BSL") {
-      document.getElementById("filterBSL").classList.add("active");
-    }
-
+  if(page==="search"){
+    document.getElementById("navSearch").classList.add("active");
     renderSearch();
   }
 
-  function renderSearch() {
-    const container = document.getElementById("searchResults");
+  if(page==="favorites"){
+    document.getElementById("navFavorites").classList.add("active");
+    renderFavorites();
+  }
 
-    if (!container) {
-      return;
-    }
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
 
-    const input = document.getElementById("searchInput");
 
-    const searchText = input
-      ? input.value.toLowerCase().trim()
-      : "";
+/* =========================
+   FILTROS
+========================= */
 
-    const results = signs.filter(function(sign) {
+function renderFilters(){
 
-      const matchesText =
-        sign.word.toLowerCase().includes(searchText) ||
-        sign.language.toLowerCase().includes(searchText);
+  const container =
+    document.getElementById("languageFilters");
 
-      const matchesLanguage =
-        currentLanguage === "Todos" ||
-        sign.language === currentLanguage;
+  container.innerHTML="";
 
-      return matchesText && matchesLanguage;
+  const all = document.createElement("button");
+
+  all.className =
+    "filter-button " +
+    (currentLanguage==="Todos" ? "active":"");
+
+  all.textContent="🌎 Todos";
+
+  all.onclick=function(){
+    setLanguageFilter("Todos");
+  };
+
+  container.appendChild(all);
+
+  languages.forEach(function(language){
+
+    const button=document.createElement("button");
+
+    button.className =
+      "filter-button " +
+      (currentLanguage===language.name ? "active":"");
+
+    button.textContent =
+      language.flag+" "+language.name;
+
+    button.onclick=function(){
+      setLanguageFilter(language.name);
+    };
+
+    container.appendChild(button);
+
+  });
+}
+
+
+function setLanguageFilter(language){
+
+  currentLanguage=language;
+
+  renderFilters();
+  renderSearch();
+
+  if(document.getElementById("search").classList.contains("active")){
+    window.scrollTo({top:0,behavior:"smooth"});
+  }else{
+    openPage("search");
+  }
+}
+
+
+/* =========================
+   PESQUISA
+========================= */
+
+function renderSearch(){
+
+  const container =
+    document.getElementById("searchResults");
+
+  if(!container)return;
+
+  const input =
+    document.getElementById("searchInput");
+
+  const text =
+    input ? input.value.toLowerCase().trim() : "";
+
+  const results=signs.filter(function(sign){
+
+    const matchesText =
+      sign.word.toLowerCase().includes(text) ||
+      sign.language.toLowerCase().includes(text) ||
+      sign.category.toLowerCase().includes(text);
+
+    const matchesLanguage =
+      currentLanguage==="Todos" ||
+      sign.language===currentLanguage;
+
+    return matchesText && matchesLanguage;
+
+  });
+
+  if(results.length===0){
+
+    container.innerHTML=`
+      <div class="empty" style="grid-column:1/-1">
+        <div>🔎</div>
+        <strong>Nenhum sinal encontrado</strong>
+        <p style="margin-top:7px">
+          Tente outra palavra ou outro idioma.
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML=results.map(function(sign){
+
+    const index=signs.indexOf(sign);
+
+    const favorite=isFavorite(sign);
+
+    return `
+      <div class="sign-card">
+
+        <div class="sign-visual">
+          ${sign.emoji}
+        </div>
+
+        <h3>${sign.word}</h3>
+
+        <div class="sign-language">
+          ${sign.flag} ${sign.language}
+        </div>
+
+        <div class="card-buttons">
+
+          <button
+            class="view-button"
+            onclick="openSign(${index})">
+            Ver sinal
+          </button>
+
+          <button
+            class="heart-button"
+            onclick="toggleFavorite(${index})">
+            ${favorite ? "💚":"♡"}
+          </button>
+
+        </div>
+
+        <button
+          class="compare-button"
+          onclick="compareSign('${sign.word}')">
+          🔄 Comparar
+        </button>
+
+      </div>
+    `;
+
+  }).join("");
+}
+
+
+/* =========================
+   DETALHE
+========================= */
+
+function openSign(index){
+
+  currentSign=signs[index];
+
+  document.getElementById("detailVisual").textContent =
+    currentSign.emoji;
+
+  document.getElementById("detailWord").textContent =
+    currentSign.word;
+
+  document.getElementById("detailLanguage").textContent =
+    currentSign.language+" "+currentSign.flag;
+
+  document.getElementById("detailDescription").textContent =
+    currentSign.description;
+
+  updateFavoriteButton();
+
+  openPage("detail");
+}
+
+
+/* =========================
+   FAVORITOS
+========================= */
+
+function getFavorites(){
+
+  return JSON.parse(
+    localStorage.getItem("sinalMundoFavorites") || "[]"
+  );
+
+}
+
+function saveFavorites(list){
+
+  localStorage.setItem(
+    "sinalMundoFavorites",
+    JSON.stringify(list)
+  );
+
+}
+
+function isFavorite(sign){
+
+  return getFavorites().some(function(item){
+
+    return item.word===sign.word &&
+           item.language===sign.language;
+
+  });
+
+}
+
+function toggleFavorite(index){
+
+  const sign=signs[index];
+
+  let favorites=getFavorites();
+
+  const position=favorites.findIndex(function(item){
+
+    return item.word===sign.word &&
+           item.language===sign.language;
+
+  });
+
+  if(position>=0){
+    favorites.splice(position,1);
+  }else{
+    favorites.push(sign);
+  }
+
+  saveFavorites(favorites);
+
+  renderSearch();
+  renderFavorites();
+
+}
+
+function favoriteSign(){
+
+  if(!currentSign)return;
+
+  toggleFavorite(signs.indexOf(currentSign));
+
+  updateFavoriteButton();
+
+}
+
+function updateFavoriteButton(){
+
+  const button =
+    document.getElementById("favoriteButton");
+
+  if(!button || !currentSign)return;
+
+  if(isFavorite(currentSign)){
+
+    button.textContent =
+      "💚 Remover dos favoritos";
+
+  }else{
+
+    button.textContent =
+      "❤️ Adicionar aos favoritos";
+
+  }
+
+}
+
+function renderFavorites(){
+
+  const container =
+    document.getElementById("favoriteList");
+
+  if(!container)return;
+
+  const favorites=getFavorites();
+
+  if(favorites.length===0){
+
+    container.innerHTML=`
+      <div class="empty">
+        <div>❤️</div>
+        <strong>Você ainda não tem favoritos</strong>
+        <p style="margin-top:7px">
+          Pesquise um sinal e toque no coração.
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML=favorites.map(function(sign){
+
+    return `
+      <div class="favorite-item">
+
+        <div class="emoji">
+          ${sign.emoji}
+        </div>
+
+        <div style="flex:1">
+          <strong>${sign.word}</strong>
+
+          <div style="
+            color:#6B7280;
+            font-size:12px;
+            margin-top:4px">
+            ${sign.flag} ${sign.language}
+          </div>
+        </div>
+
+        <button
+          onclick="removeFavorite('${sign.word}','${sign.language}')"
+          style="
+            background:#FFE8F2;
+            color:#FF4FA3;
+            padding:9px;
+            border-radius:10px">
+          🗑️
+        </button>
+
+      </div>
+    `;
+
+  }).join("");
+
+}
+
+function removeFavorite(word,language){
+
+  let favorites=getFavorites();
+
+  favorites=favorites.filter(function(item){
+
+    return !(item.word===word &&
+             item.language===language);
+
+  });
+
+  saveFavorites(favorites);
+
+  renderFavorites();
+  renderSearch();
+
+  if(currentSign &&
+     currentSign.word===word &&
+     currentSign.language===language){
+
+    updateFavoriteButton();
+
+  }
+
+}
+
+
+/* =========================
+   COMPARAÇÃO
+========================= */
+
+function compareSign(word){
+
+  const matches=signs.filter(function(sign){
+
+    return sign.word.toLowerCase()===word.toLowerCase();
+
+  });
+
+  /* Para palavras equivalentes em idiomas diferentes,
+     usamos também a categoria como comparação. */
+
+  let results=matches;
+
+  if(results.length<2){
+
+    const base=signs.find(function(sign){
+
+      return sign.word.toLowerCase()===word.toLowerCase();
+
     });
 
-    if (results.length === 0) {
-      container.innerHTML = `
-        <div style="
-          grid-column: 1 / -1;
-          background:white;
-          padding:30px;
-          border-radius:18px;
-          text-align:center;
-          color:#6B7280;
-        ">
-          <div style="font-size:40px;margin-bottom:10px;">🔎</div>
-          <strong>Nenhum sinal encontrado</strong>
-          <p style="margin-top:6px;">
-            Tente pesquisar outra palavra.
-          </p>
-        </div>
-      `;
+    if(base){
 
-      return;
+      results=signs.filter(function(sign){
+
+        return sign.category===base.category;
+
+      }).slice(0,8);
+
     }
 
-    container.innerHTML = results.map(function(sign) {
+  }
 
-      const index = signs.indexOf(sign);
+  const container =
+    document.getElementById("compareResults");
+
+  if(results.length===0){
+
+    container.innerHTML=`
+      <div class="empty" style="grid-column:1/-1">
+        Nenhum sinal disponível para comparação.
+      </div>
+    `;
+
+  }else{
+
+    container.innerHTML=results.map(function(sign){
 
       return `
-        <div class="sign-card">
+        <div class="compare-item">
 
-          <div class="sign-visual">
+          <strong>${sign.flag} ${sign.language}</strong>
+
+          <div class="emoji">
             ${sign.emoji}
           </div>
 
-          <h3>${sign.word}</h3>
+          <b>${sign.word}</b>
 
-          <div class="sign-language">
-            ${sign.flag} ${sign.language}
-          </div>
-
-          <button onclick="openSign(${index})">
-            Ver sinal
-          </button>
+          <small>
+            ${sign.category}
+          </small>
 
         </div>
       `;
 
     }).join("");
+
   }
 
-  function openSign(index) {
-    currentSign = signs[index];
+  openPage("compare");
 
-    document.getElementById("detailVisual").textContent =
-      currentSign.emoji;
+}
 
-    document.getElementById("detailWord").textContent =
-      currentSign.word;
 
-    document.getElementById("detailLanguage").textContent =
-      currentSign.language + " " + currentSign.flag;
+/* =========================
+   IDIOMAS NA HOME
+========================= */
 
-    document.getElementById("detailDescription").textContent =
-      currentSign.description;
+function renderHomeLanguages(){
 
-    openPage("detail");
-  }
+  const container =
+    document.getElementById("homeLanguages");
 
-  function favoriteSign() {
-    if (!currentSign) {
-      return;
-    }
+  container.innerHTML=languages
+    .slice(0,6)
+    .map(function(language){
 
-    let favorites =
-      JSON.parse(localStorage.getItem("sinalMundoFavorites") || "[]");
+      return `
+        <div
+          class="language-card"
+          onclick="setLanguageFilter('${language.name}')">
 
-    const alreadyFavorite = favorites.some(function(item) {
-      return item.word === currentSign.word &&
-             item.language === currentSign.language;
-    });
+          <div class="language-icon">
+            ${language.flag}
+          </div>
 
-    if (!alreadyFavorite) {
-      favorites.push(currentSign);
+          <div>
+            <h3>${language.name}</h3>
+            <p>${language.full}</p>
+          </div>
 
-      localStorage.setItem(
-        "sinalMundoFavorites",
-        JSON.stringify(favorites)
-      );
+        </div>
+      `;
 
-      document.getElementById("favoriteButton").textContent =
-        "💚 Adicionado aos favoritos!";
+    }).join("");
 
-    } else {
-      document.getElementById("favoriteButton").textContent =
-        "💚 Já está nos favoritos!";
-    }
-  }
+}
 
-  function showComingSoon() {
-    alert(
-      "🚀 Esta área está chegando!\n\n" +
-      "O SinalMundo ainda está em fase de protótipo."
-    );
-  }
 
-  renderSearch();
+/* =========================
+   AVISO TEMPORÁRIO
+========================= */
+
+function showComingSoon(){
+
+  alert(
+    "🚀 O Perfil está chegando!\n\n"+
+    "O SinalMundo ainda está em fase de protótipo."
+  );
+
+}
+
+
+/* =========================
+   INICIALIZAÇÃO
+========================= */
+
+renderHomeLanguages();
+renderFilters();
+renderSearch();
+renderFavorites();
+
 </script>
 
 </body>
