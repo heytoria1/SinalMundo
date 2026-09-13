@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <meta name="theme-color" content="#6C4DF6">
 
   <title>SinalMundo — Línguas de Sinais</title>
@@ -14,210 +13,188 @@
       --blue: #4D8CFF;
       --green: #20C997;
       --pink: #FF4FA3;
-
-      --bg: #F7F8FC;
-      --card: #FFFFFF;
-      --text: #202331;
-      --muted: #74798C;
-      --border: #E7E8F0;
-
-      --radius: 20px;
+      --dark: #202124;
+      --gray: #6B7280;
+      --light: #F5F7FB;
+      --white: #FFFFFF;
+      --border: #E5E7EB;
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: Arial, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      padding-bottom: 80px;
     }
 
     button,
     input {
-      font: inherit;
+      font-family: inherit;
     }
 
     button {
-      border: none;
       cursor: pointer;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    /* ===== CABEÇALHO ===== */
-
-    .app-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(247, 248, 252, 0.95);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(12px);
-    }
-
-    .header-inner {
-      max-width: 1150px;
-      margin: auto;
-      padding: 13px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-icon {
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 14px;
-      color: white;
-      font-size: 23px;
-      background: linear-gradient(
-        135deg,
-        var(--primary),
-        var(--blue)
-      );
-    }
-
-    .brand-name {
-      font-size: 19px;
-      font-weight: 800;
-    }
-
-    .brand-subtitle {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-      margin-top: 2px;
-    }
-
-    /* ===== CONTEÚDO ===== */
-
-    main {
-      max-width: 1150px;
-      margin: auto;
-      padding: 24px 20px 105px;
+      border: none;
     }
 
     .page {
       display: none;
+      min-height: calc(100vh - 70px);
     }
 
     .page.active {
       display: block;
     }
 
-    /* ===== HOME ===== */
+    header {
+      height: 70px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--primary), var(--blue));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 21px;
+    }
+
+    .header-button {
+      background: #F0ECFF;
+      color: var(--primary);
+      padding: 10px 15px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
 
     .hero {
-      padding: 34px;
-      border-radius: 28px;
+      background: linear-gradient(135deg, #6C4DF6, #4D8CFF);
       color: white;
-      background: linear-gradient(
-        135deg,
-        var(--primary),
-        var(--blue),
-        var(--green)
-      );
+      padding: 42px 22px;
+      border-radius: 0 0 30px 30px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      padding: 8px 13px;
+      border-radius: 30px;
+      font-size: 13px;
+      margin-bottom: 18px;
     }
 
     .hero h1 {
-      max-width: 720px;
-      font-size: clamp(30px, 5vw, 48px);
-      line-height: 1.05;
+      font-size: 34px;
+      line-height: 1.12;
+      margin-bottom: 16px;
     }
 
     .hero p {
-      max-width: 680px;
-      margin: 15px 0 23px;
+      font-size: 16px;
       line-height: 1.6;
+      opacity: 0.95;
+      margin-bottom: 25px;
     }
 
     .hero-buttons {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 10px;
     }
 
     .white-button,
     .transparent-button {
-      padding: 14px 18px;
+      width: 100%;
+      padding: 14px;
       border-radius: 14px;
+      font-size: 15px;
       font-weight: 800;
     }
 
     .white-button {
-      color: var(--primary);
       background: white;
+      color: var(--primary);
     }
 
     .transparent-button {
+      background: rgba(255,255,255,0.15);
       color: white;
-      background: rgba(255,255,255,.15);
-      border: 1px solid rgba(255,255,255,.35);
+      border: 1px solid rgba(255,255,255,0.5);
     }
 
-    .section-header {
+    .section {
+      padding: 28px 20px;
+    }
+
+    .section-title {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin: 30px 0 14px;
+      justify-content: space-between;
+      margin-bottom: 16px;
     }
 
-    .section-header h2 {
-      font-size: 21px;
+    .section-title h2 {
+      font-size: 22px;
     }
 
-    .grid {
+    .section-title span {
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .language-grid {
       display: grid;
-      grid-template-columns: repeat(
-        auto-fit,
-        minmax(180px, 1fr)
-      );
+      grid-template-columns: 1fr;
       gap: 14px;
     }
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: 0 10px 25px rgba(44,48,80,.07);
-    }
-
     .language-card {
-      cursor: pointer;
-      transition: .2s;
-    }
-
-    .language-card:hover {
-      transform: translateY(-3px);
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
 
     .language-icon {
-      width: 55px;
-      height: 55px;
-      margin-bottom: 12px;
+      width: 58px;
+      height: 58px;
+      border-radius: 17px;
+      background: #F0ECFF;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 16px;
-      font-size: 28px;
-      background: #EEEAFE;
+      font-size: 29px;
     }
 
     .language-card h3 {
@@ -225,119 +202,293 @@
     }
 
     .language-card p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
+      color: var(--gray);
+      font-size: 13px;
     }
-
-    /* ===== CATEGORIAS ===== */
 
     .category-grid {
       display: grid;
-      grid-template-columns: repeat(
-        auto-fit,
-        minmax(160px, 1fr)
-      );
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px;
     }
-
-    .category-card {
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: var(--card);
-      cursor: pointer;
-      transition: .2s;
+    .search-header {
+      padding: 28px 20px 18px;
     }
 
-    .category-card:hover {
-      transform: translateY(-2px);
+    .search-header h1 {
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .search-header p {
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    .search-box {
+      margin: 0 20px 18px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+    }
+
+    .search-icon {
+      font-size: 19px;
+      margin-right: 10px;
+    }
+
+    .search-box input {
+      width: 100%;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      background: transparent;
+    }
+
+    .search-filters {
+      display: flex;
+      gap: 9px;
+      padding: 0 20px 18px;
+      overflow-x: auto;
+    }
+
+    .filter-button {
+      white-space: nowrap;
+      padding: 10px 14px;
+      border-radius: 25px;
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--gray);
+      font-weight: 700;
+    }
+
+    .filter-button.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .search-count {
+      padding: 0 20px 12px;
+      color: var(--gray);
+      font-size: 13px;
+    }
+
+    .search-results {
+      padding: 0 20px;
+      display: grid;
+      gap: 13px;
+    }
+
+    .sign-card {
+      background: white;
+      border-radius: 19px;
+      padding: 17px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .sign-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 17px;
+      background: #F0ECFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .sign-info {
+      flex: 1;
+    }
+
+    .sign-info h3 {
+      font-size: 17px;
+      margin-bottom: 5px;
+    }
+
+    .sign-language {
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .sign-description {
+      color: var(--gray);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .sign-arrow {
+      color: var(--primary);
+      font-size: 21px;
+    }
+
+    .empty-state {
+      background: white;
+      border-radius: 20px;
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    .empty-state .emoji {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .empty-state h3 {
+      margin-bottom: 7px;
+    }
+
+    .empty-state p {
+      color: var(--gray);
+      font-size: 14px;
+    }
+
+    .detail {
+      padding: 28px 20px;
+    }
+
+    .back-button {
+      background: white;
+      padding: 11px 15px;
+      border-radius: 12px;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    .detail-card {
+      background: white;
+      border-radius: 25px;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .detail-icon {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 20px;
+      border-radius: 30px;
+      background: #F0ECFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 55px;
+    }
+
+    .detail-card h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .detail-language {
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    .detail-card p {
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    .category {
+      background: white;
+      padding: 20px 15px;
+      border-radius: 18px;
+      text-align: center;
     }
 
     .category-icon {
-      display: block;
-      font-size: 31px;
-      margin-bottom: 9px;
+      font-size: 29px;
+      margin-bottom: 8px;
     }
 
-    .category-card strong {
-      display: block;
+    .category p {
+      font-weight: 700;
+      font-size: 14px;
     }
-
-    .category-card small {
-      display: block;
-      margin-top: 5px;
-      color: var(--muted);
-    }
-
-    /* ===== PREMIUM ===== */
-
-    .premium-card {
-      padding: 27px;
-      border-radius: 25px;
+    .favorite-detail {
+      margin-top: 20px;
+      background: var(--pink);
       color: white;
-      background: linear-gradient(
-        135deg,
-        var(--primary),
-        #9B5CFF,
-        var(--pink)
-      );
-    }
-
-    .premium-card h2 {
-      font-size: 27px;
-    }
-
-    .price {
-      margin: 12px 0 20px;
-      font-size: 39px;
-      font-weight: 900;
-    }
-
-    .premium-feature-list {
-      display: grid;
-      gap: 9px;
-      margin: 20px 0;
-    }
-
-    .premium-feature {
-      padding: 11px 13px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.13);
-    }
-
-    .premium-buy {
-      width: 100%;
-      padding: 14px;
+      padding: 14px 22px;
       border-radius: 14px;
-      color: var(--primary);
-      background: white;
-      font-weight: 900;
+      font-weight: 800;
     }
 
-    /* ===== RESPONSIVO ===== */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: white;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      z-index: 50;
+    }
 
-    @media (max-width: 600px) {
+    .nav-button {
+      background: white;
+      color: var(--gray);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .nav-button span {
+      font-size: 20px;
+    }
+
+    .nav-button.active {
+      color: var(--primary);
+    }
+
+    @media (min-width: 700px) {
       .hero {
-        padding: 25px;
+        padding: 60px;
       }
 
       .hero h1 {
-        font-size: 32px;
+        max-width: 700px;
+        font-size: 48px;
       }
 
-      .grid,
+      .hero p {
+        max-width: 650px;
+      }
+
+      .hero-buttons {
+        flex-direction: row;
+        max-width: 450px;
+      }
+
+      .language-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
       .category-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .search-results {
         grid-template-columns: repeat(2, 1fr);
-      }
-
-      .header-inner {
-        padding: 10px 15px;
-      }
-
-      main {
-        padding-left: 15px;
-        padding-right: 15px;
       }
     }
   </style>
@@ -345,126 +496,123 @@
 
 <body>
 
-  <!-- CABEÇALHO -->
-  <header class="app-header">
-    <div class="header-inner">
-
-      <div class="brand">
-        <div class="brand-icon">🤟</div>
-
-        <div>
-          <div class="brand-name">SinalMundo</div>
-          <span class="brand-subtitle">
-            Línguas de sinais para todos
-          </span>
-        </div>
-      </div>
-
+  <header>
+    <div class="logo">
+      <div class="logo-icon">🤟</div>
+      SinalMundo
     </div>
+
+    <button class="header-button" onclick="openPage('pesquisa')">
+      Pesquisar
+    </button>
   </header>
 
-  <!-- CONTEÚDO -->
-  <main>
+  <main id="inicio" class="page active">
 
-    <!-- INÍCIO -->
-    <section id="inicio" class="page active">
+    <section class="hero">
 
-      <div class="hero">
+      <div class="hero-badge">
+        🌎 Aprenda diferentes línguas de sinais
+      </div>
 
-        <h1>
-          Mais que sinais,
-          conexões entre pessoas e culturas.
-        </h1>
+      <h1>
+        Mais que sinais, conexões entre pessoas e culturas.
+      </h1>
 
-        <p>
-          Aprenda línguas de sinais de forma simples,
-          visual e acessível.
-        </p>
+      <p>
+        Aprenda línguas de sinais de forma simples, visual e acessível.
+        Explore Libras, ASL, BSL e muito mais.
+      </p>
 
-        <div class="hero-buttons">
+      <div class="hero-buttons">
 
-          <button class="white-button">
-            Começar a aprender
-          </button>
+        <button
+          class="white-button"
+          onclick="openPage('pesquisa')"
+        >
+          Começar a aprender
+        </button>
 
-          <button class="transparent-button">
-            Conhecer idiomas
-          </button>
-
-        </div>
+        <button
+          class="transparent-button"
+          onclick="openPage('pesquisa')"
+        >
+          Conhecer idiomas
+        </button>
 
       </div>
 
-      <!-- IDIOMAS -->
-      <div class="section-header">
-        <h2>🌎 Línguas de sinais</h2>
+    </section>
+
+    <section class="section">
+
+      <div class="section-title">
+        <h2>Idiomas</h2>
+        <span>Explorar</span>
       </div>
 
-      <div class="grid">
+      <div class="language-grid">
 
-        <div class="card language-card">
+        <div class="language-card"
+             onclick="setLanguageFilter('Libras')">
           <div class="language-icon">🇧🇷</div>
-          <h3>Libras</h3>
-          <p>
-            Língua Brasileira de Sinais
-          </p>
+
+          <div>
+            <h3>Libras</h3>
+            <p>Língua Brasileira de Sinais</p>
+          </div>
         </div>
 
-        <div class="card language-card">
+        <div class="language-card"
+             onclick="setLanguageFilter('ASL')">
           <div class="language-icon">🇺🇸</div>
-          <h3>ASL</h3>
-          <p>
-            American Sign Language
-          </p>
+
+          <div>
+            <h3>ASL</h3>
+            <p>American Sign Language</p>
+          </div>
         </div>
 
-        <div class="card language-card">
+        <div class="language-card"
+             onclick="setLanguageFilter('BSL')">
           <div class="language-icon">🇬🇧</div>
-          <h3>BSL</h3>
-          <p>
-            British Sign Language
-          </p>
+
+          <div>
+            <h3>BSL</h3>
+            <p>British Sign Language</p>
+          </div>
         </div>
 
       </div>
 
-      <!-- CATEGORIAS -->
-      <div class="section-header">
-        <h2>📚 Categorias</h2>
+    </section>
+
+    <section class="section">
+
+      <div class="section-title">
+        <h2>Categorias</h2>
       </div>
 
       <div class="category-grid">
 
-        <div class="category-card">
-          <span class="category-icon">👋</span>
-          <strong>Saudações</strong>
-          <small>
-            Olá, oi, bom dia...
-          </small>
+        <div class="category">
+          <div class="category-icon">👋</div>
+          <p>Saudações</p>
         </div>
 
-        <div class="category-card">
-          <span class="category-icon">👨‍👩‍👧</span>
-          <strong>Família</strong>
-          <small>
-            Pessoas e relações
-          </small>
+        <div class="category">
+          <div class="category-icon">❤️</div>
+          <p>Sentimentos</p>
         </div>
 
-        <div class="category-card">
-          <span class="category-icon">🔢</span>
-          <strong>Números</strong>
-          <small>
-            Aprenda a contar
-          </small>
+        <div class="category">
+          <div class="category-icon">👨‍👩‍👧</div>
+          <p>Família</p>
         </div>
 
-        <div class="category-card">
-          <span class="category-icon">🎨</span>
-          <strong>Cores</strong>
-          <small>
-            Descubra novas palavras
-          </small>
+        <div class="category">
+          <div class="category-icon">🍎</div>
+          <p>Alimentos</p>
         </div>
 
       </div>
@@ -472,6 +620,413 @@
     </section>
 
   </main>
+
+  <main id="pesquisa" class="page">
+
+    <div class="search-header">
+      <h1>🔎 Pesquisar sinais</h1>
+
+      <p>
+        Encontre palavras, frases e sinais em diferentes línguas.
+      </p>
+    </div>
+
+    <div class="search-box">
+
+      <span class="search-icon">🔎</span>
+
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Buscar sinais, palavras ou frases..."
+        oninput="renderSearch()"
+      >
+
+    </div>
+
+    <div class="search-filters">
+
+      <button
+        id="filterTodos"
+        class="filter-button active"
+        onclick="setLanguageFilter('Todos')"
+      >
+        🌎 Todos
+      </button>
+
+      <button
+        id="filterLibras"
+        class="filter-button"
+        onclick="setLanguageFilter('Libras')"
+      >
+        🇧🇷 Libras
+      </button>
+
+      <button
+        id="filterASL"
+        class="filter-button"
+        onclick="setLanguageFilter('ASL')"
+      >
+        🇺🇸 ASL
+      </button>
+
+      <button
+        id="filterBSL"
+        class="filter-button"
+        onclick="setLanguageFilter('BSL')"
+      >
+        🇬🇧 BSL
+      </button>
+
+    </div>
+
+    <div id="searchCount" class="search-count"></div>
+
+    <div id="searchResults" class="search-results"></div>
+
+  </main>
+
+  <main id="detalhe" class="page">
+
+    <div class="detail">
+
+      <button
+        class="back-button"
+        onclick="openPage('pesquisa')"
+      >
+        ← Voltar
+      </button>
+
+      <div id="detailContent"></div>
+
+    </div>
+
+  </main>
+
+  <nav class="bottom-nav">
+
+    <button
+      id="navInicio"
+      class="nav-button active"
+      onclick="openPage('inicio')"
+    >
+      <span>🏠</span>
+      Início
+    </button>
+
+    <button
+      id="navPesquisa"
+      class="nav-button"
+      onclick="openPage('pesquisa')"
+    >
+      <span>🔎</span>
+      Pesquisa
+    </button>
+
+    <button
+      class="nav-button"
+      onclick="showComingSoon()"
+    >
+      <span>❤️</span>
+      Favoritos
+    </button>
+
+    <button
+      class="nav-button"
+      onclick="showComingSoon()"
+    >
+      <span>👤</span>
+      Perfil
+    </button>
+
+  </nav>
+
+  <script>
+
+    const signs = [
+      {
+        word: "Olá",
+        language: "Libras",
+        flag: "🇧🇷",
+        icon: "👋",
+        description: "Saudação em Libras."
+      },
+      {
+        word: "Amor",
+        language: "Libras",
+        flag: "🇧🇷",
+        icon: "❤️",
+        description: "Palavra relacionada a carinho e afeto."
+      },
+      {
+        word: "Família",
+        language: "Libras",
+        flag: "🇧🇷",
+        icon: "👨‍👩‍👧",
+        description: "Pessoas que fazem parte da família."
+      },
+      {
+        word: "Obrigado",
+        language: "Libras",
+        flag: "🇧🇷",
+        icon: "🙏",
+        description: "Forma de agradecer."
+      },
+      {
+        word: "Hello",
+        language: "ASL",
+        flag: "🇺🇸",
+        icon: "👋",
+        description: "Greeting in American Sign Language."
+      },
+      {
+        word: "Love",
+        language: "ASL",
+        flag: "🇺🇸",
+        icon: "❤️",
+        description: "A word related to affection."
+      },
+      {
+        word: "Family",
+        language: "ASL",
+        flag: "🇺🇸",
+        icon: "👨‍👩‍👧",
+        description: "People who are part of a family."
+      },
+      {
+        word: "Thank you",
+        language: "ASL",
+        flag: "🇺🇸",
+        icon: "🙏",
+        description: "Expression of gratitude."
+      },
+      {
+        word: "Hello",
+        language: "BSL",
+        flag: "🇬🇧",
+        icon: "👋",
+        description: "Greeting in British Sign Language."
+      },
+      {
+        word: "Love",
+        language: "BSL",
+        flag: "🇬🇧",
+        icon: "❤️",
+        description: "A word related to affection."
+      },
+      {
+        word: "Family",
+        language: "BSL",
+        flag: "🇬🇧",
+        icon: "👨‍👩‍👧",
+        description: "People who are part of a family."
+      }
+    ];
+
+    let currentLanguage = "Todos";
+
+    function openPage(page) {
+
+      document.querySelectorAll(".page").forEach(function(section) {
+        section.classList.remove("active");
+      });
+
+      const selectedPage = document.getElementById(page);
+
+      if (selectedPage) {
+        selectedPage.classList.add("active");
+      }
+
+      document.querySelectorAll(".nav-button").forEach(function(button) {
+        button.classList.remove("active");
+      });
+
+      if (page === "inicio") {
+        document.getElementById("navInicio").classList.add("active");
+      }
+
+      if (page === "pesquisa") {
+        document.getElementById("navPesquisa").classList.add("active");
+        renderSearch();
+      }
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function setLanguageFilter(language) {
+
+      currentLanguage = language;
+
+      document.querySelectorAll(".filter-button").forEach(function(button) {
+        button.classList.remove("active");
+      });
+
+      if (language === "Todos") {
+        document.getElementById("filterTodos").classList.add("active");
+      }
+
+      if (language === "Libras") {
+        document.getElementById("filterLibras").classList.add("active");
+      }
+
+      if (language === "ASL") {
+        document.getElementById("filterASL").classList.add("active");
+      }
+
+      if (language === "BSL") {
+        document.getElementById("filterBSL").classList.add("active");
+      }
+
+      openPage("pesquisa");
+    }
+
+    function renderSearch() {
+
+      const input =
+        document.getElementById("searchInput")?.value
+        .toLowerCase()
+        .trim() || "";
+
+      const results = signs.filter(function(sign) {
+
+        const matchesText =
+          sign.word.toLowerCase().includes(input) ||
+          sign.description.toLowerCase().includes(input) ||
+          sign.language.toLowerCase().includes(input);
+
+        const matchesLanguage =
+          currentLanguage === "Todos" ||
+          sign.language === currentLanguage;
+
+        return matchesText && matchesLanguage;
+      });
+
+      const resultsContainer =
+        document.getElementById("searchResults");
+
+      const count =
+        document.getElementById("searchCount");
+
+      count.textContent =
+        results.length +
+        (results.length === 1
+          ? " sinal encontrado"
+          : " sinais encontrados");
+
+      if (results.length === 0) {
+
+        resultsContainer.innerHTML = `
+          <div class="empty-state">
+            <div class="emoji">🔎</div>
+            <h3>Nenhum sinal encontrado</h3>
+            <p>
+              Tente pesquisar outra palavra ou escolher outro idioma.
+            </p>
+          </div>
+        `;
+
+        return;
+      }
+
+      resultsContainer.innerHTML =
+        results.map(function(sign) {
+
+          const index = signs.indexOf(sign);
+
+          return `
+            <div
+              class="sign-card"
+              onclick="openSign(${index})"
+            >
+
+              <div class="sign-icon">
+                ${sign.icon}
+              </div>
+
+              <div class="sign-info">
+
+                <h3>
+                  ${sign.flag} ${sign.word}
+                </h3>
+
+                <div class="sign-language">
+                  ${sign.language}
+                </div>
+
+                <div class="sign-description">
+                  ${sign.description}
+                </div>
+
+              </div>
+
+              <div class="sign-arrow">
+                →
+              </div>
+
+            </div>
+          `;
+
+        }).join("");
+    }
+
+    function openSign(index) {
+
+      const sign = signs[index];
+
+      const detailContent =
+        document.getElementById("detailContent");
+
+      detailContent.innerHTML = `
+        <div class="detail-card">
+
+          <div class="detail-icon">
+            ${sign.icon}
+          </div>
+
+          <h1>
+            ${sign.flag} ${sign.word}
+          </h1>
+
+          <div class="detail-language">
+            ${sign.language}
+          </div>
+
+          <p>
+            ${sign.description}
+          </p>
+
+          <button
+            class="favorite-detail"
+            onclick="favoriteSign('${sign.word}')"
+          >
+            ❤️ Adicionar aos favoritos
+          </button>
+
+        </div>
+      `;
+
+      openPage("detalhe");
+    }
+
+    function favoriteSign(word) {
+      alert(
+        "❤️ \"" + word +
+        "\" foi marcado como favorito no protótipo!"
+      );
+    }
+
+    function showComingSoon() {
+      alert(
+        "🚀 Essa área estará disponível nas próximas etapas do SinalMundo!"
+      );
+    }
+
+    renderSearch();
+
+  </script>
 
 </body>
 </html>
