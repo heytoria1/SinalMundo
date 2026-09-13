@@ -2187,3 +2187,31 @@ function login() {
     startApp();
   }, 700);
 }
+
+function startApp() {
+  document.getElementById("splash").classList.add("hidden");
+  document.getElementById("auth").classList.add("hidden");
+
+  const app = document.getElementById("app");
+  if (app) app.classList.remove("hidden");
+
+  const user = JSON.parse(
+    localStorage.getItem("sinalMundoUser") || "null"
+  );
+
+  if (user) {
+    const profileName = document.getElementById("profileName");
+    const profileEmail = document.getElementById("profileEmail");
+
+    if (profileName) {
+      profileName.textContent = user.name;
+    }
+
+    if (profileEmail) {
+      profileEmail.textContent = user.email;
+    }
+  }
+
+  renderSearch();
+  renderFavorites();
+}
