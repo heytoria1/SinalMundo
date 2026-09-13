@@ -1871,3 +1871,182 @@ window.addEventListener("load", () => {
 
 </body>
 </html>
+
+/* ===== LOGIN E CADASTRO PROFISSIONAL ===== */
+
+#auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top left, rgba(108,77,246,.18), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(32,201,151,.16), transparent 35%),
+    var(--bg);
+}
+
+#auth.hidden {
+  display: none;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 430px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 32px 26px;
+  box-shadow: 0 20px 50px rgba(32,35,49,.12);
+  animation: authEnter .45s ease;
+}
+
+@keyframes authEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.auth-brand {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.auth-logo {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 14px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  background: linear-gradient(135deg, var(--primary), var(--blue), var(--green));
+  box-shadow: 0 12px 28px rgba(108,77,246,.25);
+}
+
+.auth-brand h2 {
+  margin: 0;
+  font-size: 27px;
+  font-weight: 800;
+}
+
+.auth-brand p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.field {
+  margin-bottom: 17px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 15px;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+  transition: .2s;
+}
+
+.field input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(108,77,246,.10);
+  background: var(--card);
+}
+
+.primary-button {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 15px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--primary), var(--blue));
+  box-shadow: 0 10px 22px rgba(108,77,246,.22);
+  transition: .2s;
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+}
+
+.forgot {
+  display: block;
+  text-align: right;
+  margin: -6px 0 18px;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.link-button {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--primary);
+  font-weight: 800;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+.terms {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  margin: 15px 0 20px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.terms input {
+  margin-top: 3px;
+  accent-color: var(--primary);
+}
+
+@media (max-width: 600px) {
+  #auth {
+    padding: 16px;
+  }
+
+  .auth-card {
+    padding: 28px 20px;
+    border-radius: 24px;
+  }
+
+  .auth-brand h2 {
+    font-size: 24px;
+  }
+}
+
+<input type="password" id="loginPassword" placeholder="Sua senha">
+
