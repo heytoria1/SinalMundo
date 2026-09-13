@@ -2100,3 +2100,50 @@ function togglePassword(inputId, button) {
   cursor: pointer;
   padding: 8px;
 }
+
+function register() {
+  const name = document.getElementById("registerName").value.trim();
+  const email = document.getElementById("registerEmail").value.trim();
+  const password = document.getElementById("registerPassword").value;
+  const confirm = document.getElementById("registerConfirm").value;
+  const terms = document.getElementById("terms").checked;
+
+  if (!name || !email || !password || !confirm) {
+    toast("Preencha todos os campos.");
+    return;
+  }
+
+  if (!email.includes("@") || !email.includes(".")) {
+    toast("Digite um e-mail válido.");
+    return;
+  }
+
+  if (password.length < 6) {
+    toast("A senha precisa ter pelo menos 6 caracteres.");
+    return;
+  }
+
+  if (password !== confirm) {
+    toast("As senhas não coincidem.");
+    return;
+  }
+
+  if (!terms) {
+    toast("Aceite os termos para continuar.");
+    return;
+  }
+
+  const user = {
+    name: name,
+    email: email,
+    password: password
+  };
+
+  localStorage.setItem("sinalMundoUser", JSON.stringify(user));
+
+  toast("Conta criada com sucesso! 🎉");
+
+  setTimeout(() => {
+    showLogin();
+  }, 900);
+}
