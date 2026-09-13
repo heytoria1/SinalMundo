@@ -1,0 +1,4180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6C4DF6">
+  <meta name="description" content="SinalMundo — Aprenda línguas de sinais de forma simples, visual e acessível.">
+
+  <title>SinalMundo — Línguas de Sinais</title>
+
+  <style>
+    :root {
+      --primary: #6C4DF6;
+      --primary-dark: #5437D9;
+      --blue: #4D8CFF;
+      --green: #20C997;
+      --pink: #FF4FA3;
+      --yellow: #FFCA3A;
+
+      --bg: #F7F8FC;
+      --card: #FFFFFF;
+      --text: #202331;
+      --muted: #74798C;
+      --border: #E7E8F0;
+
+      --danger: #EF476F;
+
+      --shadow:
+        0 12px 30px rgba(44, 48, 80, 0.08);
+
+      --radius: 20px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background .25s, color .25s;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* =========================
+       SPLASH
+    ========================= */
+
+    #splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          #6C4DF6,
+          #4D8CFF 55%,
+          #20C997
+        );
+
+      transition: opacity .4s;
+    }
+
+    #splash.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .splash-content {
+      text-align: center;
+      padding: 25px;
+    }
+
+    .splash-logo {
+      width: 90px;
+      height: 90px;
+
+      margin: 0 auto 18px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 28px;
+
+      background: #fff;
+      color: var(--primary);
+
+      font-size: 48px;
+
+      box-shadow:
+        0 20px 50px rgba(0,0,0,.18);
+
+      animation: floatLogo 1.8s ease-in-out infinite;
+    }
+
+    @keyframes floatLogo {
+      0%,100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-7px);
+      }
+    }
+
+    .splash-content h1 {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+
+    .splash-content p {
+      opacity: .92;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       AUTENTICAÇÃO
+    ========================= */
+
+    #auth {
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #F4F0FF,
+          #EEF6FF,
+          #EFFFF9
+        );
+    }
+
+    .auth-card {
+      width: min(440px, 100%);
+
+      padding: 30px;
+
+      border-radius: 28px;
+
+      background: #fff;
+
+      box-shadow: var(--shadow);
+    }
+
+    .auth-brand {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .auth-logo {
+      width: 68px;
+      height: 68px;
+
+      margin: 0 auto 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 21px;
+
+      color: #fff;
+
+      font-size: 34px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--primary),
+          var(--blue)
+        );
+    }
+
+    .auth-brand h1 {
+      font-size: 29px;
+    }
+
+    .auth-brand p {
+      margin-top: 6px;
+      color: var(--muted);
+    }
+
+    .auth-form h2 {
+      font-size: 23px;
+      margin-bottom: 7px;
+    }
+
+    .auth-description {
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .field {
+      margin-bottom: 15px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .field input {
+      width: 100%;
+
+      padding: 14px 15px;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      outline: none;
+
+      background: #fff;
+      color: var(--text);
+
+      transition: .2s;
+    }
+
+    .field input:focus {
+      border-color: var(--primary);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(108,77,246,.10);
+    }
+
+    .password-eye {
+      position: absolute;
+
+      right: 7px;
+      top: 6px;
+
+      width: 42px;
+      height: 42px;
+
+      background: transparent;
+    }
+
+    .forgot {
+      text-align: right;
+      margin: 0 0 15px;
+    }
+
+    .forgot button {
+      background: transparent;
+      color: var(--primary);
+
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .primary-button {
+      width: 100%;
+
+      padding: 14px 18px;
+
+      border-radius: 14px;
+
+      color: #fff;
+
+      font-weight: 800;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--primary),
+          var(--blue)
+        );
+
+      box-shadow:
+        0 8px 20px
+        rgba(108,77,246,.18);
+
+      transition: transform .2s;
+    }
+
+    .primary-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .auth-switch {
+      margin-top: 18px;
+
+      text-align: center;
+
+      color: var(--muted);
+
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .link-button {
+      background: transparent;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .terms {
+      display: flex;
+      gap: 9px;
+
+      align-items: flex-start;
+
+      margin: 13px 0 18px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .terms input {
+      margin-top: 3px;
+    }
+
+    /* =========================
+       APLICATIVO
+    ========================= */
+
+    #app {
+      min-height: 100vh;
+    }
+
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      background:
+        rgba(247,248,252,.94);
+
+      backdrop-filter: blur(15px);
+
+      border-bottom:
+        1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1150px, 100%);
+      margin: auto;
+
+      padding: 13px 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 14px;
+
+      color: #fff;
+
+      font-size: 23px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--primary),
+          var(--blue)
+        );
+    }
+
+    .brand-name {
+      font-size: 19px;
+    }
+
+    .brand-subtitle {
+      display: block;
+
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-button {
+      width: 42px;
+      height: 42px;
+
+      border-radius: 13px;
+
+      border: 1px solid var(--border);
+
+      background: var(--card);
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    main {
+      width: min(1150px, 100%);
+      margin: auto;
+
+      padding:
+        24px 20px 105px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+      animation: pageIn .2s ease;
+    }
+
+    @keyframes pageIn {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+
+      padding: 34px;
+
+      border-radius: 28px;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--primary),
+          var(--blue) 55%,
+          var(--green)
+        );
+
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "🤟";
+
+      position: absolute;
+
+      right: 25px;
+      bottom: -25px;
+
+      font-size: 125px;
+
+      opacity: .13;
+    }
+
+    .hero h1 {
+      position: relative;
+      z-index: 1;
+
+      max-width: 720px;
+
+      font-size:
+        clamp(29px, 5vw, 49px);
+
+      line-height: 1.05;
+    }
+
+    .hero p {
+      position: relative;
+      z-index: 1;
+
+      max-width: 680px;
+
+      margin: 15px 0 23px;
+
+      line-height: 1.6;
+
+      opacity: .95;
+    }
+
+    .hero-buttons {
+      position: relative;
+      z-index: 2;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .white-button {
+      padding: 14px 18px;
+
+      border-radius: 14px;
+
+      color: var(--primary);
+
+      background: #fff;
+
+      font-weight: 800;
+    }
+
+    .transparent-button {
+      padding: 14px 18px;
+
+      border-radius: 14px;
+
+      color: #fff;
+
+      background:
+        rgba(255,255,255,.14);
+
+      border:
+        1px solid
+        rgba(255,255,255,.35);
+
+      font-weight: 800;
+    }
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin: 30px 0 14px;
+    }
+
+    .section-header h2 {
+      font-size: 21px;
+    }
+
+    .see-all {
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(180px, 1fr)
+        );
+
+      gap: 14px;
+    }
+
+    .card {
+      padding: 19px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: var(--radius);
+
+      background: var(--card);
+
+      box-shadow: var(--shadow);
+    }
+
+    /* =========================
+       IDIOMAS
+    ========================= */
+
+    .language-card {
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .language-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .language-icon {
+      width: 53px;
+      height: 53px;
+
+      margin-bottom: 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 16px;
+
+      font-size: 28px;
+    }
+
+    .language-blue {
+      background: #EAF2FF;
+    }
+
+    .language-purple {
+      background: #EEEAFE;
+    }
+
+    .language-green {
+      background: #E5FFF4;
+    }
+
+    .language-pink {
+      background: #FFEAF5;
+    }
+
+    .language-yellow {
+      background: #FFF6D9;
+    }
+
+    .card p {
+      margin-top: 6px;
+
+      color: var(--muted);
+
+      line-height: 1.5;
+
+      font-size: 14px;
+    }
+
+    /* =========================
+       CATEGORIAS
+    ========================= */
+
+    .category-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(160px, 1fr)
+        );
+
+      gap: 12px;
+    }
+
+    .category-card {
+      padding: 18px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 18px;
+
+      background: var(--card);
+
+      cursor: pointer;
+
+      transition: .2s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .category-icon {
+      display: block;
+
+      margin-bottom: 9px;
+
+      font-size: 31px;
+    }
+
+    .category-card strong {
+      display: block;
+    }
+
+    .category-card small {
+      display: block;
+
+      margin-top: 5px;
+
+      color: var(--muted);
+
+      line-height: 1.4;
+    }
+
+    /* =========================
+       PREMIUM
+    ========================= */
+
+    .premium-card {
+      padding: 27px;
+
+      border-radius: 25px;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--primary),
+          #9B5CFF,
+          var(--pink)
+        );
+
+      box-shadow: var(--shadow);
+    }
+
+    .premium-card h2 {
+      font-size: 26px;
+    }
+
+    .premium-card > p {
+      margin: 9px 0 17px;
+      color: rgba(255,255,255,.92);
+    }
+
+    .price {
+      margin: 8px 0 20px;
+
+      font-size: 39px;
+      font-weight: 900;
+    }
+
+    .price small {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .premium-feature-list {
+      display: grid;
+      gap: 9px;
+
+      margin: 20px 0;
+    }
+
+    .premium-feature {
+      padding: 11px 13px;
+
+      border-radius: 12px;
+
+      background:
+        rgba(255,255,255,.13);
+    }
+
+    .premium-buy {
+      width: 100%;
+
+      padding: 14px;
+
+      border-radius: 14px;
+
+      color: var(--primary);
+
+      background: #fff;
+
+      font-weight: 900;
+    }
+
+    /* =========================
+       PESQUISA
+    ========================= */
+
+    .search-input {
+      width: 100%;
+
+      padding: 16px 18px;
+
+      margin: 17px 0;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 17px;
+
+      outline: none;
+
+      color: var(--text);
+
+      background: var(--card);
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(108,77,246,.10);
+    }
+
+    .search-results {
+      display: grid;
+      gap: 11px;
+    }
+
+    .sign-result {
+      display: flex;
+      align-items: center;
+
+      gap: 13px;
+
+      padding: 13px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 18px;
+
+      background: var(--card);
+
+      cursor: pointer;
+
+      transition: .2s;
+    }
+
+    .sign-result:hover {
+      transform: translateY(-1px);
+    }
+
+    .sign-image {
+      width: 61px;
+      height: 61px;
+
+      flex: none;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 16px;
+
+      font-size: 30px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #EEEAFE,
+          #E8F4FF
+        );
+    }
+
+    .sign-info {
+      flex: 1;
+    }
+
+    .sign-info h3 {
+      margin-bottom: 4px;
+    }
+
+    .sign-info p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .favorite-button {
+      width: 42px;
+      height: 42px;
+
+      flex: none;
+
+      border-radius: 12px;
+
+      color: var(--primary);
+
+      background:
+        #F0EFFF;
+
+      font-size: 19px;
+    }
+
+    /* =========================
+       DETALHE
+    ========================= */
+
+    .back-button {
+      margin-bottom: 15px;
+
+      color: var(--primary);
+
+      background: transparent;
+
+      font-weight: 800;
+    }
+
+    .detail-card {
+      max-width: 720px;
+      margin: auto;
+
+      padding: 24px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 25px;
+
+      background: var(--card);
+
+      box-shadow: var(--shadow);
+    }
+
+    .detail-visual {
+      height: 280px;
+
+      margin-bottom: 22px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 20px;
+
+      font-size: 105px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #E9E5FF,
+          #E5F4FF,
+          #E4FFF5
+        );
+    }
+
+    .detail-language {
+      margin: 8px 0 16px;
+
+      color: var(--primary);
+
+      font-weight: 800;
+    }
+
+    .detail-description {
+      color: var(--muted);
+
+      line-height: 1.7;
+    }
+
+    /* =========================
+       PERFIL
+    ========================= */
+
+    .profile-card {
+      max-width: 620px;
+      margin: auto;
+
+      padding: 30px;
+
+      text-align: center;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 25px;
+
+      background: var(--card);
+
+      box-shadow: var(--shadow);
+    }
+
+    .avatar {
+      width: 90px;
+      height: 90px;
+
+      margin: 0 auto 15px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      font-size: 42px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #E8E3FF,
+          #DFF6FF
+        );
+    }
+
+    .profile-email {
+      margin-top: 6px;
+
+      color: var(--muted);
+    }
+
+    .profile-badge {
+      display: inline-block;
+
+      margin-top: 13px;
+
+      padding: 7px 12px;
+
+      border-radius: 50px;
+
+      color: var(--primary);
+
+      background: #F0EFFF;
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .profile-actions {
+      display: grid;
+      gap: 10px;
+
+      margin-top: 24px;
+    }
+
+    .secondary-button {
+      width: 100%;
+
+      padding: 14px 17px;
+
+      text-align: left;
+
+      border-radius: 14px;
+
+      color: var(--primary);
+
+      background: #F0EFFF;
+
+      font-weight: 800;
+    }
+
+    .danger-button {
+      color: var(--danger);
+      background: #FFF0F3;
+    }
+
+    /* =========================
+       CONFIGURAÇÕES
+    ========================= */
+
+    .settings-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+
+      padding: 15px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 17px;
+
+      background: var(--card);
+    }
+
+    .setting-icon {
+      width: 43px;
+      height: 43px;
+
+      flex: none;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 13px;
+
+      background: #F0EFFF;
+    }
+
+    .setting-info {
+      flex: 1;
+    }
+
+    .setting-info strong {
+      display: block;
+    }
+
+    .setting-info small {
+      display: block;
+
+      margin-top: 4px;
+
+      color: var(--muted);
+    }
+
+    .arrow {
+      color: var(--muted);
+      font-size: 22px;
+    }
+
+    .toggle {
+      position: relative;
+
+      width: 51px;
+      height: 29px;
+
+      flex: none;
+
+      border-radius: 30px;
+
+      background: #D8DAE4;
+
+      transition: .2s;
+    }
+
+    .toggle::after {
+      content: "";
+
+      position: absolute;
+
+      width: 23px;
+      height: 23px;
+
+      top: 3px;
+      left: 3px;
+
+      border-radius: 50%;
+
+      background: #fff;
+
+      transition: .2s;
+    }
+
+    .toggle.on {
+      background: var(--green);
+    }
+
+    .toggle.on::after {
+      left: 25px;
+    }
+
+    /* =========================
+       FAVORITOS VAZIO
+    ========================= */
+
+    .empty-state {
+      padding: 35px 20px;
+
+      text-align: center;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 22px;
+
+      background: var(--card);
+    }
+
+    .empty-icon {
+      font-size: 52px;
+      margin-bottom: 12px;
+    }
+
+    .empty-state p {
+      margin-top: 7px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* =========================
+       BOTTOM NAV
+    ========================= */
+
+    .bottom-nav {
+      position: fixed;
+
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      z-index: 200;
+
+      display: flex;
+      justify-content: center;
+
+      border-top:
+        1px solid var(--border);
+
+      background:
+        rgba(255,255,255,.96);
+
+      backdrop-filter: blur(15px);
+    }
+
+    .nav-button {
+      width: 100%;
+      max-width: 170px;
+
+      padding:
+        9px 5px 8px;
+
+      color: var(--muted);
+
+      background: transparent;
+
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .nav-button span {
+      display: block;
+
+      margin-bottom: 3px;
+
+      font-size: 20px;
+    }
+
+    .nav-button.active {
+      color: var(--primary);
+    }
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    #toast {
+      position: fixed;
+
+      left: 50%;
+      bottom: 84px;
+
+      z-index: 9998;
+
+      max-width: calc(100% - 30px);
+
+      padding: 13px 17px;
+
+      border-radius: 13px;
+
+      color: #fff;
+
+      background: #202331;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transform:
+        translate(-50%, 20px);
+
+      transition: .25s;
+
+      font-size: 14px;
+
+      text-align: center;
+    }
+
+    #toast.show {
+      opacity: 1;
+
+      transform:
+        translate(-50%, 0);
+    }
+
+    /* =========================
+       DARK MODE
+    ========================= */
+
+    body.dark {
+      --bg: #11131B;
+      --card: #1B1E28;
+      --text: #F4F5FB;
+      --muted: #A8ADBD;
+      --border: #2D3140;
+    }
+
+    body.dark .app-header {
+      background:
+        rgba(17,19,27,.94);
+    }
+
+    body.dark .icon-button {
+      background: var(--card);
+    }
+
+    body.dark .bottom-nav {
+      background:
+        rgba(27,30,40,.97);
+    }
+
+    body.dark .search-input {
+      background: var(--card);
+      color: var(--text);
+    }
+
+    /* =========================
+       RESPONSIVO
+    ========================= */
+
+    @media (max-width: 650px) {
+
+      main {
+        padding:
+          18px 14px 100px;
+      }
+
+      .header-inner {
+        padding:
+          11px 14px;
+      }
+
+      .brand-name {
+        font-size: 18px;
+      }
+
+      .hero {
+        padding: 24px;
+      }
+
+      .hero h1 {
+        font-size: 31px;
+      }
+
+      .hero::after {
+        font-size: 90px;
+      }
+
+      .grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .category-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .auth-card {
+        padding: 23px;
+      }
+
+      .detail-visual {
+        height: 220px;
+        font-size: 80px;
+      }
+    }
+
+    @media (max-width: 380px) {
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .white-button,
+      .transparent-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       SPLASH
+  ========================= -->
+
+  <div id="splash">
+    <div class="splash-content">
+
+      <div class="splash-logo">
+        🤟
+      </div>
+
+      <h1>SinalMundo</h1>
+
+      <p>
+        Mais que sinais, conexões.
+      </p>
+
+    </div>
+  </div>
+
+
+  <!-- =========================
+       LOGIN / CADASTRO
+  ========================= -->
+
+  <div id="auth" class="hidden">
+
+    <div class="auth-card">
+
+      <div class="auth-brand">
+
+        <div class="auth-logo">
+          🤟
+        </div>
+
+        <h1>SinalMundo</h1>
+
+        <p>
+          Aprenda. Conecte. Comunique.
+        </p>
+
+      </div>
+
+
+      <!-- LOGIN -->
+
+      <div id="login-form" class="auth-form">
+
+        <h2>
+          Bem-vindo de volta! 🌎🤟
+        </h2>
+
+        <p class="auth-description">
+          Entre na sua conta para continuar aprendendo.
+        </p>
+
+
+        <div class="field">
+
+          <label for="login-email">
+            E-mail
+          </label>
+
+          <input
+            id="login-email"
+            type="email"
+            placeholder="seu@email.com"
+            autocomplete="email"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="login-password">
+            Senha
+          </label>
+
+          <div class="input-wrapper">
+
+            <input
+              id="login-password"
+              type="password"
+              placeholder="Digite sua senha"
+              autocomplete="current-password"
+            >
+
+            <button
+              type="button"
+              class="password-eye"
+              onclick="togglePassword('login-password', this)"
+              aria-label="Mostrar senha"
+            >
+              👁️
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="forgot">
+
+          <button
+            type="button"
+            onclick="forgotPassword()"
+          >
+            Esqueceu sua senha?
+          </button>
+
+        </div>
+
+
+        <button
+          class="primary-button"
+          type="button"
+          onclick="login()"
+        >
+          Entrar
+        </button>
+
+
+        <div class="auth-switch">
+
+          Ainda não tem uma conta?
+
+          <button
+            class="link-button"
+            type="button"
+            onclick="showRegister()"
+          >
+            Criar minha conta →
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- CADASTRO -->
+
+      <div
+        id="register-form"
+        class="auth-form hidden"
+      >
+
+        <h2>
+          Crie sua conta 🌎
+        </h2>
+
+        <p class="auth-description">
+          Comece sua jornada no SinalMundo.
+        </p>
+
+
+        <div class="field">
+
+          <label for="register-name">
+            Nome
+          </label>
+
+          <input
+            id="register-name"
+            type="text"
+            placeholder="Seu nome"
+            autocomplete="name"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="register-email">
+            E-mail
+          </label>
+
+          <input
+            id="register-email"
+            type="email"
+            placeholder="seu@email.com"
+            autocomplete="email"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="register-password">
+            Senha
+          </label>
+
+          <div class="input-wrapper">
+
+            <input
+              id="register-password"
+              type="password"
+              placeholder="Mínimo 6 caracteres"
+              autocomplete="new-password"
+            >
+
+            <button
+              type="button"
+              class="password-eye"
+              onclick="togglePassword('register-password', this)"
+            >
+              👁️
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="register-confirm">
+            Confirmar senha
+          </label>
+
+          <div class="input-wrapper">
+
+            <input
+              id="register-confirm"
+              type="password"
+              placeholder="Digite novamente"
+              autocomplete="new-password"
+            >
+
+            <button
+              type="button"
+              class="password-eye"
+              onclick="togglePassword('register-confirm', this)"
+            >
+              👁️
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <label class="terms">
+
+          <input
+            id="terms"
+            type="checkbox"
+          >
+
+          <span>
+            Li e aceito os termos de uso e a política de privacidade.
+          </span>
+
+        </label>
+
+
+        <button
+          class="primary-button"
+          type="button"
+          onclick="register()"
+        >
+          Criar conta
+        </button>
+
+
+        <div class="auth-switch">
+
+          Já tem uma conta?
+
+          <button
+            class="link-button"
+            type="button"
+            onclick="showLogin()"
+          >
+            Entrar →
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       APLICATIVO
+  ========================= -->
+
+  <div id="app" class="hidden">
+
+    <header class="app-header">
+
+      <div class="header-inner">
+
+        <div class="brand">
+
+          <div class="brand-icon">
+            🤟
+          </div>
+
+          <div>
+
+            <strong class="brand-name">
+              SinalMundo
+            </strong>
+
+            <small class="brand-subtitle">
+              Línguas de sinais
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <div class="header-actions">
+
+          <button
+            class="icon-button"
+            type="button"
+            onclick="navigate('pesquisa')"
+            aria-label="Pesquisar"
+          >
+            🔎
+          </button>
+
+          <button
+            class="icon-button"
+            type="button"
+            onclick="navigate('perfil')"
+            aria-label="Perfil"
+          >
+            👤
+          </button>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <main>
+
+
+      <!-- =========================
+           INÍCIO
+      ========================= -->
+
+      <section
+        id="inicio"
+        class="page active"
+      >
+
+        <div class="hero">
+
+          <h1>
+            Mais que sinais, conexões entre pessoas e culturas.
+          </h1>
+
+          <p>
+            Aprenda línguas de sinais de forma simples,
+            visual e acessível. Explore Libras, ASL, BSL
+            e outras línguas de sinais do mundo.
+          </p>
+
+
+          <div class="hero-buttons">
+
+            <button
+              class="white-button"
+              type="button"
+              onclick="navigate('pesquisa')"
+            >
+              Começar a aprender
+            </button>
+
+            <button
+              class="transparent-button"
+              type="button"
+              onclick="navigate('pesquisa')"
+            >
+              Pesquisar sinais
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="section-header">
+
+          <h2>
+            🌎 Idiomas
+          </h2>
+
+          <span
+            class="see-all"
+            onclick="navigate('idiomas')"
+          >
+            Ver todos
+          </span>
+
+        </div>
+
+
+        <div class="grid">
+
+
+          <div
+            class="card language-card"
+            onclick="openLanguage('Libras')"
+          >
+
+            <div class="language-icon language-blue">
+              🇧🇷
+            </div>
+
+            <h3>
+              Libras
+            </h3>
+
+            <p>
+              Língua Brasileira de Sinais
+            </p>
+
+          </div>
+
+
+          <div
+            class="card language-card"
+            onclick="openLanguage('ASL')"
+          >
+
+            <div class="language-icon language-purple">
+              🇺🇸
+            </div>
+
+            <h3>
+              ASL
+            </h3>
+
+            <p>
+              American Sign Language
+            </p>
+
+          </div>
+
+
+          <div
+            class="card language-card"
+            onclick="openLanguage('BSL')"
+          >
+
+            <div class="language-icon language-green">
+              🇬🇧
+            </div>
+
+            <h3>
+              BSL
+            </h3>
+
+            <p>
+              British Sign Language
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="section-header">
+
+          <h2>
+            📚 Categorias
+          </h2>
+
+          <span
+            class="see-all"
+            onclick="navigate('categorias')"
+          >
+            Ver todas
+          </span>
+
+        </div>
+
+
+        <div class="category-grid">
+
+
+          <div
+            class="category-card"
+            onclick="searchCategory('Saudações')"
+          >
+
+            <span class="category-icon">
+              👋
+            </span>
+
+            <strong>
+              Saudações
+            </strong>
+
+            <small>
+              Olá, oi, tchau...
+            </small>
+
+          </div>
+
+
+          <div
+            class="category-card"
+            onclick="searchCategory('Família')"
+          >
+
+            <span class="category-icon">
+              👨‍👩‍👧
+            </span>
+
+            <strong>
+              Família
+            </strong>
+
+            <small>
+              Pessoas e família
+            </small>
+
+          </div>
+
+
+          <div
+            class="category-card"
+            onclick="searchCategory('Comida')"
+          >
+
+            <span class="category-icon">
+              🍎
+            </span>
+
+            <strong>
+              Comida
+            </strong>
+
+            <small>
+              Alimentos
+            </small>
+
+          </div>
+
+
+          <div
+            class="category-card"
+            onclick="searchCategory('Animais')"
+          >
+
+            <span class="category-icon">
+              🐶
+            </span>
+
+            <strong>
+              Animais
+            </strong>
+
+            <small>
+              Animais
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <div class="section-header">
+
+          <h2>
+            ⭐ Premium
+          </h2>
+
+        </div>
+
+
+        <div
+          class="premium-card"
+          onclick="navigate('premium')"
+          style="cursor:pointer;"
+        >
+
+          <h2>
+            SinalMundo Premium
+          </h2>
+
+          <p>
+            Acesso completo para aprender sem limites.
+          </p>
+
+          <div class="price">
+            R$ 20<small>,00 vitalício</small>
+          </div>
+
+          <button
+            class="white-button"
+            type="button"
+            onclick="event.stopPropagation(); navigate('premium')"
+          >
+            Conhecer Premium →
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           PESQUISA
+      ========================= -->
+
+      <section
+        id="pesquisa"
+        class="page"
+      >
+
+        <h1>
+          🔎 Pesquisar sinais
+        </h1>
+
+        <p
+          style="
+            color:var(--muted);
+            margin-top:7px;
+          "
+        >
+          Busque palavras, sinais ou frases.
+        </p>
+
+
+        <input
+          id="search-input"
+          class="search-input"
+          type="search"
+          placeholder="Buscar sinais, palavras ou frases..."
+          oninput="searchSigns()"
+        >
+
+
+        <div
+          id="search-results"
+          class="search-results"
+        >
+
+          <div
+            class="sign-result"
+            data-search="Olá Libras Saudações"
+            onclick="openSign('Olá','Libras')"
+          >
+
+            <div class="sign-image">
+              👋
+            </div>
+
+            <div class="sign-info">
+
+              <h3>
+                Olá
+              </h3>
+
+              <p>
+                🇧🇷 Libras • Saudações
+              </p>
+
+            </div>
+
+            <button
+              class="favorite-button"
+              type="button"
+              onclick="event.stopPropagation(); favorite('Olá')"
+            >
+              ♡
+            </button>
+
+          </div>
+
+
+          <div
+            class="sign-result"
+            data-search="Amor Libras Sentimentos"
+            onclick="openSign('Amor','Libras')"
+          >
+
+            <div class="sign-image">
+              ❤️
+            </div>
+
+            <div class="sign-info">
+
+              <h3>
+                Amor
+              </h3>
+
+              <p>
+                🇧🇷 Libras • Sentimentos
+              </p>
+
+            </div>
+
+            <button
+              class="favorite-button"
+              type="button"
+              onclick="event.stopPropagation(); favorite('Amor')"
+            >
+              ♡
+            </button>
+
+          </div>
+
+
+          <div
+            class="sign-result"
+            data-search="Família ASL Family"
+            onclick="openSign('Família','ASL')"
+          >
+
+            <div class="sign-image">
+              👨‍👩‍👧
+            </div>
+
+            <div class="sign-info">
+
+              <h3>
+                Família
+              </h3>
+
+              <p>
+                🇺🇸 ASL • Família
+              </p>
+
+            </div>
+
+            <button
+              class="favorite-button"
+              type="button"
+              onclick="event.stopPropagation(); favorite('Família')"
+            >
+              ♡
+            </button>
+
+          </div>
+
+
+          <div
+            class="sign-result"
+            data-search="Obrigado BSL Saudações"
+            onclick="openSign('Obrigado','BSL')"
+          >
+
+            <div class="sign-image">
+              🙏
+            </div>
+
+            <div class="sign-info">
+
+              <h3>
+                Obrigado
+              </h3>
+
+              <p>
+                🇬🇧 BSL • Saudações
+              </p>
+
+            </div>
+
+            <button
+              class="favorite-button"
+              type="button"
+              onclick="event.stopPropagation(); favorite('Obrigado')"
+            >
+              ♡
+            </button>
+
+          </div>
+
+
+          <div
+            class="sign-result"
+            data-search="Casa Libras Casa"
+            onclick="openSign('Casa','Libras')"
+          >
+
+            <div class="sign-image">
+              🏠
+            </div>
+
+            <div class="sign-info">
+
+              <h3>
+                Casa
+              </h3>
+
+              <p>
+                🇧🇷 Libras • Casa
+              </p>
+
+            </div>
+
+            <button
+              class="favorite-button"
+              type="button"
+              onclick="event.stopPropagation(); favorite('Casa')"
+            >
+              ♡
+            </button>
+
+          </div>
+
+
+          <div
+            class="sign-result"
+            data-search="Cachorro ASL Animais Dog"
+            onclick="openSign('Cachorro','ASL')"
+          >
+
+            <div class="sign-image">
+              🐶
+            </div>
+
+            <div class="sign-info">
+
+              <h3>
+                Cachorro
+              </h3>
+
+              <p>
+                🇺🇸 ASL • Animais
+              </p>
+
+            </div>
+
+            <button
+              class="favorite-button"
+              type="button"
+              onclick="event.stopPropagation(); favorite('Cachorro')"
+            >
+              ♡
+            </button>
+
+          </div>
+
+
+          <div
+            class="sign-result"
+            data-search="Amigo Libras Família"
+            onclick="openSign('Amigo','Libras')"
+          >
+
+            <div class="sign-image">
+              🫂
+            </div>
+
+            <div class="sign-info">
+
+              <h3>
+                Amigo
+              </h3>
+
+              <p>
+                🇧🇷 Libras • Pessoas
+              </p>
+
+            </div>
+
+            <button
+              class="favorite-button"
+              type="button"
+              onclick="event.stopPropagation(); favorite('Amigo')"
+            >
+              ♡
+            </button>
+
+          </div>
+
+
+          <div
+            class="sign-result"
+            data-search="Água Libras Comida"
+            onclick="openSign('Água','Libras')"
+          >
+
+            <div class="sign-image">
+              💧
+            </div>
+
+            <div class="sign-info">
+
+              <h3>
+                Água
+              </h3>
+
+              <p>
+                🇧🇷 Libras • Comida
+              </p>
+
+            </div>
+
+            <button
+              class="favorite-button"
+              type="button"
+              onclick="event.stopPropagation(); favorite('Água')"
+            >
+              ♡
+            </button>
+
+          </div>
+
+        </div>
+
+        <div
+          id="no-results"
+          class="empty-state hidden"
+          style="margin-top:15px;"
+        >
+
+          <div class="empty-icon">
+            🔎
+          </div>
+
+          <h3>
+            Nenhum sinal encontrado
+          </h3>
+
+          <p>
+            Tente pesquisar outra palavra.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           IDIOMAS
+      ========================= -->
+
+      <section
+        id="idiomas"
+        class="page"
+      >
+
+        <h1>
+          🌎 Idiomas
+        </h1>
+
+        <p
+          style="
+            color:var(--muted);
+            margin:7px 0 20px;
+          "
+        >
+          Explore diferentes línguas de sinais.
+        </p>
+
+
+        <div class="grid">
+
+
+          <div
+            class="card language-card"
+            onclick="openLanguage('Libras')"
+          >
+
+            <div class="language-icon language-blue">
+              🇧🇷
+            </div>
+
+            <h3>
+              Libras
+            </h3>
+
+            <p>
+              Língua Brasileira de Sinais
+            </p>
+
+          </div>
+
+
+          <div
+            class="card language-card"
+            onclick="openLanguage('ASL')"
+          >
+
+            <div class="language-icon language-purple">
+              🇺🇸
+            </div>
+
+            <h3>
+              ASL
+            </h3>
+
+            <p>
+              American Sign Language
+            </p>
+
+          </div>
+
+
+          <div
+            class="card language-card"
+            onclick="openLanguage('BSL')"
+          >
+
+            <div class="language-icon language-green">
+              🇬🇧
+            </div>
+
+            <h3>
+              BSL
+            </h3>
+
+            <p>
+              British Sign Language
+            </p>
+
+          </div>
+
+
+          <div
+            class="card language-card"
+            onclick="openLanguage('LSF')"
+          >
+
+            <div class="language-icon language-pink">
+              🇫🇷
+            </div>
+
+            <h3>
+              LSF
+            </h3>
+
+            <p>
+              Langue des Signes Française
+            </p>
+
+          </div>
+
+
+          <div
+            class="card language-card"
+            onclick="openLanguage('JSL')"
+          >
+
+            <div class="language-icon language-blue">
+              🇯🇵
+            </div>
+
+            <h3>
+              JSL
+            </h3>
+
+            <p>
+              Japanese Sign Language
+            </p>
+
+          </div>
+
+
+          <div
+            class="card language-card"
+            onclick="openLanguage('DGS')"
+          >
+
+            <div class="language-icon language-yellow">
+              🇩🇪
+            </div>
+
+            <h3>
+              DGS
+            </h3>
+
+            <p>
+              Deutsche Gebärdensprache
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           CATEGORIAS
+      ========================= -->
+
+      <section
+        id="categorias"
+        class="page"
+      >
+
+        <h1>
+          📚 Categorias
+        </h1>
+
+        <p
+          style="
+            color:var(--muted);
+            margin:7px 0 20px;
+          "
+        >
+          Escolha um assunto para começar.
+        </p>
+
+
+        <div class="category-grid">
+
+
+          <div
+            class="category-card"
+            onclick="searchCategory('Saudações')"
+          >
+            <span class="category-icon">👋</span>
+            <strong>Saudações</strong>
+            <small>Olá, oi, tchau...</small>
+          </div>
+
+
+          <div
+            class="category-card"
+            onclick="searchCategory('Família')"
+          >
+            <span class="category-icon">👨‍👩‍👧</span>
+            <strong>Família</strong>
+            <small>Pessoas e família</small>
+          </div>
+
+
+          <div
+            class="category-card"
+            onclick="searchCategory('Comida')"
+          >
+            <span class="category-icon">🍎</span>
+            <strong>Comida</strong>
+            <small>Alimentos e bebidas</small>
+          </div>
+
+
+          <div
+            class="category-card"
+            onclick="searchCategory('Animais')"
+          >
+            <span class="category-icon">🐶</span>
+            <strong>Animais</strong>
+            <small>Cães, gatos e mais</small>
+          </div>
+
+
+          <div
+            class="category-card"
+            onclick="searchCategory('Sentimentos')"
+          >
+            <span class="category-icon">❤️</span>
+            <strong>Sentimentos</strong>
+            <small>Amor, alegria...</small>
+          </div>
+
+
+          <div
+            class="category-card"
+            onclick="searchCategory('Casa')"
+          >
+            <span class="category-icon">🏠</span>
+            <strong>Casa</strong>
+            <small>Objetos e lugares</small>
+          </div>
+
+
+          <div
+            class="category-card"
+            onclick="searchCategory('Cores')"
+          >
+            <span class="category-icon">🎨</span>
+            <strong>Cores</strong>
+            <small>Cores básicas</small>
+          </div>
+
+
+          <div
+            class="category-card"
+            onclick="searchCategory('Números')"
+          >
+            <span class="category-icon">🔢</span>
+            <strong>Números</strong>
+            <small>Aprenda a contar</small>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           FAVORITOS
+      ========================= -->
+
+      <section
+        id="favoritos"
+        class="page"
+      >
+
+        <h1>
+          ❤️ Favoritos
+        </h1>
+
+        <p
+          style="
+            color:var(--muted);
+            margin:7px 0 20px;
+          "
+        >
+          Seus sinais favoritos aparecem aqui.
+        </p>
+
+
+        <div id="favorites-list"></div>
+
+      </section>
+
+
+      <!-- =========================
+           DETALHE DO SINAL
+      ========================= -->
+
+      <section
+        id="detalhe"
+        class="page"
+      >
+
+        <button
+          class="back-button"
+          type="button"
+          onclick="navigate('pesquisa')"
+        >
+          ← Voltar para pesquisa
+        </button>
+
+
+        <div class="detail-card">
+
+          <div
+            id="detail-visual"
+            class="detail-visual"
+          >
+            🤟
+          </div>
+
+
+          <h1 id="detail-title">
+            Olá
+          </h1>
+
+
+          <div
+            id="detail-language"
+            class="detail-language"
+          >
+            🇧🇷 Libras
+          </div>
+
+
+          <p class="detail-description">
+            Esta é a área de detalhes do sinal.
+            No futuro, o SinalMundo poderá mostrar
+            vídeos reais, imagens, explicações,
+            exemplos de frases e informações sobre
+            cada língua de sinais.
+          </p>
+
+
+          <button
+            class="primary-button"
+            style="margin-top:20px;"
+            type="button"
+            onclick="favoriteCurrentSign()"
+          >
+            ♡ Adicionar aos favoritos
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           PREMIUM
+      ========================= -->
+
+      <section
+        id="premium"
+        class="page"
+      >
+
+        <div class="premium-card">
+
+          <h2>
+            ⭐ SinalMundo Premium
+          </h2>
+
+          <p>
+            Aprenda línguas de sinais sem limites.
+          </p>
+
+
+          <div class="price">
+            R$ 20<small>,00 vitalício</small>
+          </div>
+
+
+          <div class="premium-feature-list">
+
+            <div class="premium-feature">
+              ✅ Todos os idiomas disponíveis
+            </div>
+
+            <div class="premium-feature">
+              ✅ Biblioteca completa de sinais
+            </div>
+
+            <div class="premium-feature">
+              ✅ Pesquisa avançada
+            </div>
+
+            <div class="premium-feature">
+              ✅ Favoritos ilimitados
+            </div>
+
+            <div class="premium-feature">
+              ✅ Aulas e exercícios
+            </div>
+
+            <div class="premium-feature">
+              ✅ Quizzes
+            </div>
+
+            <div class="premium-feature">
+              ✅ Comparação entre idiomas
+            </div>
+
+            <div class="premium-feature">
+              ✅ Recursos offline futuramente
+            </div>
+
+          </div>
+
+
+          <button
+            class="premium-buy"
+            type="button"
+            onclick="premiumPrototype()"
+          >
+            Quero o Premium — R$20 vitalício
+          </button>
+
+        </div>
+
+
+        <div
+          class="card"
+          style="margin-top:15px;"
+        >
+
+          <strong>
+            ℹ️ Protótipo
+          </strong>
+
+          <p>
+            O pagamento ainda não está conectado.
+            Esta tela representa como será o Premium.
+            O pagamento real será integrado posteriormente.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           PERFIL
+      ========================= -->
+
+      <section
+        id="perfil"
+        class="page"
+      >
+
+        <h1 style="margin-bottom:18px;">
+          👤 Meu perfil
+        </h1>
+
+
+        <div class="profile-card">
+
+          <div class="avatar">
+            👤
+          </div>
+
+
+          <h2 id="profile-name">
+            Visitante
+          </h2>
+
+
+          <p
+            id="profile-email"
+            class="profile-email"
+          >
+            Entre na sua conta
+          </p>
+
+
+          <span
+            id="profile-badge"
+            class="profile-badge"
+          >
+            Conta gratuita
+          </span>
+
+
+          <div class="profile-actions">
+
+            <button
+              class="secondary-button"
+              type="button"
+              onclick="navigate('configuracoes')"
+            >
+              ⚙️ Configurações
+            </button>
+
+
+            <button
+              class="secondary-button"
+              type="button"
+              onclick="navigate('favoritos')"
+            >
+              ❤️ Meus favoritos
+            </button>
+
+
+            <button
+              class="secondary-button"
+              type="button"
+              onclick="navigate('premium')"
+            >
+              ⭐ SinalMundo Premium
+            </button>
+
+
+            <button
+              class="secondary-button danger-button"
+              type="button"
+              onclick="logout()"
+            >
+              🚪 Sair da conta
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           CONFIGURAÇÕES
+      ========================= -->
+
+      <section
+        id="configuracoes"
+        class="page"
+      >
+
+        <button
+          class="back-button"
+          type="button"
+          onclick="navigate('perfil')"
+        >
+          ← Voltar para perfil
+        </button>
+
+
+        <h1 style="margin-bottom:18px;">
+          ⚙️ Configurações
+        </h1>
+
+
+        <div class="settings-list">
+
+
+          <div class="setting-row">
+
+            <div class="setting-icon">
+              👤
+            </div>
+
+            <div class="setting-info">
+
+              <strong>
+                Conta
+              </strong>
+
+              <small>
+                Dados da sua conta
+              </small>
+
+            </div>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </div>
+
+
+          <div class="setting-row">
+
+            <div class="setting-icon">
+              🔐
+            </div>
+
+            <div class="setting-info">
+
+              <strong>
+                Alterar senha
+              </strong>
+
+              <small>
+                Atualize sua senha
+              </small>
+
+            </div>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </div>
+
+
+          <div class="setting-row">
+
+            <div class="setting-icon">
+              🌎
+            </div>
+
+            <div class="setting-info">
+
+              <strong>
+                Idioma do aplicativo
+              </strong>
+
+              <small>
+                Português (Brasil)
+              </small>
+
+            </div>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </div>
+
+
+          <div class="setting-row">
+
+            <div class="setting-icon">
+              🔔
+            </div>
+
+            <div class="setting-info">
+
+              <strong>
+                Notificações
+              </strong>
+
+              <small>
+                Receber novidades
+              </small>
+
+            </div>
+
+            <button
+              id="notification-toggle"
+              class="toggle on"
+              type="button"
+              onclick="toggleSetting(this)"
+              aria-label="Ativar ou desativar notificações"
+            ></button>
+
+          </div>
+
+
+          <div class="setting-row">
+
+            <div class="setting-icon">
+              ♿
+            </div>
+
+            <div class="setting-info">
+
+              <strong>
+                Acessibilidade
+              </strong>
+
+              <small>
+                Recursos de acessibilidade
+              </small>
+
+            </div>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </div>
+
+
+          <div class="setting-row">
+
+            <div class="setting-icon">
+              🌙
+            </div>
+
+            <div class="setting-info">
+
+              <strong>
+                Tema escuro
+              </strong>
+
+              <small>
+                Alterar aparência
+              </small>
+
+            </div>
+
+            <button
+              id="theme-toggle"
+              class="toggle"
+              type="button"
+              onclick="toggleThemeFromSettings(this)"
+              aria-label="Ativar ou desativar tema escuro"
+            ></button>
+
+          </div>
+
+
+          <div class="setting-row">
+
+            <div class="setting-icon">
+              📜
+            </div>
+
+            <div class="setting-info">
+
+              <strong>
+                Termos e privacidade
+              </strong>
+
+              <small>
+                Leia nossas informações
+              </small>
+
+            </div>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </div>
+
+
+          <div class="setting-row">
+
+            <div class="setting-icon">
+              ❓
+            </div>
+
+            <div class="setting-info">
+
+              <strong>
+                Ajuda
+              </strong>
+
+              <small>
+                Central de ajuda
+              </small>
+
+            </div>
+
+            <span class="arrow">
+              ›
+            </span>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <!-- =========================
+         MENU INFERIOR
+    ========================= -->
+
+    <nav class="bottom-nav">
+
+      <button
+        class="nav-button active"
+        data-page="inicio"
+        type="button"
+        onclick="navigate('inicio')"
+      >
+        <span>🏠</span>
+        Início
+      </button>
+
+
+      <button
+        class="nav-button"
+        data-page="pesquisa"
+        type="button"
+        onclick="navigate('pesquisa')"
+      >
+        <span>🔎</span>
+        Pesquisa
+      </button>
+
+
+      <button
+        class="nav-button"
+        data-page="idiomas"
+        type="button"
+        onclick="navigate('idiomas')"
+      >
+        <span>🌎</span>
+        Idiomas
+      </button>
+
+
+      <button
+        class="nav-button"
+        data-page="favoritos"
+        type="button"
+        onclick="navigate('favoritos')"
+      >
+        <span>❤️</span>
+        Favoritos
+      </button>
+
+
+      <button
+        class="nav-button"
+        data-page="perfil"
+        type="button"
+        onclick="navigate('perfil')"
+      >
+        <span>👤</span>
+        Perfil
+      </button>
+
+    </nav>
+
+  </div>
+
+
+  <!-- TOAST -->
+
+  <div id="toast"></div>
+
+
+  <script>
+    /* =========================
+       ESTADO
+    ========================= */
+
+    let currentUser =
+      JSON.parse(
+        localStorage.getItem("sinalmundo_user")
+      ) || null;
+
+    let favorites =
+      JSON.parse(
+        localStorage.getItem("sinalmundo_favorites")
+      ) || [];
+
+    let darkMode =
+      localStorage.getItem("sinalmundo_dark") === "true";
+
+    let currentSign = {
+      name: "",
+      language: ""
+    };
+
+    let toastTimer = null;
+
+
+    /* =========================
+       INICIALIZAÇÃO
+    ========================= */
+
+    window.addEventListener("load", () => {
+
+      if (darkMode) {
+        document.body.classList.add("dark");
+      }
+
+      updateThemeButton();
+
+      setTimeout(() => {
+
+        const splash =
+          document.getElementById("splash");
+
+        splash.classList.add("hide");
+
+        setTimeout(() => {
+          splash.style.display = "none";
+        }, 450);
+
+
+        if (currentUser) {
+          showApp();
+        } else {
+          showAuth();
+        }
+
+      }, 900);
+
+    });
+
+
+    /* =========================
+       AUTENTICAÇÃO
+    ========================= */
+
+    function showAuth() {
+
+      document
+        .getElementById("auth")
+        .classList
+        .remove("hidden");
+
+      document
+        .getElementById("app")
+        .classList
+        .add("hidden");
+
+    }
+
+
+    function showApp() {
+
+      document
+        .getElementById("auth")
+        .classList
+        .add("hidden");
+
+      document
+        .getElementById("app")
+        .classList
+        .remove("hidden");
+
+      updateProfile();
+
+      renderFavorites();
+
+    }
+
+
+    function showLogin() {
+
+      document
+        .getElementById("login-form")
+        .classList
+        .remove("hidden");
+
+      document
+        .getElementById("register-form")
+        .classList
+        .add("hidden");
+
+    }
+
+
+    function showRegister() {
+
+      document
+        .getElementById("login-form")
+        .classList
+        .add("hidden");
+
+      document
+        .getElementById("register-form")
+        .classList
+        .remove("hidden");
+
+    }
+
+
+    function register() {
+
+      const name =
+        document
+          .getElementById("register-name")
+          .value
+          .trim();
+
+      const email =
+        document
+          .getElementById("register-email")
+          .value
+          .trim()
+          .toLowerCase();
+
+      const password =
+        document
+          .getElementById("register-password")
+          .value;
+
+      const confirm =
+        document
+          .getElementById("register-confirm")
+          .value;
+
+      const terms =
+        document
+          .getElementById("terms")
+          .checked;
+
+
+      if (!name || !email || !password || !confirm) {
+
+        toast(
+          "Preencha todos os campos."
+        );
+
+        return;
+      }
+
+
+      if (!email.includes("@")) {
+
+        toast(
+          "Digite um e-mail válido."
+        );
+
+        return;
+      }
+
+
+      if (password.length < 6) {
+
+        toast(
+          "A senha precisa ter pelo menos 6 caracteres."
+        );
+
+        return;
+      }
+
+
+      if (password !== confirm) {
+
+        toast(
+          "As senhas não são iguais."
+        );
+
+        return;
+      }
+
+
+      if (!terms) {
+
+        toast(
+          "Aceite os termos para continuar."
+        );
+
+        return;
+      }
+
+
+      currentUser = {
+        name,
+        email,
+        password,
+        premium: false
+      };
+
+
+      localStorage.setItem(
+        "sinalmundo_user",
+        JSON.stringify(currentUser)
+      );
+
+
+      toast(
+        "Conta criada com sucesso! 🎉"
+      );
+
+
+      setTimeout(() => {
+        showApp();
+      }, 600);
+
+    }
+
+
+    function login() {
+
+      const email =
+        document
+          .getElementById("login-email")
+          .value
+          .trim()
+          .toLowerCase();
+
+      const password =
+        document
+          .getElementById("login-password")
+          .value;
+
+
+      if (!email || !password) {
+
+        toast(
+          "Digite seu e-mail e senha."
+        );
+
+        return;
+      }
+
+
+      const savedUser =
+        JSON.parse(
+          localStorage.getItem("sinalmundo_user")
+        );
+
+
+      if (!savedUser) {
+
+        toast(
+          "Nenhuma conta encontrada. Crie sua conta primeiro."
+        );
+
+        return;
+      }
+
+
+      if (
+        savedUser.email !== email ||
+        savedUser.password !== password
+      ) {
+
+        toast(
+          "E-mail ou senha incorretos."
+        );
+
+        return;
+      }
+
+
+      currentUser = savedUser;
+
+
+      toast(
+        "Login realizado! 👋"
+      );
+
+
+      setTimeout(() => {
+        showApp();
+      }, 500);
+
+    }
+
+
+    function logout() {
+
+      currentUser = null;
+
+      localStorage.removeItem(
+        "sinalmundo_user"
+      );
+
+      showAuth();
+
+      showLogin();
+
+      navigateAuthTop();
+
+      toast(
+        "Você saiu da conta."
+      );
+
+    }
+
+
+    function navigateAuthTop() {
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    function forgotPassword() {
+
+      toast(
+        "No sistema real, enviaremos um link para redefinir sua senha."
+      );
+
+    }
+
+
+    /* =========================
+       SENHA
+    ========================= */
+
+    function togglePassword(
+      inputId,
+      button
+    ) {
+
+      const input =
+        document.getElementById(inputId);
+
+      if (input.type === "password") {
+
+        input.type = "text";
+
+        button.textContent = "🙈";
+
+      } else {
+
+        input.type = "password";
+
+        button.textContent = "👁️";
+
+      }
+
+    }
+
+
+    /* =========================
+       NAVEGAÇÃO
+    ========================= */
+
+    function navigate(page) {
+
+      document
+        .querySelectorAll(".page")
+        .forEach(section => {
+          section.classList.remove("active");
+        });
+
+
+      const target =
+        document.getElementById(page);
+
+
+      if (!target) {
+        return;
+      }
+
+
+      target.classList.add("active");
+
+
+      document
+        .querySelectorAll(".nav-button")
+        .forEach(button => {
+
+          button.classList.remove("active");
+
+          if (
+            button.dataset.page === page
+          ) {
+            button.classList.add("active");
+          }
+
+        });
+
+
+      if (page === "favoritos") {
+        renderFavorites();
+      }
+
+
+      if (page === "perfil") {
+        updateProfile();
+      }
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    /* =========================
+       IDIOMAS
+    ========================= */
+
+    function openLanguage(language) {
+
+      navigate("pesquisa");
+
+      const input =
+        document.getElementById("search-input");
+
+      input.value = language;
+
+      searchSigns();
+
+      toast(
+        language + " selecionado! 🌎"
+      );
+
+    }
+
+
+    /* =========================
+       PESQUISA
+    ========================= */
+
+    function searchSigns() {
+
+      const input =
+        document.getElementById("search-input");
+
+      const query =
+        input.value
+          .toLowerCase()
+          .trim();
+
+
+      const results =
+        document.querySelectorAll(
+          ".sign-result"
+        );
+
+      let visible = 0;
+
+
+      results.forEach(result => {
+
+        const searchable =
+          (
+            result.dataset.search ||
+            result.textContent
+          )
+          .toLowerCase();
+
+
+        const show =
+          !query ||
+          searchable.includes(query);
+
+
+        result.style.display =
+          show ? "flex" : "none";
+
+
+        if (show) {
+          visible++;
+        }
+
+      });
+
+
+      const noResults =
+        document.getElementById(
+          "no-results"
+        );
+
+
+      if (noResults) {
+
+        noResults.classList.toggle(
+          "hidden",
+          visible !== 0
+        );
+
+      }
+
+    }
+
+
+    function searchCategory(category) {
+
+      navigate("pesquisa");
+
+      const input =
+        document.getElementById("search-input");
+
+      input.value = category;
+
+      searchSigns();
+
+    }
+
+
+    /* =========================
+       DETALHE
+    ========================= */
+
+    function openSign(
+      name,
+      language
+    ) {
+
+      currentSign = {
+        name,
+        language
+      };
+
+
+      document
+        .getElementById("detail-title")
+        .textContent = name;
+
+
+      const visual =
+        document.getElementById(
+          "detail-visual"
+        );
+
+
+      const emojis = {
+        "Olá": "👋",
+        "Amor": "❤️",
+        "Família": "👨‍👩‍👧",
+        "Obrigado": "🙏",
+        "Casa": "🏠",
+        "Cachorro": "🐶",
+        "Amigo": "🫂",
+        "Água": "💧"
+      };
+
+
+      visual.textContent =
+        emojis[name] || "🤟";
+
+
+      let languageLabel =
+        language;
+
+
+      if (language === "Libras") {
+        languageLabel = "🇧🇷 Libras";
+      }
+
+      if (language === "ASL") {
+        languageLabel = "🇺🇸 ASL";
+      }
+
+      if (language === "BSL") {
+        languageLabel = "🇬🇧 BSL";
+      }
+
+
+      document
+        .getElementById("detail-language")
+        .textContent =
+        languageLabel;
+
+
+      navigate("detalhe");
+
+    }
+
+
+    function favoriteCurrentSign() {
+
+      if (!currentSign.name) {
+        return;
+      }
+
+      favorite(
+        currentSign.name
+      );
+
+    }
+
+
+    /* =========================
+       FAVORITOS
+    ========================= */
+
+    function favorite(name) {
+
+      const index =
+        favorites.indexOf(name);
+
+
+      if (index >= 0) {
+
+        favorites.splice(index, 1);
+
+        toast(
+          "Removido dos favoritos."
+        );
+
+      } else {
+
+        favorites.push(name);
+
+        toast(
+          "Adicionado aos favoritos! ❤️"
+        );
+
+      }
+
+
+      localStorage.setItem(
+        "sinalmundo_favorites",
+        JSON.stringify(favorites)
+      );
+
+
+      renderFavorites();
+
+    }
+
+
+    function renderFavorites() {
+
+      const container =
+        document.getElementById(
+          "favorites-list"
+        );
+
+
+      if (!container) {
+        return;
+      }
+
+
+      if (favorites.length === 0) {
+
+        container.innerHTML = `
+
+          <div class="empty-state">
+
+            <div class="empty-icon">
+              ❤️
+            </div>
+
+            <h3>
+              Nenhum favorito ainda
+            </h3>
+
+            <p>
+              Toque no ♡ em um sinal para salvá-lo.
+            </p>
+
+          </div>
+
+        `;
+
+        return;
+      }
+
+
+      container.innerHTML = "";
+
+
+      favorites.forEach(name => {
+
+        const item =
+          document.createElement("div");
+
+
+        item.className =
+          "sign-result";
+
+
+        item.style.marginBottom =
+          "10px";
+
+
+        const emojis = {
+          "Olá": "👋",
+          "Amor": "❤️",
+          "Família": "👨‍👩‍👧",
+          "Obrigado": "🙏",
+          "Casa": "🏠",
+          "Cachorro": "🐶",
+          "Amigo": "🫂",
+          "Água": "💧"
+        };
+
+
+        item.innerHTML = `
+
+          <div class="sign-image">
+            ${emojis[name] || "🤟"}
+          </div>
+
+          <div class="sign-info">
+
+            <h3>
+              ${name}
+            </h3>
+
+            <p>
+              🇧🇷 Libras
+            </p>
+
+          </div>
+
+          <button
+            class="favorite-button"
+            type="button"
+          >
+            ❤️
+          </button>
+
+        `;
+
+
+        item.onclick = () => {
+
+          openSign(
+            name,
+            "Libras"
+          );
+
+        };
+
+
+        item
+          .querySelector(".favorite-button")
+          .onclick = event => {
+
+            event.stopPropagation();
+
+            favorite(name);
+
+          };
+
+
+        container.appendChild(item);
+
+      });
+
+    }
+
+
+    /* =========================
+       PERFIL
+    ========================= */
+
+    function updateProfile() {
+
+      if (!currentUser) {
+        return;
+      }
+
+
+      const name =
+        document.getElementById(
+          "profile-name"
+        );
+
+
+      const email =
+        document.getElementById(
+          "profile-email"
+        );
+
+
+      const badge =
+        document.getElementById(
+          "profile-badge"
+        );
+
+
+      if (name) {
+        name.textContent =
+          currentUser.name;
+      }
+
+
+      if (email) {
+        email.textContent =
+          currentUser.email;
+      }
+
+
+      if (badge) {
+
+        badge.textContent =
+          currentUser.premium
+            ? "⭐ Premium vitalício"
+            : "Conta gratuita";
+
+      }
+
+    }
+
+
+    /* =========================
+       PREMIUM
+    ========================= */
+
+    function premiumPrototype() {
+
+      toast(
+        "O pagamento real será conectado futuramente. ⭐"
+      );
+
+    }
+
+
+    /* =========================
+       TEMA
+    ========================= */
+
+    function toggleTheme() {
+
+      document.body.classList.toggle(
+        "dark"
+      );
+
+
+      darkMode =
+        document.body.classList.contains(
+          "dark"
+        );
+
+
+      localStorage.setItem(
+        "sinalmundo_dark",
+        darkMode
+      );
+
+
+      updateThemeButton();
+
+    }
+
+
+    function updateThemeButton() {
+
+      const button =
+        document.getElementById(
+          "theme-toggle"
+        );
+
+
+      if (!button) {
+        return;
+      }
+
+
+      button.classList.toggle(
+        "on",
+        darkMode
+      );
+
+    }
+
+
+    function toggleThemeFromSettings() {
+
+      toggleTheme();
+
+
+      toast(
+        darkMode
+          ? "Tema escuro ativado 🌙"
+          : "Tema claro ativado ☀️"
+      );
+
+    }
+
+
+    /* =========================
+       CONFIGURAÇÕES
+    ========================= */
+
+    function toggleSetting(button) {
+
+      button.classList.toggle("on");
+
+
+      if (
+        button.classList.contains("on")
+      ) {
+
+        toast(
+          "Notificações ativadas 🔔"
+        );
+
+      } else {
+
+        toast(
+          "Notificações desativadas."
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    function toast(message) {
+
+      const element =
+        document.getElementById("toast");
+
+
+      element.textContent =
+        message;
+
+
+      element.classList.add("show");
+
+
+      clearTimeout(toastTimer);
+
+
+      toastTimer =
+        setTimeout(() => {
+
+          element.classList.remove("show");
+
+        }, 2500);
+
+    }
+  </script>
+
+</body>
+</html>
