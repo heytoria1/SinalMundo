@@ -2301,3 +2301,58 @@ if (homeUserName) {
   </button>
 
 </div>
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 10px 0 28px;
+}
+
+.quick-action {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 18px;
+  background: var(--card);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(32,35,49,.06);
+  transition: .2s;
+}
+
+.quick-action:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(32,35,49,.10);
+}
+
+.quick-action span {
+  display: flex;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  border-radius: 15px;
+  background: rgba(108,77,246,.10);
+  font-size: 24px;
+}
+
+.quick-action strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+.quick-action small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+@media (max-width: 600px) {
+  .quick-actions {
+    grid-template-columns: 1fr;
+  }
+}
