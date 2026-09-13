@@ -2147,3 +2147,43 @@ function register() {
     showLogin();
   }, 900);
 }
+
+function login() {
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+
+  if (!email || !password) {
+    toast("Preencha seu e-mail e sua senha.");
+    return;
+  }
+
+  if (!email.includes("@") || !email.includes(".")) {
+    toast("Digite um e-mail válido.");
+    return;
+  }
+
+  const savedUser = JSON.parse(
+    localStorage.getItem("sinalMundoUser") || "null"
+  );
+
+  if (!savedUser) {
+    toast("Nenhuma conta encontrada. Crie sua conta primeiro.");
+    return;
+  }
+
+  if (
+    email.toLowerCase() !== savedUser.email.toLowerCase() ||
+    password !== savedUser.password
+  ) {
+    toast("E-mail ou senha incorretos.");
+    return;
+  }
+
+  localStorage.setItem("sinalMundoLogged", "true");
+
+  toast("Login realizado com sucesso! 🎉");
+
+  setTimeout(() => {
+    startApp();
+  }, 700);
+}
