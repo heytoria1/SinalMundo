@@ -2408,3 +2408,40 @@ if (homeUserName) {
 body.dark .bottom-nav {
   background: rgba(30, 32, 43, .94);
 }
+
+function openPage(page) {
+  document.querySelectorAll(".page").forEach(function(section) {
+    section.classList.remove("active");
+  });
+
+  const selectedPage = document.getElementById(page);
+
+  if (selectedPage) {
+    selectedPage.classList.add("active");
+  }
+
+  document.querySelectorAll(".nav-button").forEach(function(button) {
+    button.classList.remove("active");
+  });
+
+  const navButton = document.querySelector(
+    '.nav-button[onclick*="openPage(\'' + page + '\')"]'
+  );
+
+  if (navButton) {
+    navButton.classList.add("active");
+  }
+
+  if (page === "favoritos") {
+    renderFavorites();
+  }
+
+  if (page === "pesquisa") {
+    renderSearch();
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
