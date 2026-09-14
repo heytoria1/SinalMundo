@@ -362,6 +362,86 @@ button:hover {
   line-height: 1.5;
 }
 
+/* TELA DO SINAL */
+
+.detalhe-sinal {
+  max-width: 700px;
+  margin: auto;
+}
+
+.detalhe-voltar {
+  background: transparent;
+  color: var(--primary);
+  padding: 8px 0;
+  margin-bottom: 20px;
+}
+
+.detalhe-voltar:hover {
+  background: transparent;
+  opacity: 0.8;
+}
+
+.detalhe-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.detalhe-imagem {
+  height: 260px;
+  background: var(--green-light);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 90px;
+  margin-bottom: 25px;
+}
+
+.detalhe-card h1 {
+  color: var(--primary);
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.detalhe-lingua {
+  color: var(--gray);
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.detalhe-categoria {
+  display: inline-block;
+  background: var(--green-light);
+  color: var(--primary);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.detalhe-descricao {
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.detalhe-acoes {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.detalhe-acoes button {
+  min-width: 150px;
+}
+
+/* CORES */
+
 .tema-cores {
   display: flex;
   gap: 12px;
@@ -420,6 +500,7 @@ button:hover {
   </div>
 
   <nav>
+
     <button onclick="openPage('home')">
       Início
     </button>
@@ -435,6 +516,7 @@ button:hover {
     <button onclick="openPage('perfil')">
       Perfil
     </button>
+
   </nav>
 
 </header>
@@ -473,9 +555,9 @@ button:hover {
     <p>
       Sou a criadora do
       <strong>SinalMundo</strong>,
-      um projeto criado para aproximar
-      pessoas e culturas por meio das
-      línguas de sinais. 🌎🤟🏻
+      um projeto criado para aproximar pessoas
+      e culturas por meio das línguas de sinais.
+      🌎🤟🏻
     </p>
 
   </div>
@@ -484,7 +566,10 @@ button:hover {
     Línguas de sinais
   </h2>
 
-  <div id="languageCards" class="cards"></div>
+  <div
+    id="languageCards"
+    class="cards">
+  </div>
 
 </section>
 
@@ -510,8 +595,7 @@ button:hover {
       type="text"
       id="searchInput"
       placeholder="🔎 Buscar sinais, palavras ou frases..."
-      oninput="renderSearch()"
-    >
+      oninput="renderSearch()">
 
   </div>
 
@@ -549,57 +633,87 @@ button:hover {
 
   <div class="categorias">
 
-    <div class="categoria"
+    <div
+      class="categoria"
       onclick="buscarCategoria('Saudações')">
 
-      <span class="icone">👋</span>
+      <span class="icone">
+        👋
+      </span>
 
-      <strong>Saudações</strong>
+      <strong>
+        Saudações
+      </strong>
 
     </div>
 
-    <div class="categoria"
+    <div
+      class="categoria"
       onclick="buscarCategoria('Amor')">
 
-      <span class="icone">❤️</span>
+      <span class="icone">
+        ❤️
+      </span>
 
-      <strong>Amor</strong>
+      <strong>
+        Amor
+      </strong>
 
     </div>
 
-    <div class="categoria"
+    <div
+      class="categoria"
       onclick="buscarCategoria('Dia a dia')">
 
-      <span class="icone">🏠</span>
+      <span class="icone">
+        🏠
+      </span>
 
-      <strong>Dia a dia</strong>
+      <strong>
+        Dia a dia
+      </strong>
 
     </div>
 
-    <div class="categoria"
+    <div
+      class="categoria"
       onclick="buscarCategoria('Educação')">
 
-      <span class="icone">📚</span>
+      <span class="icone">
+        📚
+      </span>
 
-      <strong>Educação</strong>
+      <strong>
+        Educação
+      </strong>
 
     </div>
 
-    <div class="categoria"
+    <div
+      class="categoria"
       onclick="buscarCategoria('Família')">
 
-      <span class="icone">👨‍👩‍👧</span>
+      <span class="icone">
+        👨‍👩‍👧
+      </span>
 
-      <strong>Família</strong>
+      <strong>
+        Família
+      </strong>
 
     </div>
 
-    <div class="categoria"
+    <div
+      class="categoria"
       onclick="buscarCategoria('Sentimentos')">
 
-      <span class="icone">😊</span>
+      <span class="icone">
+        😊
+      </span>
 
-      <strong>Sentimentos</strong>
+      <strong>
+        Sentimentos
+      </strong>
 
     </div>
 
@@ -627,6 +741,62 @@ button:hover {
 </section>
 
 
+<section id="detalhe" class="page">
+
+  <div class="detalhe-sinal">
+
+    <button
+      class="detalhe-voltar"
+      onclick="openPage('pesquisa')">
+      ← Voltar para Pesquisa
+    </button>
+
+    <div class="detalhe-card">
+
+      <div class="detalhe-imagem">
+        🤟🏻
+      </div>
+
+      <h1 id="detalheNome">
+        Olá
+      </h1>
+
+      <div
+        id="detalheLingua"
+        class="detalhe-lingua">
+        Libras 🇧🇷
+      </div>
+
+      <div
+        id="detalheCategoria"
+        class="detalhe-categoria">
+        Saudações
+      </div>
+
+      <p
+        id="detalheDescricao"
+        class="detalhe-descricao">
+        Aprenda este sinal de forma visual
+        e acessível.
+      </p>
+
+      <div class="detalhe-acoes">
+
+        <button
+          id="detalheFavorito"
+          onclick="favoritarDetalhe()">
+          ❤️ Favoritar
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
 <section id="favoritos" class="page">
 
   <h2 class="section-title">
@@ -639,6 +809,7 @@ button:hover {
   </div>
 
 </section>
+
 
 <section id="perfil" class="page">
 
@@ -736,6 +907,7 @@ button:hover {
 
 </main>
 
+
 <script>
 
 const languages = [
@@ -793,7 +965,6 @@ const signs = [
 
   ["Feliz", "Libras", "Sentimentos"],
 
-
   ["Hello", "ASL", "Saudações"],
 
   ["Good morning", "ASL", "Saudações"],
@@ -807,7 +978,6 @@ const signs = [
   ["School", "ASL", "Educação"],
 
   ["Happy", "ASL", "Sentimentos"],
-
 
   ["Hello", "BSL", "Saudações"],
 
@@ -823,7 +993,11 @@ const signs = [
 
 ];
 
+
 let linguaSelecionada = "Todas";
+
+let sinalAtual = null;
+
 
 function renderLanguages() {
 
@@ -866,20 +1040,21 @@ function renderSearch() {
   const texto =
     input.value.toLowerCase().trim();
 
-  let filtrados = signs.filter(sign => {
+  let filtrados =
+    signs.filter(sign => {
 
-    const combinaTexto =
-      sign[0].toLowerCase().includes(texto) ||
-      sign[1].toLowerCase().includes(texto) ||
-      sign[2].toLowerCase().includes(texto);
+      const combinaTexto =
+        sign[0].toLowerCase().includes(texto) ||
+        sign[1].toLowerCase().includes(texto) ||
+        sign[2].toLowerCase().includes(texto);
 
-    const combinaLingua =
-      linguaSelecionada === "Todas" ||
-      sign[1] === linguaSelecionada;
+      const combinaLingua =
+        linguaSelecionada === "Todas" ||
+        sign[1] === linguaSelecionada;
 
-    return combinaTexto && combinaLingua;
+      return combinaTexto && combinaLingua;
 
-  });
+    });
 
 
   if (contador) {
@@ -922,7 +1097,7 @@ function renderSearch() {
 
 
   results.innerHTML =
-    filtrados.map(sign => `
+    filtrados.map((sign, index) => `
 
       <div class="sinal-card">
 
@@ -954,7 +1129,7 @@ function renderSearch() {
 
           <button
             class="btn-detalhes"
-            onclick="showComingSoon()">
+            onclick="abrirDetalhe(${index}, '${texto}')">
 
             Ver sinal
 
@@ -1049,10 +1224,118 @@ function toggleFavorite(item) {
 
 }
 
+
+function abrirDetalhe(indice, texto) {
+
+  const filtrados =
+    signs.filter(sign => {
+
+      const combinaTexto =
+        sign[0].toLowerCase().includes(texto) ||
+        sign[1].toLowerCase().includes(texto) ||
+        sign[2].toLowerCase().includes(texto);
+
+      const combinaLingua =
+        linguaSelecionada === "Todas" ||
+        sign[1] === linguaSelecionada;
+
+      return combinaTexto && combinaLingua;
+
+    });
+
+
+  const sinal =
+    filtrados[indice];
+
+  if (!sinal) return;
+
+  sinalAtual = sinal;
+
+  document.getElementById(
+    "detalheNome"
+  ).textContent = sinal[0];
+
+  document.getElementById(
+    "detalheLingua"
+  ).textContent =
+    "Língua: " + sinal[1];
+
+  document.getElementById(
+    "detalheCategoria"
+  ).textContent =
+    sinal[2];
+
+  document.getElementById(
+    "detalheDescricao"
+  ).textContent =
+    "Este é o sinal de " +
+    sinal[0] +
+    " na " +
+    sinal[1] +
+    ". Em breve teremos vídeo e imagem demonstrativa.";
+
+  const favorito =
+    document.getElementById(
+      "detalheFavorito"
+    );
+
+  const item =
+    sinal[0] + " - " + sinal[1];
+
+  if (getFavorites().includes(item)) {
+
+    favorito.textContent =
+      "💚 Remover favorito";
+
+  } else {
+
+    favorito.textContent =
+      "❤️ Favoritar";
+
+  }
+
+  openPage("detalhe");
+
+}
+
+
+function favoritarDetalhe() {
+
+  if (!sinalAtual) return;
+
+  const item =
+    sinalAtual[0] +
+    " - " +
+    sinalAtual[1];
+
+  toggleFavorite(item);
+
+  const favorito =
+    document.getElementById(
+      "detalheFavorito"
+    );
+
+  if (getFavorites().includes(item)) {
+
+    favorito.textContent =
+      "💚 Remover favorito";
+
+  } else {
+
+    favorito.textContent =
+      "❤️ Favoritar";
+
+  }
+
+}
+
+
 function renderFavorites() {
 
   const container =
-    document.getElementById("favoriteResults");
+    document.getElementById(
+      "favoriteResults"
+    );
 
   if (!container) return;
 
