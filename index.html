@@ -4,7 +4,9 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>SinalMundo</title>
 
@@ -110,6 +112,10 @@ button {
   font-weight: bold;
 }
 
+button:hover {
+  opacity: 0.9;
+}
+
 .sobre-criadora {
   background: var(--white);
   border: 1px solid var(--border);
@@ -135,7 +141,8 @@ button {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns:
+    repeat(auto-fit, minmax(180px, 1fr));
   gap: 15px;
 }
 
@@ -164,8 +171,30 @@ button {
   margin-bottom: 12px;
 }
 
+/* PESQUISA */
+
+.pesquisa-topo {
+  margin-bottom: 25px;
+}
+
+.pesquisa-topo h1 {
+  color: var(--primary);
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.pesquisa-topo p {
+  color: var(--gray);
+  line-height: 1.5;
+}
+
 .search-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 15px;
   margin: 20px 0;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 .search-box input {
@@ -174,6 +203,163 @@ button {
   border: 1px solid var(--border);
   border-radius: 14px;
   font-size: 16px;
+  outline: none;
+}
+
+.search-box input:focus {
+  border-color: var(--primary);
+}
+
+.filtros {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 25px;
+}
+
+.filtro {
+  background: var(--white);
+  color: var(--dark);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  padding: 10px 15px;
+  border-radius: 12px;
+}
+
+.filtro.ativo {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.categorias {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.categoria {
+  background: var(--green-light);
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.categoria:hover {
+  border-color: var(--primary);
+}
+
+.categoria .icone {
+  font-size: 28px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.categoria strong {
+  color: var(--primary);
+}
+
+.resultado-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.resultado-topo h2 {
+  font-size: 20px;
+}
+
+.contador {
+  color: var(--gray);
+  font-size: 14px;
+}
+
+.sinal-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.sinal-card:hover {
+  transform: translateY(-3px);
+}
+
+.sinal-imagem {
+  height: 130px;
+  background: var(--green-light);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.sinal-card h3 {
+  color: var(--dark);
+  font-size: 19px;
+  margin-bottom: 6px;
+}
+
+.sinal-card .lingua {
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.sinal-card p {
+  color: var(--gray);
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 15px;
+}
+
+.sinal-acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-favorito {
+  flex: 1;
+}
+
+.btn-detalhes {
+  background: var(--green-light);
+  color: var(--primary);
+}
+
+.vazio {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.vazio .icone {
+  font-size: 45px;
+  margin-bottom: 10px;
+}
+
+.vazio h3 {
+  margin-bottom: 8px;
+}
+
+.vazio p {
+  color: var(--gray);
+  line-height: 1.5;
 }
 
 .tema-cores {
@@ -229,13 +415,26 @@ button {
 
 <header>
 
-  <div class="logo">🌎 SinalMundo</div>
+  <div class="logo">
+    🌎 SinalMundo
+  </div>
 
   <nav>
-    <button onclick="openPage('home')">Início</button>
-    <button onclick="openPage('pesquisa')">Pesquisa</button>
-    <button onclick="openPage('favoritos')">Favoritos</button>
-    <button onclick="openPage('perfil')">Perfil</button>
+    <button onclick="openPage('home')">
+      Início
+    </button>
+
+    <button onclick="openPage('pesquisa')">
+      Pesquisa
+    </button>
+
+    <button onclick="openPage('favoritos')">
+      Favoritos
+    </button>
+
+    <button onclick="openPage('perfil')">
+      Perfil
+    </button>
   </nav>
 
 </header>
@@ -246,7 +445,9 @@ button {
 
   <div class="hero">
 
-    <h1>Mais que sinais, conexões.</h1>
+    <h1>
+      Mais que sinais, conexões.
+    </h1>
 
     <p>
       Aprenda línguas de sinais de forma simples,
@@ -261,14 +462,20 @@ button {
 
   <div class="sobre-criadora">
 
-    <h2>Olá, sou Angela Vytorya! 👋🏻</h2>
-
-    <p>Que bom ter você por aqui! 💚</p>
+    <h2>
+      Olá, sou Angela Vytorya! 👋🏻
+    </h2>
 
     <p>
-      Sou a criadora do <strong>SinalMundo</strong>,
-      um projeto criado para aproximar pessoas e culturas
-      por meio das línguas de sinais. 🌎🤟🏻
+      Que bom ter você por aqui! 💚
+    </p>
+
+    <p>
+      Sou a criadora do
+      <strong>SinalMundo</strong>,
+      um projeto criado para aproximar
+      pessoas e culturas por meio das
+      línguas de sinais. 🌎🤟🏻
     </p>
 
   </div>
@@ -281,40 +488,169 @@ button {
 
 </section>
 
+
 <section id="pesquisa" class="page">
 
-  <h2>Pesquisar sinais 🔎</h2>
+  <div class="pesquisa-topo">
+
+    <h1>
+      Pesquisar sinais 🔎
+    </h1>
+
+    <p>
+      Encontre palavras, frases e sinais
+      em diferentes línguas de sinais.
+    </p>
+
+  </div>
 
   <div class="search-box">
 
     <input
       type="text"
       id="searchInput"
-      placeholder="Buscar sinais, palavras ou frases..."
+      placeholder="🔎 Buscar sinais, palavras ou frases..."
       oninput="renderSearch()"
     >
 
   </div>
 
-  <div id="searchResults" class="cards"></div>
+  <div class="filtros">
+
+    <button
+      class="filtro ativo"
+      onclick="filtrarLingua('Todas', this)">
+      🌎 Todas
+    </button>
+
+    <button
+      class="filtro"
+      onclick="filtrarLingua('Libras', this)">
+      🇧🇷 Libras
+    </button>
+
+    <button
+      class="filtro"
+      onclick="filtrarLingua('ASL', this)">
+      🇺🇸 ASL
+    </button>
+
+    <button
+      class="filtro"
+      onclick="filtrarLingua('BSL', this)">
+      🇬🇧 BSL
+    </button>
+
+  </div>
+
+  <h2 class="section-title">
+    Explore por categoria
+  </h2>
+
+  <div class="categorias">
+
+    <div class="categoria"
+      onclick="buscarCategoria('Saudações')">
+
+      <span class="icone">👋</span>
+
+      <strong>Saudações</strong>
+
+    </div>
+
+    <div class="categoria"
+      onclick="buscarCategoria('Amor')">
+
+      <span class="icone">❤️</span>
+
+      <strong>Amor</strong>
+
+    </div>
+
+    <div class="categoria"
+      onclick="buscarCategoria('Dia a dia')">
+
+      <span class="icone">🏠</span>
+
+      <strong>Dia a dia</strong>
+
+    </div>
+
+    <div class="categoria"
+      onclick="buscarCategoria('Educação')">
+
+      <span class="icone">📚</span>
+
+      <strong>Educação</strong>
+
+    </div>
+
+    <div class="categoria"
+      onclick="buscarCategoria('Família')">
+
+      <span class="icone">👨‍👩‍👧</span>
+
+      <strong>Família</strong>
+
+    </div>
+
+    <div class="categoria"
+      onclick="buscarCategoria('Sentimentos')">
+
+      <span class="icone">😊</span>
+
+      <strong>Sentimentos</strong>
+
+    </div>
+
+  </div>
+
+  <div class="resultado-topo">
+
+    <h2>
+      Sinais disponíveis
+    </h2>
+
+    <span
+      id="contadorResultados"
+      class="contador">
+      0 sinais
+    </span>
+
+  </div>
+
+  <div
+    id="searchResults"
+    class="cards">
+  </div>
 
 </section>
 
+
 <section id="favoritos" class="page">
 
-  <h2>Meus favoritos ❤️</h2>
+  <h2 class="section-title">
+    Meus favoritos ❤️
+  </h2>
 
-  <div id="favoriteResults" class="cards"></div>
+  <div
+    id="favoriteResults"
+    class="cards">
+  </div>
 
 </section>
 
 <section id="perfil" class="page">
 
-  <h2>Meu perfil 👤</h2>
+  <h2 class="section-title">
+    Meu perfil 👤
+  </h2>
 
   <div class="profile-card">
 
-    <h3>🎨 Escolha sua cor</h3>
+    <h3>
+      🎨 Escolha sua cor
+    </h3>
 
     <p>
       Escolha a cor principal do SinalMundo.
@@ -361,12 +697,16 @@ button {
 
   </div>
 
+
   <div class="profile-card">
 
-    <h3>Bem-vinda ao SinalMundo! 💚</h3>
+    <h3>
+      Bem-vinda ao SinalMundo! 💚
+    </h3>
 
     <p>
-      Entre ou crie sua conta para salvar seus sinais favoritos.
+      Entre ou crie sua conta para salvar
+      seus sinais favoritos.
     </p>
 
     <button onclick="showComingSoon()">
@@ -375,11 +715,16 @@ button {
 
   </div>
 
+
   <div class="premium-card">
 
-    <h3>⭐ SinalMundo Premium</h3>
+    <h3>
+      ⭐ SinalMundo Premium
+    </h3>
 
-    <p>R$ 50,00 — acesso vitalício</p>
+    <p>
+      R$ 50,00 — acesso vitalício
+    </p>
 
     <button onclick="showComingSoon()">
       Conhecer Premium
@@ -396,56 +741,114 @@ button {
 const languages = [
 
   ["Libras", "🇧🇷", "Língua Brasileira de Sinais"],
+
   ["ASL", "🇺🇸", "American Sign Language"],
+
   ["BSL", "🇬🇧", "British Sign Language"],
+
   ["LSF", "🇫🇷", "Langue des Signes Française"],
+
   ["DGS", "🇩🇪", "Deutsche Gebärdensprache"],
+
   ["JSL", "🇯🇵", "Japanese Sign Language"],
+
   ["LIS", "🇮🇹", "Lingua dei Segni Italiana"],
+
   ["LSE", "🇪🇸", "Lengua de Signos Española"],
+
   ["LGP", "🇵🇹", "Língua Gestual Portuguesa"],
+
   ["Auslan", "🇦🇺", "Australian Sign Language"],
+
   ["NZSL", "🇳🇿", "New Zealand Sign Language"],
+
   ["CSL", "🇨🇳", "Chinese Sign Language"],
+
   ["KSL", "🇰🇷", "Korean Sign Language"],
+
   ["ISL", "🇮🇳", "Indian Sign Language"],
+
   ["RSL", "🇷🇺", "Russian Sign Language"]
 
 ];
 
+
 const signs = [
 
-  ["Olá", "Libras"],
-  ["Amor", "Libras"],
-  ["Obrigado", "Libras"],
+  ["Olá", "Libras", "Saudações"],
 
-  ["Hello", "ASL"],
-  ["Thank you", "ASL"],
-  ["Love", "ASL"],
+  ["Bom dia", "Libras", "Saudações"],
 
-  ["Hello", "BSL"],
-  ["Thank you", "BSL"]
+  ["Boa tarde", "Libras", "Saudações"],
+
+  ["Boa noite", "Libras", "Saudações"],
+
+  ["Obrigado", "Libras", "Dia a dia"],
+
+  ["Amor", "Libras", "Amor"],
+
+  ["Família", "Libras", "Família"],
+
+  ["Escola", "Libras", "Educação"],
+
+  ["Feliz", "Libras", "Sentimentos"],
+
+
+  ["Hello", "ASL", "Saudações"],
+
+  ["Good morning", "ASL", "Saudações"],
+
+  ["Thank you", "ASL", "Dia a dia"],
+
+  ["Love", "ASL", "Amor"],
+
+  ["Family", "ASL", "Família"],
+
+  ["School", "ASL", "Educação"],
+
+  ["Happy", "ASL", "Sentimentos"],
+
+
+  ["Hello", "BSL", "Saudações"],
+
+  ["Thank you", "BSL", "Dia a dia"],
+
+  ["Love", "BSL", "Amor"],
+
+  ["Family", "BSL", "Família"],
+
+  ["School", "BSL", "Educação"],
+
+  ["Happy", "BSL", "Sentimentos"]
 
 ];
+
+let linguaSelecionada = "Todas";
 
 function renderLanguages() {
 
   const container =
     document.getElementById("languageCards");
 
-  container.innerHTML = languages.map(language => `
+  container.innerHTML =
+    languages.map(language => `
 
-    <div class="card">
+      <div class="card">
 
-      <h3>${language[1]} ${language[0]}</h3>
+        <h3>
+          ${language[1]} ${language[0]}
+        </h3>
 
-      <p>${language[2]}</p>
+        <p>
+          ${language[2]}
+        </p>
 
-    </div>
+      </div>
 
-  `).join("");
+    `).join("");
 
 }
+
 
 function renderSearch() {
 
@@ -455,43 +858,160 @@ function renderSearch() {
   const results =
     document.getElementById("searchResults");
 
+  const contador =
+    document.getElementById("contadorResultados");
+
   if (!input || !results) return;
 
-  const text =
-    input.value.toLowerCase();
+  const texto =
+    input.value.toLowerCase().trim();
 
-  const filtered =
-    signs.filter(sign =>
-      sign[0].toLowerCase().includes(text) ||
-      sign[1].toLowerCase().includes(text)
-    );
+  let filtrados = signs.filter(sign => {
 
-  results.innerHTML = filtered.map(sign => `
+    const combinaTexto =
+      sign[0].toLowerCase().includes(texto) ||
+      sign[1].toLowerCase().includes(texto) ||
+      sign[2].toLowerCase().includes(texto);
 
-    <div class="card">
+    const combinaLingua =
+      linguaSelecionada === "Todas" ||
+      sign[1] === linguaSelecionada;
 
-      <h3>${sign[0]}</h3>
+    return combinaTexto && combinaLingua;
 
-      <p>Língua: ${sign[1]}</p>
+  });
 
-      <button
-        onclick="toggleFavorite('${sign[0]} - ${sign[1]}')">
-        ❤️ Favoritar
-      </button>
 
-    </div>
+  if (contador) {
 
-  `).join("");
+    contador.textContent =
+      filtrados.length +
+      (filtrados.length === 1
+        ? " sinal"
+        : " sinais");
+
+  }
+
+
+  if (filtrados.length === 0) {
+
+    results.innerHTML = `
+
+      <div class="vazio">
+
+        <div class="icone">
+          🔎
+        </div>
+
+        <h3>
+          Nenhum sinal encontrado
+        </h3>
+
+        <p>
+          Tente pesquisar outra palavra
+          ou escolher outra língua.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  results.innerHTML =
+    filtrados.map(sign => `
+
+      <div class="sinal-card">
+
+        <div class="sinal-imagem">
+          🤟🏻
+        </div>
+
+        <h3>
+          ${sign[0]}
+        </h3>
+
+        <div class="lingua">
+          ${sign[1]}
+        </div>
+
+        <p>
+          Categoria: ${sign[2]}
+        </p>
+
+        <div class="sinal-acoes">
+
+          <button
+            class="btn-favorito"
+            onclick="toggleFavorite('${sign[0]} - ${sign[1]}')">
+
+            ❤️ Favoritar
+
+          </button>
+
+          <button
+            class="btn-detalhes"
+            onclick="showComingSoon()">
+
+            Ver sinal
+
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
 
 }
+
+
+function filtrarLingua(lingua, botao) {
+
+  linguaSelecionada = lingua;
+
+  document
+    .querySelectorAll(".filtro")
+    .forEach(item => {
+
+      item.classList.remove("ativo");
+
+    });
+
+  botao.classList.add("ativo");
+
+  renderSearch();
+
+}
+
+
+function buscarCategoria(categoria) {
+
+  const input =
+    document.getElementById("searchInput");
+
+  if (!input) return;
+
+  input.value = categoria;
+
+  renderSearch();
+
+}
+
 
 function getFavorites() {
 
   return JSON.parse(
-    localStorage.getItem("sinalMundoFavorites") || "[]"
+    localStorage.getItem(
+      "sinalMundoFavorites"
+    ) || "[]"
   );
 
 }
+
 
 function saveFavorites(favorites) {
 
@@ -502,14 +1022,18 @@ function saveFavorites(favorites) {
 
 }
 
+
 function toggleFavorite(item) {
 
-  let favorites = getFavorites();
+  let favorites =
+    getFavorites();
 
   if (favorites.includes(item)) {
 
     favorites =
-      favorites.filter(f => f !== item);
+      favorites.filter(
+        favorite => favorite !== item
+      );
 
   } else {
 
@@ -521,6 +1045,8 @@ function toggleFavorite(item) {
 
   renderFavorites();
 
+  renderSearch();
+
 }
 
 function renderFavorites() {
@@ -530,41 +1056,78 @@ function renderFavorites() {
 
   if (!container) return;
 
-  const favorites = getFavorites();
+  const favorites =
+    getFavorites();
 
   if (favorites.length === 0) {
 
     container.innerHTML = `
-      <div class="card">
-        <p>Você ainda não tem sinais favoritos. 💚</p>
+
+      <div class="vazio">
+
+        <div class="icone">
+          ❤️
+        </div>
+
+        <h3>
+          Seus favoritos estão vazios
+        </h3>
+
+        <p>
+          Pesquise um sinal e toque em
+          "Favoritar" para salvá-lo aqui.
+        </p>
+
       </div>
+
     `;
 
     return;
-
   }
 
-  container.innerHTML = favorites.map(item => `
 
-    <div class="card">
+  container.innerHTML =
+    favorites.map(item => `
 
-      <h3>❤️ ${item}</h3>
+      <div class="sinal-card">
 
-      <button onclick="toggleFavorite('${item}')">
-        Remover
-      </button>
+        <div class="sinal-imagem">
+          ❤️
+        </div>
 
-    </div>
+        <h3>
+          ${item}
+        </h3>
 
-  `).join("");
+        <p>
+          Sinal salvo nos seus favoritos.
+        </p>
+
+        <button
+          class="btn-favorito"
+          onclick="toggleFavorite('${item}')">
+
+          Remover dos favoritos
+
+        </button>
+
+      </div>
+
+    `).join("");
 
 }
 
+
 function openPage(pageId) {
 
-  document.querySelectorAll(".page").forEach(page => {
-    page.style.display = "none";
-  });
+  document
+    .querySelectorAll(".page")
+    .forEach(page => {
+
+      page.style.display = "none";
+
+    });
+
 
   const page =
     document.getElementById(pageId);
@@ -577,7 +1140,22 @@ function openPage(pageId) {
 
   }
 
+
+  if (pageId === "pesquisa") {
+
+    renderSearch();
+
+  }
+
+
+  if (pageId === "favoritos") {
+
+    renderFavorites();
+
+  }
+
 }
+
 
 function showComingSoon() {
 
@@ -587,12 +1165,14 @@ function showComingSoon() {
 
 }
 
+
 function mudarCor(cor) {
 
-  document.documentElement.style.setProperty(
-    "--primary",
-    cor
-  );
+  document.documentElement
+    .style.setProperty(
+      "--primary",
+      cor
+    );
 
   localStorage.setItem(
     "sinalMundoCor",
@@ -601,20 +1181,28 @@ function mudarCor(cor) {
 
 }
 
+
 const corSalva =
-  localStorage.getItem("sinalMundoCor");
+  localStorage.getItem(
+    "sinalMundoCor"
+  );
+
 
 if (corSalva) {
 
-  document.documentElement.style.setProperty(
-    "--primary",
-    corSalva
-  );
+  document.documentElement
+    .style.setProperty(
+      "--primary",
+      corSalva
+    );
 
 }
 
+
 renderLanguages();
+
 renderSearch();
+
 renderFavorites();
 
 </script>
