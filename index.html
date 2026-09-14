@@ -1,73 +1,46 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>SinalMundo</title>
-    .tema-cores {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 15px;
-    }
+<meta charset="UTF-8">
 
-    .cor-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      border: 3px solid white;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .verde { background: #6B8E23; }
-    .azul { background: #2563EB; }
-    .amarelo { background: #EAB308; }
-    .rosa { background: #EC4899; }
-    .roxo { background: #7C3AED; }
-    .laranja { background: #F97316; }
-    .azul-claro { background: #38BDF8; }
-    .escuro { background: #202124; }
-function mudarCor(cor) {
-  document.documentElement.style.setProperty("--primary", cor);
-  localStorage.setItem("sinalMundoCor", cor);
+<title>SinalMundo</title>
+
+<style>
+
+:root {
+  --primary: #6B8E23;
+  --green-light: #EEF5DF;
+  --white: #FFFFFF;
+  --dark: #202124;
+  --gray: #6B7280;
+  --light: #F5F7FB;
+  --border: #E5E7EB;
 }
 
-const corSalva = localStorage.getItem("sinalMundoCor");
-
-if (corSalva) {
-  document.documentElement.style.setProperty("--primary", corSalva);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-  </style>
-    :root {
-      --primary: #6B8E23;
-      --green-light: #EEF5DF;
-      --green-soft: #E5EFD2;
-      --white: #FFFFFF;
-      --dark: #202124;
-      --gray: #6B7280;
-      --light: #F5F7FB;
-      --border: #E5E7EB;
-    }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: var(--light);
+  color: var(--dark);
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: var(--light);
-      color: var(--dark);
-    }
-  </style>
+</style>
+
 </head>
 
 <body>
 
 <header>
+
   <div class="logo">🌎 SinalMundo</div>
 
   <nav>
@@ -76,309 +49,278 @@ if (corSalva) {
     <button onclick="openPage('favoritos')">Favoritos</button>
     <button onclick="openPage('perfil')">Perfil</button>
   </nav>
+
 </header>
-
-<style>
-  header {
-    background: var(--white);
-    padding: 18px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    font-size: 22px;
-    font-weight: bold;
-    color: var(--primary);
-  }
-
-  nav {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  nav button {
-    border: none;
-    background: transparent;
-    color: var(--dark);
-    padding: 9px 12px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-
-  nav button:hover {
-    background: var(--green-light);
-    color: var(--primary);
-  }
-</style>
 
 <main>
 
-  <section id="home" class="page">
+<section id="home" class="page">
 
-    <div class="hero">
-      <h1>Mais que sinais, conexões.</h1>
+  <div class="hero">
 
-      <p>
-        Aprenda línguas de sinais de forma simples,
-        visual e acessível.
-      </p>
+    <h1>Mais que sinais, conexões.</h1>
 
-      <button onclick="openPage('pesquisa')">
-        Começar a aprender
-      </button>
-    </div>
+    <p>
+      Aprenda línguas de sinais de forma simples,
+      visual e acessível.
+    </p>
 
-    <div class="sobre-criadora">
-      <h2>Olá, sou Angela Vytorya! 👋🏻</h2>
+    <button onclick="openPage('pesquisa')">
+      Começar a aprender
+    </button>
 
-      <p>Que bom ter você por aqui! 💚</p>
-
-      <p>
-        Sou a criadora do <strong>SinalMundo</strong>, um projeto
-        criado para aproximar pessoas e culturas por meio das
-        línguas de sinais. 🌎🤟🏻
-      </p>
-    </div>
-
-    <h2 class="section-title">
-      Línguas de sinais
-    </h2>
-
-    <div id="languageCards" class="cards"></div>
-
-  </section>
-
-  <section id="pesquisa" class="page">
-
-    <h2>Pesquisar sinais 🔎</h2>
-
-    <div class="search-box">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Buscar sinais, palavras ou frases..."
-        oninput="renderSearch()"
-      >
-    </div>
-
-    <div id="searchResults" class="cards"></div>
-
-  </section>
-
-  <section id="favoritos" class="page">
-
-    <h2>Meus favoritos ❤️</h2>
-
-    <div id="favoriteResults" class="cards"></div>
-
-  </section>
-
-  <section id="perfil" class="page">
-
-    <h2>Meu perfil 👤</h2>
-<div class="profile-card">
-  <h3>🎨 Escolha sua cor</h3>
-
-  <div class="tema-cores">
-    <button class="cor-btn verde" onclick="mudarCor('#6B8E23')"></button>
-    <button class="cor-btn azul" onclick="mudarCor('#2563EB')"></button>
-    <button class="cor-btn amarelo" onclick="mudarCor('#EAB308')"></button>
-    <button class="cor-btn rosa" onclick="mudarCor('#EC4899')"></button>
-    <button class="cor-btn roxo" onclick="mudarCor('#7C3AED')"></button>
-    <button class="cor-btn laranja" onclick="mudarCor('#F97316')"></button>
-    <button class="cor-btn azul-claro" onclick="mudarCor('#38BDF8')"></button>
-    <button class="cor-btn escuro" onclick="mudarCor('#202124')"></button>
   </div>
-</div>
-    <div class="profile-card">
-      <h3>Bem-vinda ao SinalMundo! 💚</h3>
 
-      <p>
-        Entre ou crie sua conta para salvar seus sinais favoritos.
-      </p>
+  <div class="sobre-criadora">
 
-      <button onclick="showComingSoon()">
-        Entrar / Criar conta
-      </button>
-    </div>
+    <h2>Olá, sou Angela Vytorya! 👋🏻</h2>
 
-    <div class="premium-card">
-      <h3>⭐ SinalMundo Premium</h3>
+    <p>Que bom ter você por aqui! 💚</p>
 
-      <p>R$ 50,00 — acesso vitalício</p>
+    <p>
+      Sou a criadora do <strong>SinalMundo</strong>,
+      um projeto criado para aproximar pessoas e culturas
+      por meio das línguas de sinais. 🌎🤟🏻
+    </p>
 
-      <button onclick="showComingSoon()">
-        Conhecer Premium
-      </button>
-    </div>
+  </div>
 
-  </section>
+  <h2 class="section-title">
+    Línguas de sinais
+  </h2>
+
+  <div id="languageCards" class="cards"></div>
+
+</section>
+
+<section id="pesquisa" class="page">
+
+  <h2>Pesquisar sinais 🔎</h2>
+
+  <div class="search-box">
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Buscar sinais, palavras ou frases..."
+      oninput="renderSearch()"
+    >
+
+  </div>
+
+  <div id="searchResults" class="cards"></div>
+
+</section>
+
+<section id="favoritos" class="page">
+
+  <h2>Meus favoritos ❤️</h2>
+
+  <div id="favoriteResults" class="cards"></div>
+
+</section>
+
+<section id="perfil" class="page">
+
+  <h2>Meu perfil 👤</h2>
+
+  <div class="profile-card">
+
+    <h3>Bem-vinda ao SinalMundo! 💚</h3>
+
+    <p>
+      Entre ou crie sua conta para salvar seus sinais favoritos.
+    </p>
+
+    <button onclick="showComingSoon()">
+      Entrar / Criar conta
+    </button>
+
+  </div>
+
+  <div class="premium-card">
+
+    <h3>⭐ SinalMundo Premium</h3>
+
+    <p>R$ 50,00 — acesso vitalício</p>
+
+    <button onclick="showComingSoon()">
+      Conhecer Premium
+    </button>
+
+  </div>
+
+</section>
 
 </main>
 
 <style>
-  .page {
-    display: none;
-    max-width: 1000px;
-    margin: auto;
-    padding: 30px 20px;
-  }
 
-  .page:first-of-type {
-    display: block;
-  }
+.page {
+  display: none;
+  max-width: 1000px;
+  margin: auto;
+  padding: 30px 20px;
+}
 
-  .hero {
-    background: var(--green-light);
-    padding: 35px 25px;
-    border-radius: 20px;
-    text-align: center;
-    margin-bottom: 25px;
-  }
+.page:first-of-type {
+  display: block;
+}
 
-  .hero h1 {
-    color: var(--primary);
-    font-size: 32px;
-    margin-bottom: 12px;
-  }
+.hero {
+  background: var(--green-light);
+  padding: 35px 25px;
+  border-radius: 20px;
+  text-align: center;
+  margin-bottom: 25px;
+}
 
-  .hero p {
-    color: var(--gray);
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
+.hero h1 {
+  color: var(--primary);
+  font-size: 32px;
+  margin-bottom: 12px;
+}
 
-  button {
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: bold;
-  }
+.hero p {
+  color: var(--gray);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
 
-  .sobre-criadora {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 22px;
-    margin: 25px 0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  }
+button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-  .sobre-criadora h2 {
-    color: var(--primary);
-    margin-bottom: 10px;
-  }
+.sobre-criadora {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  margin: 25px 0;
+}
 
-  .sobre-criadora p {
-    color: var(--gray);
-    line-height: 1.5;
-    margin-top: 8px;
-  }
+.sobre-criadora h2 {
+  color: var(--primary);
+  margin-bottom: 10px;
+}
 
-  .section-title {
-    margin: 30px 0 15px;
-  }
+.sobre-criadora p {
+  color: var(--gray);
+  line-height: 1.5;
+  margin-top: 8px;
+}
 
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-  }
+.section-title {
+  margin: 30px 0 15px;
+}
 
-  .card,
-  .profile-card,
-  .premium-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 15px;
-  }
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+}
 
-  .card h3,
-  .profile-card h3,
-  .premium-card h3 {
-    color: var(--primary);
-    margin-bottom: 8px;
-  }
+.card,
+.profile-card,
+.premium-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
 
-  .card p,
-  .profile-card p,
-  .premium-card p {
-    color: var(--gray);
-    line-height: 1.5;
-    margin-bottom: 12px;
-  }
+.card h3,
+.profile-card h3,
+.premium-card h3 {
+  color: var(--primary);
+  margin-bottom: 8px;
+}
 
-  .search-box {
-    margin: 20px 0;
-  }
+.card p,
+.profile-card p,
+.premium-card p {
+  color: var(--gray);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
 
-  .search-box input {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    font-size: 16px;
-    outline: none;
-  }
+.search-box {
+  margin: 20px 0;
+}
 
-  .search-box input:focus {
-    border-color: var(--primary);
-  }
+.search-box input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-size: 16px;
+}
+
 </style>
 
 <script>
-  const languages = [
-    ["Libras", "🇧🇷", "Língua Brasileira de Sinais"],
-    ["ASL", "🇺🇸", "American Sign Language"],
-    ["BSL", "🇬🇧", "British Sign Language"],
-    ["LSF", "🇫🇷", "Langue des Signes Française"],
-    ["DGS", "🇩🇪", "Deutsche Gebärdensprache"],
-    ["JSL", "🇯🇵", "Japanese Sign Language"],
-    ["LIS", "🇮🇹", "Lingua dei Segni Italiana"],
-    ["LSE", "🇪🇸", "Lengua de Signos Española"],
-    ["LGP", "🇵🇹", "Língua Gestual Portuguesa"],
-    ["Auslan", "🇦🇺", "Australian Sign Language"],
-    ["NZSL", "🇳🇿", "New Zealand Sign Language"],
-    ["CSL", "🇨🇳", "Chinese Sign Language"],
-    ["KSL", "🇰🇷", "Korean Sign Language"],
-    ["ISL", "🇮🇳", "Indian Sign Language"],
-    ["RSL", "🇷🇺", "Russian Sign Language"]
-  ];
 
-  const signs = [
-    ["Olá", "Libras"],
-    ["Amor", "Libras"],
-    ["Obrigado", "Libras"],
-    ["Hello", "ASL"],
-    ["Thank you", "ASL"],
-    ["Love", "ASL"],
-    ["Hello", "BSL"],
-    ["Thank you", "BSL"]
-  ];
+const languages = [
 
-  function renderLanguages() {
-    const container = document.getElementById("languageCards");
+  ["Libras", "🇧🇷", "Língua Brasileira de Sinais"],
 
-    container.innerHTML = languages.map(language => `
-      <div class="card">
-        <h3>${language[1]} ${language[0]}</h3>
-        <p>${language[2]}</p>
-      </div>
-    `).join("");
-  }
+  ["ASL", "🇺🇸", "American Sign Language"],
+
+  ["BSL", "🇬🇧", "British Sign Language"],
+
+  ["LSF", "🇫🇷", "Langue des Signes Française"],
+
+  ["DGS", "🇩🇪", "Deutsche Gebärdensprache"],
+
+  ["JSL", "🇯🇵", "Japanese Sign Language"],
+
+  ["LIS", "🇮🇹", "Lingua dei Segni Italiana"],
+
+  ["LSE", "🇪🇸", "Lengua de Signos Española"],
+
+  ["LGP", "🇵🇹", "Língua Gestual Portuguesa"],
+
+  ["Auslan", "🇦🇺", "Australian Sign Language"],
+
+  ["NZSL", "🇳🇿", "New Zealand Sign Language"],
+
+  ["CSL", "🇨🇳", "Chinese Sign Language"],
+
+  ["KSL", "🇰🇷", "Korean Sign Language"],
+
+  ["ISL", "🇮🇳", "Indian Sign Language"],
+
+  ["RSL", "🇷🇺", "Russian Sign Language"]
+
+];
+
+function renderLanguages() {
+
+  const container = document.getElementById("languageCards");
+
+  container.innerHTML = languages.map(language => `
+
+    <div class="card">
+
+      <h3>${language[1]} ${language[0]}</h3>
+
+      <p>${language[2]}</p>
+
+    </div>
+
+  `).join("");
+
+}
 
   function renderSearch() {
+
     const input = document.getElementById("searchInput");
     const results = document.getElementById("searchResults");
 
@@ -392,69 +334,114 @@ if (corSalva) {
     );
 
     results.innerHTML = filtered.map(sign => `
+
       <div class="card">
+
         <h3>${sign[0]}</h3>
+
         <p>Língua: ${sign[1]}</p>
+
         <button onclick="toggleFavorite('${sign[0]} - ${sign[1]}')">
           ❤️ Favoritar
         </button>
+
       </div>
+
     `).join("");
+
   }
 
+  const signs = [
+
+    ["Olá", "Libras"],
+    ["Amor", "Libras"],
+    ["Obrigado", "Libras"],
+
+    ["Hello", "ASL"],
+    ["Thank you", "ASL"],
+    ["Love", "ASL"],
+
+    ["Hello", "BSL"],
+    ["Thank you", "BSL"]
+
+  ];
+
   function getFavorites() {
+
     return JSON.parse(
       localStorage.getItem("sinalMundoFavorites") || "[]"
     );
+
   }
 
   function saveFavorites(favorites) {
+
     localStorage.setItem(
       "sinalMundoFavorites",
       JSON.stringify(favorites)
     );
+
   }
 
   function toggleFavorite(item) {
+
     let favorites = getFavorites();
 
     if (favorites.includes(item)) {
+
       favorites = favorites.filter(f => f !== item);
+
     } else {
+
       favorites.push(item);
+
     }
 
     saveFavorites(favorites);
+
     renderFavorites();
+
   }
 
   function renderFavorites() {
-    const container = document.getElementById("favoriteResults");
+
+    const container =
+      document.getElementById("favoriteResults");
 
     if (!container) return;
 
     const favorites = getFavorites();
 
     if (favorites.length === 0) {
+
       container.innerHTML = `
         <div class="card">
           <p>Você ainda não tem sinais favoritos. 💚</p>
         </div>
       `;
+
       return;
+
     }
 
     container.innerHTML = favorites.map(item => `
+
       <div class="card">
+
         <h3>❤️ ${item}</h3>
+
         <button onclick="toggleFavorite('${item}')">
           Remover
         </button>
+
       </div>
+
     `).join("");
+
   }
 
   function openPage(pageId) {
+
     document.querySelectorAll(".page").forEach(page => {
       page.style.display = "none";
     });
@@ -462,19 +449,56 @@ if (corSalva) {
     const page = document.getElementById(pageId);
 
     if (page) {
+
       page.style.display = "block";
+
       window.scrollTo(0, 0);
+
     }
+
   }
 
   function showComingSoon() {
+
     alert("Essa função estará disponível em breve! 💚");
+
   }
 
   renderLanguages();
+
   renderSearch();
+
   renderFavorites();
+
+  function mudarCor(cor) {
+
+    document.documentElement.style.setProperty(
+      "--primary",
+      cor
+    );
+
+    localStorage.setItem(
+      "sinalMundoCor",
+      cor
+    );
+
+  }
+
+  const corSalva =
+    localStorage.getItem("sinalMundoCor");
+
+  if (corSalva) {
+
+    document.documentElement.style.setProperty(
+      "--primary",
+      corSalva
+    );
+
+  }
+
 </script>
 
 </body>
+
 </html>
+
