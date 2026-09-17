@@ -1,745 +1,802 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SinalMundo</title>
 
 <style>
-
-:root {
-  --primary: #6B8E23;
-  --green-light: #EEF5DF;
-  --white: #FFFFFF;
-  --dark: #202124;
-  --gray: #6B7280;
-  --light: #F5F7FB;
-  --border: #E5E7EB;
+:root{
+  --primary:#6B8E23;
+  --green-light:#EEF5DF;
+  --white:#FFFFFF;
+  --dark:#202124;
+  --gray:#6B7280;
+  --light:#F5F7FB;
+  --border:#E5E7EB;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background: var(--light);
-  color: var(--dark);
+body{
+  font-family:Arial,sans-serif;
+  background:var(--light);
+  color:var(--dark);
 }
 
-header {
-  background: var(--white);
-  padding: 18px 20px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  flex-wrap: wrap;
+button{
+  border:none;
+  cursor:pointer;
+  font-size:15px;
 }
 
-.logo {
-  font-size: 22px;
-  font-weight: bold;
-  color: var(--primary);
+header{
+  background:white;
+  border-bottom:1px solid var(--border);
+  padding:15px 20px;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
-nav {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+.header{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
 }
 
-nav button {
-  border: none;
-  background: transparent;
-  color: var(--dark);
-  padding: 9px 12px;
-  border-radius: 10px;
-  cursor: pointer;
+.logo{
+  color:var(--primary);
+  font-size:25px;
+  font-weight:bold;
 }
 
-nav button:hover {
-  background: var(--green-light);
-  color: var(--primary);
+nav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
-.page {
-  display: none;
-  max-width: 1000px;
-  margin: auto;
-  padding: 30px 20px;
+nav button{
+  background:white;
+  color:#555;
+  padding:10px 13px;
+  border-radius:10px;
 }
 
-.page:first-of-type {
-  display: block;
+nav button:hover{
+  background:var(--green-light);
+  color:var(--primary);
 }
 
-.hero {
-  background: var(--green-light);
-  padding: 35px 25px;
-  border-radius: 20px;
-  text-align: center;
-  margin-bottom: 25px;
+.page{
+  display:none;
+  max-width:1100px;
+  margin:auto;
+  padding:35px 20px;
 }
 
-.hero h1 {
-  color: var(--primary);
-  font-size: 32px;
-  margin-bottom: 12px;
+.page.active{
+  display:block;
 }
 
-.hero p {
-  color: var(--gray);
-  margin-bottom: 20px;
-  line-height: 1.5;
+/* INÍCIO */
+
+.hero{
+  background:var(--primary);
+  color:white;
+  border-radius:25px;
+  padding:55px 30px;
+  text-align:center;
+  margin-bottom:35px;
 }
 
-button {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 12px 18px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: bold;
+.hero h1{
+  font-size:40px;
+  margin-bottom:15px;
 }
 
-button:hover {
-  opacity: 0.9;
+.hero p{
+  font-size:18px;
+  line-height:1.6;
+  max-width:700px;
+  margin:auto;
 }
 
-.sobre-criadora {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 22px;
-  margin: 25px 0;
+.hero-buttons{
+  margin-top:25px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
 }
 
-.sobre-criadora h2 {
-  color: var(--primary);
-  margin-bottom: 10px;
+.btn{
+  padding:13px 20px;
+  border-radius:12px;
+  font-weight:bold;
 }
 
-.sobre-criadora p {
-  color: var(--gray);
-  line-height: 1.5;
-  margin-top: 8px;
+.btn-white{
+  background:white;
+  color:var(--primary);
 }
 
-.section-title {
-  margin: 30px 0 15px;
+.btn-green{
+  background:var(--primary);
+  color:white;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns:
-    repeat(auto-fit, minmax(180px, 1fr));
-  gap: 15px;
+/* CRIADORA */
+
+.criadora{
+  display:flex;
+  align-items:center;
+  gap:30px;
+  background:white;
+  border-radius:24px;
+  padding:30px;
+  margin-bottom:35px;
+  box-shadow:0 8px 25px rgba(0,0,0,.06);
 }
 
-.card,
-.profile-card,
-.premium-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 20px;
-  margin-bottom: 15px;
+.criadora-foto{
+  width:280px;
+  flex-shrink:0;
 }
 
-.card h3,
-.profile-card h3,
-.premium-card h3 {
-  color: var(--primary);
-  margin-bottom: 8px;
+.criadora-foto img{
+  width:100%;
+  height:350px;
+  object-fit:cover;
+  border-radius:22px;
+  display:block;
 }
 
-.card p,
-.profile-card p,
-.premium-card p {
-  color: var(--gray);
-  line-height: 1.5;
-  margin-bottom: 12px;
+.criadora-texto{
+  flex:1;
+}
+
+.criadora-texto h2{
+  color:var(--primary);
+  font-size:28px;
+  margin-bottom:15px;
+}
+
+.criadora-texto p{
+  color:#555;
+  font-size:17px;
+  line-height:1.7;
+  margin-bottom:12px;
+}
+
+.criadora-frase{
+  margin-top:20px;
+  padding:15px;
+  background:var(--green-light);
+  color:var(--primary);
+  border-radius:14px;
+  font-weight:bold;
+}
+
+/* IDIOMAS */
+
+.titulo{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.titulo h2{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.titulo p{
+  color:var(--gray);
+}
+
+.idiomas{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
+}
+
+.idioma{
+  background:white;
+  padding:22px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  text-align:center;
+}
+
+.idioma .emoji{
+  font-size:35px;
+  margin-bottom:10px;
+}
+
+.idioma h3{
+  color:var(--primary);
+  margin-bottom:6px;
+}
+
+.idioma p{
+  color:var(--gray);
 }
 
 /* PESQUISA */
 
-.pesquisa-topo {
-  margin-bottom: 25px;
+.pesquisa-box{
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  margin-bottom:20px;
 }
 
-.pesquisa-topo h1 {
-  color: var(--primary);
-  font-size: 30px;
-  margin-bottom: 8px;
+.search{
+  width:100%;
+  padding:15px;
+  border:2px solid var(--border);
+  border-radius:14px;
+  font-size:16px;
+  outline:none;
 }
 
-.pesquisa-topo p {
-  color: var(--gray);
-  line-height: 1.5;
+.search:focus{
+  border-color:var(--primary);
 }
 
-.search-box {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 15px;
-  margin: 20px 0;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+.filtros{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:15px;
 }
 
-.search-box input {
-  width: 100%;
-  padding: 15px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  font-size: 16px;
-  outline: none;
+.filtro{
+  padding:9px 14px;
+  background:var(--light);
+  border-radius:10px;
+  color:#555;
 }
 
-.search-box input:focus {
-  border-color: var(--primary);
+.filtro.active{
+  background:var(--primary);
+  color:white;
 }
 
-.filtros {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  margin-bottom: 25px;
+.categorias{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:15px;
 }
 
-.filtro {
-  background: var(--white);
-  color: var(--dark);
-  border: 1px solid var(--border);
-  white-space: nowrap;
-  padding: 10px 15px;
-  border-radius: 12px;
+.categoria{
+  padding:8px 13px;
+  background:var(--green-light);
+  color:var(--primary);
+  border-radius:10px;
 }
 
-.filtro.ativo {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
+.resultado{
+  color:var(--gray);
+  margin:20px 0;
 }
 
-.categorias {
-  display: grid;
-  grid-template-columns:
-    repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
-  margin-bottom: 30px;
+.sinais{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:18px;
 }
 
-.categoria {
-  background: var(--green-light);
-  border-radius: 16px;
-  padding: 18px;
-  text-align: center;
-  cursor: pointer;
-  border: 1px solid transparent;
+.sinal-card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
 }
 
-.categoria:hover {
-  border-color: var(--primary);
+.sinal-imagem{
+  height:150px;
+  background:var(--green-light);
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:60px;
+  margin-bottom:15px;
 }
 
-.categoria .icone {
-  font-size: 28px;
-  display: block;
-  margin-bottom: 8px;
+.sinal-card h3{
+  margin-bottom:6px;
 }
 
-.categoria strong {
-  color: var(--primary);
+.sinal-lingua{
+  color:var(--primary);
+  font-weight:bold;
+  margin-bottom:5px;
 }
 
-.resultado-topo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
-  flex-wrap: wrap;
+.sinal-categoria{
+  color:var(--gray);
+  font-size:14px;
 }
 
-.resultado-topo h2 {
-  font-size: 20px;
+.sinal-acoes{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
 }
 
-.contador {
-  color: var(--gray);
-  font-size: 14px;
+.sinal-acoes button{
+  flex:1;
+  padding:10px;
+  border-radius:10px;
 }
 
-.sinal-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 20px;
-  position: relative;
-  transition: transform 0.2s;
+.btn-fav{
+  background:#f5f5f5;
 }
 
-.sinal-card:hover {
-  transform: translateY(-3px);
+.btn-ver{
+  background:var(--primary);
+  color:white;
 }
 
-.sinal-imagem {
-  height: 130px;
-  background: var(--green-light);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 48px;
-  margin-bottom: 15px;
+/* DETALHE */
+
+.detalhe-sinal{
+  max-width:700px;
+  margin:auto;
 }
 
-.sinal-card h3 {
-  color: var(--dark);
-  font-size: 19px;
-  margin-bottom: 6px;
+.detalhe-voltar{
+  background:white;
+  color:var(--primary);
+  padding:11px 15px;
+  border-radius:12px;
+  margin-bottom:20px;
 }
 
-.sinal-card .lingua {
-  color: var(--primary);
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 8px;
+.detalhe-card{
+  background:white;
+  border-radius:25px;
+  padding:30px;
+  text-align:center;
 }
 
-.sinal-card p {
-  color: var(--gray);
-  font-size: 14px;
-  line-height: 1.4;
-  margin-bottom: 15px;
+.detalhe-imagem{
+  height:300px;
+  background:var(--green-light);
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:100px;
+  margin-bottom:25px;
 }
 
-.sinal-acoes {
-  display: flex;
-  gap: 8px;
+.detalhe-card h1{
+  font-size:32px;
+  margin-bottom:10px;
 }
 
-.btn-favorito {
-  flex: 1;
+.detalhe-lingua{
+  color:var(--primary);
+  font-weight:bold;
+  font-size:18px;
 }
 
-.btn-detalhes {
-  background: var(--green-light);
-  color: var(--primary);
+.detalhe-categoria{
+  display:inline-block;
+  background:var(--green-light);
+  color:var(--primary);
+  padding:8px 13px;
+  border-radius:10px;
+  margin-top:12px;
 }
 
-.vazio {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 30px 20px;
-  text-align: center;
+.detalhe-descricao{
+  color:#555;
+  line-height:1.7;
+  margin:20px 0;
 }
 
-.vazio .icone {
-  font-size: 45px;
-  margin-bottom: 10px;
+.detalhe-acoes button{
+  padding:13px 20px;
+  border-radius:12px;
+  background:var(--primary);
+  color:white;
 }
 
-.vazio h3 {
-  margin-bottom: 8px;
+/* FAVORITOS */
+
+.lista-favoritos{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:18px;
 }
 
-.vazio p {
-  color: var(--gray);
-  line-height: 1.5;
+/* PERFIL */
+
+.perfil-card{
+  background:white;
+  border-radius:25px;
+  padding:30px;
+  max-width:700px;
+  margin:auto;
 }
 
-/* TELA DO SINAL */
-
-.detalhe-sinal {
-  max-width: 700px;
-  margin: auto;
+.perfil-card h2{
+  color:var(--primary);
+  margin-bottom:20px;
 }
 
-.detalhe-voltar {
-  background: transparent;
-  color: var(--primary);
-  padding: 8px 0;
-  margin-bottom: 20px;
+.opcao{
+  padding:18px 0;
+  border-bottom:1px solid var(--border);
 }
 
-.detalhe-voltar:hover {
-  background: transparent;
-  opacity: 0.8;
+.opcao:last-child{
+  border-bottom:none;
 }
 
-.detalhe-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 25px;
-  text-align: center;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+.cores{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
 }
 
-.detalhe-imagem {
-  height: 260px;
-  background: var(--green-light);
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 90px;
-  margin-bottom: 25px;
+.cor{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:3px solid white;
+  box-shadow:0 0 0 1px #ddd;
 }
 
-.detalhe-card h1 {
-  color: var(--primary);
-  font-size: 32px;
-  margin-bottom: 10px;
+.cor.verde{
+  background:#6B8E23;
 }
 
-.detalhe-lingua {
-  color: var(--gray);
-  font-size: 16px;
-  margin-bottom: 8px;
+.cor.azul{
+  background:#2563EB;
 }
 
-.detalhe-categoria {
-  display: inline-block;
-  background: var(--green-light);
-  color: var(--primary);
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-weight: bold;
-  margin-bottom: 20px;
+.cor.amarelo{
+  background:#EAB308;
 }
 
-.detalhe-descricao {
-  color: var(--gray);
-  line-height: 1.6;
-  margin-bottom: 20px;
+.cor.rosa{
+  background:#EC4899;
 }
 
-.detalhe-acoes {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
+.cor.roxo{
+  background:#8B5CF6;
 }
 
-.detalhe-acoes button {
-  min-width: 150px;
+.cor.laranja{
+  background:#F97316;
 }
 
-/* CORES */
-
-.tema-cores {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 15px;
+.cor.celeste{
+  background:#38BDF8;
 }
 
-.cor-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 3px solid white;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  padding: 0;
+.login-btn,
+.premium-btn{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  margin-top:10px;
 }
 
-.verde {
-  background: #6B8E23;
+.login-btn{
+  background:var(--primary);
+  color:white;
 }
 
-.azul {
-  background: #2563EB;
+.premium-btn{
+  background:#202124;
+  color:white;
 }
 
-.amarelo {
-  background: #EAB308;
+/* RODAPÉ */
+
+footer{
+  text-align:center;
+  padding:35px 20px;
+  color:var(--gray);
 }
 
-.rosa {
-  background: #EC4899;
-}
+/* CELULAR */
 
-.roxo {
-  background: #7C3AED;
-}
+@media(max-width:700px){
 
-.laranja {
-  background: #F97316;
-}
+  .header{
+    flex-direction:column;
+  }
 
-.azul-claro {
-  background: #38BDF8;
-}
+  nav{
+    justify-content:center;
+  }
 
+  .hero h1{
+    font-size:30px;
+  }
+
+  .criadora{
+    flex-direction:column;
+    text-align:center;
+    padding:20px;
+  }
+
+  .criadora-foto{
+    width:100%;
+    max-width:280px;
+  }
+
+  .criadora-foto img{
+    height:330px;
+  }
+
+  .criadora-texto h2{
+    font-size:23px;
+  }
+
+  .page{
+    padding:25px 15px;
+  }
+}
 </style>
-
 </head>
 
 <body>
 
 <header>
+  <div class="header">
 
-  <div class="logo">
-    🌎 SinalMundo
+    <div class="logo">🌎 SinalMundo</div>
+
+    <nav>
+      <button onclick="openPage('inicio')">Início</button>
+      <button onclick="openPage('pesquisa')">Pesquisa</button>
+      <button onclick="openPage('favoritos')">❤️ Favoritos</button>
+      <button onclick="openPage('perfil')">👤 Perfil</button>
+    </nav>
+
   </div>
-
-  <nav>
-
-    <button onclick="openPage('home')">
-      Início
-    </button>
-
-    <button onclick="openPage('pesquisa')">
-      Pesquisa
-    </button>
-
-    <button onclick="openPage('favoritos')">
-      Favoritos
-    </button>
-
-    <button onclick="openPage('perfil')">
-      Perfil
-    </button>
-
-  </nav>
-
 </header>
+
+
+<!-- INÍCIO -->
 
 <main>
 
-<section id="home" class="page">
+<section id="inicio" class="page active">
 
   <div class="hero">
 
-    <h1>
-      Mais que sinais, conexões.
-    </h1>
+    <h1>Mais que sinais, conexões entre pessoas e culturas. 🌎🤟🏻</h1>
 
     <p>
       Aprenda línguas de sinais de forma simples,
       visual e acessível.
     </p>
 
-    <button onclick="openPage('pesquisa')">
-      Começar a aprender
-    </button>
+    <div class="hero-buttons">
+
+      <button class="btn btn-white"
+      onclick="openPage('pesquisa')">
+        Começar a aprender
+      </button>
+
+      <button class="btn btn-white"
+      onclick="openPage('pesquisa')">
+        Pesquisar sinais
+      </button>
+
+    </div>
 
   </div>
 
-  <div class="sobre-criadora">
 
-    <h2>
-      Olá, sou Angela Vytorya! 👋🏻
-    </h2>
+  <!-- CRIADORA -->
+
+  <section class="criadora">
+
+    <div class="criadora-foto">
+
+      <img
+        src="angela-vytorya-sinalmundo.jpg"
+        alt="Angela Vytorya, criadora do SinalMundo">
+
+    </div>
+
+    <div class="criadora-texto">
+
+      <h2>Olá, sou Angela Vytorya! 👋🏻💚</h2>
+
+      <p>
+        Que bom ter você por aqui!
+      </p>
+
+      <p>
+        Sou a criadora do <strong>SinalMundo</strong>,
+        um projeto criado para aproximar pessoas e culturas
+        por meio das línguas de sinais. 🌎🤟🏻
+      </p>
+
+      <div class="criadora-frase">
+        Mais que sinais, conexões entre pessoas e culturas. 💚
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- IDIOMAS -->
+
+  <div class="titulo">
+
+    <h2>Explore as línguas de sinais</h2>
 
     <p>
-      Que bom ter você por aqui! 💚
-    </p>
-
-    <p>
-      Sou a criadora do
-      <strong>SinalMundo</strong>,
-      um projeto criado para aproximar pessoas
-      e culturas por meio das línguas de sinais.
-      🌎🤟🏻
+      Descubra diferentes formas de comunicação pelo mundo.
     </p>
 
   </div>
 
-  <h2 class="section-title">
-    Línguas de sinais
-  </h2>
 
-  <div
-    id="languageCards"
-    class="cards">
+  <div class="idiomas">
+
+    <div class="idioma">
+      <div class="emoji">🇧🇷</div>
+      <h3>Libras</h3>
+      <p>Brasil</p>
+    </div>
+
+    <div class="idioma">
+      <div class="emoji">🇺🇸</div>
+      <h3>ASL</h3>
+      <p>Estados Unidos</p>
+    </div>
+
+    <div class="idioma">
+      <div class="emoji">🇬🇧</div>
+      <h3>BSL</h3>
+      <p>Reino Unido</p>
+    </div>
+
+    <div class="idioma">
+      <div class="emoji">🇫🇷</div>
+      <h3>LSF</h3>
+      <p>França</p>
+    </div>
+
+    <div class="idioma">
+      <div class="emoji">🇩🇪</div>
+      <h3>DGS</h3>
+      <p>Alemanha</p>
+    </div>
+
+    <div class="idioma">
+      <div class="emoji">🇯🇵</div>
+      <h3>JSL</h3>
+      <p>Japão</p>
+    </div>
+
   </div>
 
 </section>
 
+
+<!-- PESQUISA -->
 
 <section id="pesquisa" class="page">
 
-  <div class="pesquisa-topo">
+  <div class="titulo">
 
-    <h1>
-      Pesquisar sinais 🔎
-    </h1>
+    <h2>Pesquisar sinais 🔎</h2>
 
     <p>
-      Encontre palavras, frases e sinais
-      em diferentes línguas de sinais.
+      Busque palavras, frases ou sinais.
     </p>
 
   </div>
 
-  <div class="search-box">
+
+  <div class="pesquisa-box">
 
     <input
+      id="campoBusca"
+      class="search"
       type="text"
-      id="searchInput"
-      placeholder="🔎 Buscar sinais, palavras ou frases..."
-      oninput="renderSearch()">
+      placeholder="Buscar sinais, palavras ou frases..."
+      oninput="mostrarSinais()"
+    >
 
-  </div>
 
-  <div class="filtros">
+    <div class="filtros">
 
-    <button
-      class="filtro ativo"
-      onclick="filtrarLingua('Todas', this)">
-      🌎 Todas
-    </button>
+      <button class="filtro active"
+      onclick="filtrarLingua('Todas',this)">
+        Todas
+      </button>
 
-    <button
-      class="filtro"
-      onclick="filtrarLingua('Libras', this)">
-      🇧🇷 Libras
-    </button>
+      <button class="filtro"
+      onclick="filtrarLingua('Libras',this)">
+        Libras 🇧🇷
+      </button>
 
-    <button
-      class="filtro"
-      onclick="filtrarLingua('ASL', this)">
-      🇺🇸 ASL
-    </button>
+      <button class="filtro"
+      onclick="filtrarLingua('ASL',this)">
+        ASL 🇺🇸
+      </button>
 
-    <button
-      class="filtro"
-      onclick="filtrarLingua('BSL', this)">
-      🇬🇧 BSL
-    </button>
+      <button class="filtro"
+      onclick="filtrarLingua('BSL',this)">
+        BSL 🇬🇧
+      </button>
 
-  </div>
+    </div>
 
-  <h2 class="section-title">
-    Explore por categoria
-  </h2>
 
-  <div class="categorias">
+    <div class="categorias">
 
-    <div
-      class="categoria"
+      <button class="categoria"
       onclick="buscarCategoria('Saudações')">
-
-      <span class="icone">
-        👋
-      </span>
-
-      <strong>
         Saudações
-      </strong>
+      </button>
 
-    </div>
-
-    <div
-      class="categoria"
+      <button class="categoria"
       onclick="buscarCategoria('Amor')">
-
-      <span class="icone">
-        ❤️
-      </span>
-
-      <strong>
         Amor
-      </strong>
+      </button>
 
-    </div>
-
-    <div
-      class="categoria"
+      <button class="categoria"
       onclick="buscarCategoria('Dia a dia')">
-
-      <span class="icone">
-        🏠
-      </span>
-
-      <strong>
         Dia a dia
-      </strong>
+      </button>
 
-    </div>
-
-    <div
-      class="categoria"
+      <button class="categoria"
       onclick="buscarCategoria('Educação')">
-
-      <span class="icone">
-        📚
-      </span>
-
-      <strong>
         Educação
-      </strong>
+      </button>
 
-    </div>
-
-    <div
-      class="categoria"
+      <button class="categoria"
       onclick="buscarCategoria('Família')">
-
-      <span class="icone">
-        👨‍👩‍👧
-      </span>
-
-      <strong>
         Família
-      </strong>
+      </button>
 
-    </div>
-
-    <div
-      class="categoria"
+      <button class="categoria"
       onclick="buscarCategoria('Sentimentos')">
-
-      <span class="icone">
-        😊
-      </span>
-
-      <strong>
         Sentimentos
-      </strong>
+      </button>
 
     </div>
 
   </div>
 
-  <div class="resultado-topo">
 
-    <h2>
-      Sinais disponíveis
-    </h2>
+  <div id="resultado" class="resultado"></div>
 
-    <span
-      id="contadorResultados"
-      class="contador">
-      0 sinais
-    </span>
-
-  </div>
-
-  <div
-    id="searchResults"
-    class="cards">
-  </div>
+  <div id="sinais" class="sinais"></div>
 
 </section>
 
+
+<!-- DETALHE -->
 
 <section id="detalhe" class="page">
 
@@ -751,15 +808,14 @@ button:hover {
       ← Voltar para Pesquisa
     </button>
 
+
     <div class="detalhe-card">
 
       <div class="detalhe-imagem">
         🤟🏻
       </div>
 
-      <h1 id="detalheNome">
-        Olá
-      </h1>
+      <h1 id="detalheNome">Olá</h1>
 
       <div
         id="detalheLingua"
@@ -776,8 +832,7 @@ button:hover {
       <p
         id="detalheDescricao"
         class="detalhe-descricao">
-        Aprenda este sinal de forma visual
-        e acessível.
+        Aprenda este sinal de forma visual e acessível.
       </p>
 
       <div class="detalhe-acoes">
@@ -797,109 +852,120 @@ button:hover {
 </section>
 
 
+<!-- FAVORITOS -->
+
 <section id="favoritos" class="page">
 
-  <h2 class="section-title">
-    Meus favoritos ❤️
-  </h2>
+  <div class="titulo">
 
-  <div
-    id="favoriteResults"
-    class="cards">
+    <h2>Meus favoritos ❤️</h2>
+
+    <p>
+      Sinais que você salvou para estudar depois.
+    </p>
+
   </div>
+
+  <div id="listaFavoritos" class="lista-favoritos"></div>
 
 </section>
 
 
+<!-- PERFIL -->
+
 <section id="perfil" class="page">
 
-  <h2 class="section-title">
-    Meu perfil 👤
-  </h2>
+  <div class="perfil-card">
 
-  <div class="profile-card">
+    <h2>👤 Meu Perfil</h2>
 
-    <h3>
-      🎨 Escolha sua cor
-    </h3>
 
-    <p>
-      Escolha a cor principal do SinalMundo.
-    </p>
+    <div class="opcao">
 
-    <div class="tema-cores">
+      <strong>Conta</strong>
+
+      <p style="color:#777;margin-top:8px;">
+        Entre ou crie sua conta para salvar seu progresso.
+      </p>
 
       <button
-        class="cor-btn verde"
-        onclick="mudarCor('#6B8E23')">
-      </button>
-
-      <button
-        class="cor-btn azul"
-        onclick="mudarCor('#2563EB')">
-      </button>
-
-      <button
-        class="cor-btn amarelo"
-        onclick="mudarCor('#EAB308')">
-      </button>
-
-      <button
-        class="cor-btn rosa"
-        onclick="mudarCor('#EC4899')">
-      </button>
-
-      <button
-        class="cor-btn roxo"
-        onclick="mudarCor('#7C3AED')">
-      </button>
-
-      <button
-        class="cor-btn laranja"
-        onclick="mudarCor('#F97316')">
-      </button>
-
-      <button
-        class="cor-btn azul-claro"
-        onclick="mudarCor('#38BDF8')">
+        class="login-btn"
+        onclick="alert('Área de login em desenvolvimento. 💚')">
+        Entrar / Criar conta
       </button>
 
     </div>
 
-  </div>
+
+    <div class="opcao">
+
+      <strong>🎨 Escolha a cor do SinalMundo</strong>
+
+      <div class="cores">
+
+        <button
+          class="cor verde"
+          onclick="mudarCor('#6B8E23')">
+        </button>
+
+        <button
+          class="cor azul"
+          onclick="mudarCor('#2563EB')">
+        </button>
+
+        <button
+          class="cor amarelo"
+          onclick="mudarCor('#EAB308')">
+        </button>
+
+        <button
+          class="cor rosa"
+          onclick="mudarCor('#EC4899')">
+        </button>
+
+        <button
+          class="cor roxo"
+          onclick="mudarCor('#8B5CF6')">
+        </button>
+
+        <button
+          class="cor laranja"
+          onclick="mudarCor('#F97316')">
+        </button>
+
+        <button
+          class="cor celeste"
+          onclick="mudarCor('#38BDF8')">
+        </button>
+
+      </div>
+
+    </div>
 
 
-  <div class="profile-card">
+    <div class="opcao">
 
-    <h3>
-      Bem-vinda ao SinalMundo! 💚
-    </h3>
+      <strong>⭐ SinalMundo Premium</strong>
 
-    <p>
-      Entre ou crie sua conta para salvar
-      seus sinais favoritos.
-    </p>
+      <p style="color:#777;margin-top:8px;">
+        Tenha acesso completo ao SinalMundo.
+      </p>
 
-    <button onclick="showComingSoon()">
-      Entrar / Criar conta
-    </button>
+      <p style="font-size:22px;font-weight:bold;margin-top:10px;">
+        R$ 50,00
+      </p>
 
-  </div>
+      <p style="color:#777;">
+        Pagamento único • Vitalício
+      </p>
 
+      <button
+        class="premium-btn"
+        onclick="alert('O pagamento do Premium ainda está em desenvolvimento. ⭐')">
+        Conhecer o Premium ⭐
+      </button>
 
-  <div class="premium-card">
-
-    <h3>
-      ⭐ SinalMundo Premium
-    </h3>
-
-    <p>
-      R$ 50,00 — acesso vitalício
-    </p>
-
-    <button onclick="showComingSoon()">
-      Conhecer Premium
-    </button>
+    </div>
 
   </div>
 
@@ -908,196 +974,264 @@ button:hover {
 </main>
 
 
+<footer>
+
+  <p>
+    © 2026 SinalMundo • Mais que sinais, conexões entre pessoas e culturas. 💚
+  </p>
+
+</footer>
+
+
 <script>
 
-const languages = [
+const sinais = [
 
-  ["Libras", "🇧🇷", "Língua Brasileira de Sinais"],
+  {
+    nome:"Olá",
+    lingua:"Libras",
+    bandeira:"🇧🇷",
+    categoria:"Saudações",
+    descricao:"Sinal usado para cumprimentar alguém."
+  },
 
-  ["ASL", "🇺🇸", "American Sign Language"],
+  {
+    nome:"Bom dia",
+    lingua:"Libras",
+    bandeira:"🇧🇷",
+    categoria:"Saudações",
+    descricao:"Forma de cumprimentar alguém durante a manhã."
+  },
 
-  ["BSL", "🇬🇧", "British Sign Language"],
+  {
+    nome:"Boa tarde",
+    lingua:"Libras",
+    bandeira:"🇧🇷",
+    categoria:"Saudações",
+    descricao:"Cumprimento utilizado durante a tarde."
+  },
 
-  ["LSF", "🇫🇷", "Langue des Signes Française"],
+  {
+    nome:"Boa noite",
+    lingua:"Libras",
+    bandeira:"🇧🇷",
+    categoria:"Saudações",
+    descricao:"Cumprimento utilizado durante a noite."
+  },
 
-  ["DGS", "🇩🇪", "Deutsche Gebärdensprache"],
+  {
+    nome:"Amor",
+    lingua:"Libras",
+    bandeira:"🇧🇷",
+    categoria:"Amor",
+    descricao:"Sinal relacionado ao sentimento de amor."
+  },
 
-  ["JSL", "🇯🇵", "Japanese Sign Language"],
+  {
+    nome:"Feliz",
+    lingua:"Libras",
+    bandeira:"🇧🇷",
+    categoria:"Sentimentos",
+    descricao:"Sinal relacionado à felicidade."
+  },
 
-  ["LIS", "🇮🇹", "Lingua dei Segni Italiana"],
+  {
+    nome:"Triste",
+    lingua:"Libras",
+    bandeira:"🇧🇷",
+    categoria:"Sentimentos",
+    descricao:"Sinal relacionado ao sentimento de tristeza."
+  },
 
-  ["LSE", "🇪🇸", "Lengua de Signos Española"],
+  {
+    nome:"Obrigado",
+    lingua:"Libras",
+    bandeira:"🇧🇷",
+    categoria:"Dia a dia",
+    descricao:"Sinal usado para agradecer."
+  },
 
-  ["LGP", "🇵🇹", "Língua Gestual Portuguesa"],
+  {
+    nome:"Mãe",
+    lingua:"Libras",
+    bandeira:"🇧🇷",
+    categoria:"Família",
+    descricao:"Sinal para mãe."
+  },
 
-  ["Auslan", "🇦🇺", "Australian Sign Language"],
+  {
+    nome:"Pai",
+    lingua:"Libras",
+    bandeira:"🇧🇷",
+    categoria:"Família",
+    descricao:"Sinal para pai."
+  },
 
-  ["NZSL", "🇳🇿", "New Zealand Sign Language"],
+  {
+    nome:"Família",
+    lingua:"Libras",
+    bandeira:"🇧🇷",
+    categoria:"Família",
+    descricao:"Sinal relacionado à família."
+  },
 
-  ["CSL", "🇨🇳", "Chinese Sign Language"],
+  {
+    nome:"Casa",
+    lingua:"Libras",
+    bandeira:"🇧🇷",
+    categoria:"Dia a dia",
+    descricao:"Sinal para casa."
+  },
 
-  ["KSL", "🇰🇷", "Korean Sign Language"],
+  {
+    nome:"Água",
+    lingua:"Libras",
+    bandeira:"🇧🇷",
+    categoria:"Dia a dia",
+    descricao:"Sinal para água."
+  },
 
-  ["ISL", "🇮🇳", "Indian Sign Language"],
+  {
+    nome:"Olá",
+    lingua:"ASL",
+    bandeira:"🇺🇸",
+    categoria:"Saudações",
+    descricao:"Greeting sign in American Sign Language."
+  },
 
-  ["RSL", "🇷🇺", "Russian Sign Language"]
+  {
+    nome:"Thank you",
+    lingua:"ASL",
+    bandeira:"🇺🇸",
+    categoria:"Dia a dia",
+    descricao:"Sign used to express thanks in ASL."
+  },
 
-];
-
-
-const signs = [
-
-  ["Olá", "Libras", "Saudações"],
-
-  ["Bom dia", "Libras", "Saudações"],
-
-  ["Boa tarde", "Libras", "Saudações"],
-
-  ["Boa noite", "Libras", "Saudações"],
-
-  ["Obrigado", "Libras", "Dia a dia"],
-
-  ["Amor", "Libras", "Amor"],
-
-  ["Família", "Libras", "Família"],
-
-  ["Escola", "Libras", "Educação"],
-
-  ["Feliz", "Libras", "Sentimentos"],
-
-  ["Hello", "ASL", "Saudações"],
-
-  ["Good morning", "ASL", "Saudações"],
-
-  ["Thank you", "ASL", "Dia a dia"],
-
-  ["Love", "ASL", "Amor"],
-
-  ["Family", "ASL", "Família"],
-
-  ["School", "ASL", "Educação"],
-
-  ["Happy", "ASL", "Sentimentos"],
-
-  ["Hello", "BSL", "Saudações"],
-
-  ["Thank you", "BSL", "Dia a dia"],
-
-  ["Love", "BSL", "Amor"],
-
-  ["Family", "BSL", "Família"],
-
-  ["School", "BSL", "Educação"],
-
-  ["Happy", "BSL", "Sentimentos"]
+  {
+    nome:"Hello",
+    lingua:"BSL",
+    bandeira:"🇬🇧",
+    categoria:"Saudações",
+    descricao:"Greeting sign in British Sign Language."
+  }
 
 ];
 
 
 let linguaSelecionada = "Todas";
-
 let sinalAtual = null;
 
 
-function renderLanguages() {
+function openPage(id){
 
-  const container =
-    document.getElementById("languageCards");
+  document.querySelectorAll(".page")
+  .forEach(page=>{
+    page.classList.remove("active");
+  });
 
-  container.innerHTML =
-    languages.map(language => `
+  document.getElementById(id)
+  .classList.add("active");
 
-      <div class="card">
+  window.scrollTo(0,0);
 
-        <h3>
-          ${language[1]} ${language[0]}
-        </h3>
+  if(id==="pesquisa"){
+    mostrarSinais();
+  }
 
-        <p>
-          ${language[2]}
-        </p>
-
-      </div>
-
-    `).join("");
+  if(id==="favoritos"){
+    mostrarFavoritos();
+  }
 
 }
 
 
-function renderSearch() {
+function filtrarLingua(lingua,botao){
 
-  const input =
-    document.getElementById("searchInput");
+  linguaSelecionada = lingua;
 
-  const results =
-    document.getElementById("searchResults");
+  document.querySelectorAll(".filtro")
+  .forEach(b=>{
+    b.classList.remove("active");
+  });
 
-  const contador =
-    document.getElementById("contadorResultados");
+  botao.classList.add("active");
 
-  if (!input || !results) return;
+  mostrarSinais();
+
+}
+
+
+function buscarCategoria(categoria){
+
+  document.getElementById("campoBusca").value = "";
+
+  document.querySelectorAll(".filtro")
+  .forEach(b=>{
+    b.classList.remove("active");
+  });
+
+  document.querySelector(".filtro")
+  .classList.add("active");
+
+  linguaSelecionada = "Todas";
+
+  const encontrados = sinais.filter(
+    s=>s.categoria===categoria
+  );
+
+  mostrarLista(encontrados);
+
+}
+
+
+function mostrarSinais(){
 
   const texto =
-    input.value.toLowerCase().trim();
+    document.getElementById("campoBusca")
+    .value
+    .toLowerCase();
 
-  let filtrados =
-    signs.filter(sign => {
+  let lista = sinais.filter(s=>{
 
-      const combinaTexto =
-        sign[0].toLowerCase().includes(texto) ||
-        sign[1].toLowerCase().includes(texto) ||
-        sign[2].toLowerCase().includes(texto);
+    const correspondeTexto =
+      s.nome.toLowerCase().includes(texto) ||
+      s.categoria.toLowerCase().includes(texto);
 
-      const combinaLingua =
-        linguaSelecionada === "Todas" ||
-        sign[1] === linguaSelecionada;
+    const correspondeLingua =
+      linguaSelecionada==="Todas" ||
+      s.lingua===linguaSelecionada;
 
-      return combinaTexto && combinaLingua;
+    return correspondeTexto && correspondeLingua;
 
-    });
+  });
 
+  mostrarLista(lista);
 
-  if (contador) {
-
-    contador.textContent =
-      filtrados.length +
-      (filtrados.length === 1
-        ? " sinal"
-        : " sinais");
-
-  }
+}
 
 
-  if (filtrados.length === 0) {
+function mostrarLista(lista){
 
-    results.innerHTML = `
+  const area =
+    document.getElementById("sinais");
 
-      <div class="vazio">
+  const resultado =
+    document.getElementById("resultado");
 
-        <div class="icone">
-          🔎
-        </div>
+  resultado.innerText =
+    lista.length + " sinal(is) encontrado(s)";
 
-        <h3>
-          Nenhum sinal encontrado
-        </h3>
+  if(lista.length===0){
 
-        <p>
-          Tente pesquisar outra palavra
-          ou escolher outra língua.
-        </p>
-
-      </div>
-
-    `;
+    area.innerHTML =
+      "<p>Nenhum sinal encontrado. 💚</p>";
 
     return;
 
   }
 
-
-  results.innerHTML =
-    filtrados.map((sign, index) => `
+  area.innerHTML =
+    lista.map((s,index)=>`
 
       <div class="sinal-card">
 
@@ -1105,34 +1239,28 @@ function renderSearch() {
           🤟🏻
         </div>
 
-        <h3>
-          ${sign[0]}
-        </h3>
+        <h3>${s.nome}</h3>
 
-        <div class="lingua">
-          ${sign[1]}
+        <div class="sinal-lingua">
+          ${s.lingua} ${s.bandeira}
         </div>
 
-        <p>
-          Categoria: ${sign[2]}
-        </p>
+        <div class="sinal-categoria">
+          ${s.categoria}
+        </div>
 
         <div class="sinal-acoes">
 
           <button
-            class="btn-favorito"
-            onclick="toggleFavorite('${sign[0]} - ${sign[1]}')">
-
+            class="btn-fav"
+            onclick="favoritar('${s.nome}','${s.lingua}')">
             ❤️ Favoritar
-
           </button>
 
           <button
-            class="btn-detalhes"
-            onclick="abrirDetalhe(${index}, '${texto}')">
-
+            class="btn-ver"
+            onclick="abrirDetalhe('${s.nome}','${s.lingua}')">
             Ver sinal
-
           </button>
 
         </div>
@@ -1144,255 +1272,163 @@ function renderSearch() {
 }
 
 
-function filtrarLingua(lingua, botao) {
-
-  linguaSelecionada = lingua;
-
-  document
-    .querySelectorAll(".filtro")
-    .forEach(item => {
-
-      item.classList.remove("ativo");
-
-    });
-
-  botao.classList.add("ativo");
-
-  renderSearch();
-
-}
-
-
-function buscarCategoria(categoria) {
-
-  const input =
-    document.getElementById("searchInput");
-
-  if (!input) return;
-
-  input.value = categoria;
-
-  renderSearch();
-
-}
-
-
-function getFavorites() {
-
-  return JSON.parse(
-    localStorage.getItem(
-      "sinalMundoFavorites"
-    ) || "[]"
-  );
-
-}
-
-
-function saveFavorites(favorites) {
-
-  localStorage.setItem(
-    "sinalMundoFavorites",
-    JSON.stringify(favorites)
-  );
-
-}
-
-
-function toggleFavorite(item) {
-
-  let favorites =
-    getFavorites();
-
-  if (favorites.includes(item)) {
-
-    favorites =
-      favorites.filter(
-        favorite => favorite !== item
-      );
-
-  } else {
-
-    favorites.push(item);
-
-  }
-
-  saveFavorites(favorites);
-
-  renderFavorites();
-
-  renderSearch();
-
-}
-
-
-function abrirDetalhe(indice, texto) {
-
-  const filtrados =
-    signs.filter(sign => {
-
-      const combinaTexto =
-        sign[0].toLowerCase().includes(texto) ||
-        sign[1].toLowerCase().includes(texto) ||
-        sign[2].toLowerCase().includes(texto);
-
-      const combinaLingua =
-        linguaSelecionada === "Todas" ||
-        sign[1] === linguaSelecionada;
-
-      return combinaTexto && combinaLingua;
-
-    });
-
+function abrirDetalhe(nome,lingua){
 
   const sinal =
-    filtrados[indice];
+    sinais.find(
+      s=>s.nome===nome &&
+      s.lingua===lingua
+    );
 
-  if (!sinal) return;
+  if(!sinal) return;
 
   sinalAtual = sinal;
 
-  document.getElementById(
-    "detalheNome"
-  ).textContent = sinal[0];
+  document.getElementById("detalheNome")
+  .innerText=sinal.nome;
 
-  document.getElementById(
-    "detalheLingua"
-  ).textContent =
-    "Língua: " + sinal[1];
+  document.getElementById("detalheLingua")
+  .innerText=
+    sinal.lingua+" "+sinal.bandeira;
 
-  document.getElementById(
-    "detalheCategoria"
-  ).textContent =
-    sinal[2];
+  document.getElementById("detalheCategoria")
+  .innerText=sinal.categoria;
 
-  document.getElementById(
-    "detalheDescricao"
-  ).textContent =
-    "Este é o sinal de " +
-    sinal[0] +
-    " na " +
-    sinal[1] +
-    ". Em breve teremos vídeo e imagem demonstrativa.";
+  document.getElementById("detalheDescricao")
+  .innerText=sinal.descricao;
 
-  const favorito =
-    document.getElementById(
-      "detalheFavorito"
-    );
-
-  const item =
-    sinal[0] + " - " + sinal[1];
-
-  if (getFavorites().includes(item)) {
-
-    favorito.textContent =
-      "💚 Remover favorito";
-
-  } else {
-
-    favorito.textContent =
-      "❤️ Favoritar";
-
-  }
+  atualizarBotaoDetalhe();
 
   openPage("detalhe");
 
 }
 
 
-function favoritarDetalhe() {
+function favoritar(nome,lingua){
 
-  if (!sinalAtual) return;
-
-  const item =
-    sinalAtual[0] +
-    " - " +
-    sinalAtual[1];
-
-  toggleFavorite(item);
-
-  const favorito =
-    document.getElementById(
-      "detalheFavorito"
+  let favoritos =
+    JSON.parse(
+      localStorage.getItem("sinalmundo-favoritos") || "[]"
     );
 
-  if (getFavorites().includes(item)) {
+  const existe =
+    favoritos.some(
+      s=>s.nome===nome && s.lingua===lingua
+    );
 
-    favorito.textContent =
-      "💚 Remover favorito";
+  if(existe){
 
-  } else {
+    favoritos =
+      favoritos.filter(
+        s=>!(s.nome===nome && s.lingua===lingua)
+      );
 
-    favorito.textContent =
-      "❤️ Favoritar";
+  }else{
+
+    const sinal =
+      sinais.find(
+        s=>s.nome===nome && s.lingua===lingua
+      );
+
+    favoritos.push(sinal);
 
   }
+
+  localStorage.setItem(
+    "sinalmundo-favoritos",
+    JSON.stringify(favoritos)
+  );
+
+  mostrarSinais();
 
 }
 
 
-function renderFavorites() {
+function favoritarDetalhe(){
 
-  const container =
-    document.getElementById(
-      "favoriteResults"
+  if(!sinalAtual) return;
+
+  favoritar(
+    sinalAtual.nome,
+    sinalAtual.lingua
+  );
+
+  atualizarBotaoDetalhe();
+
+}
+
+
+function atualizarBotaoDetalhe(){
+
+  if(!sinalAtual) return;
+
+  const favoritos =
+    JSON.parse(
+      localStorage.getItem("sinalmundo-favoritos") || "[]"
     );
 
-  if (!container) return;
+  const existe =
+    favoritos.some(
+      s=>s.nome===sinalAtual.nome &&
+      s.lingua===sinalAtual.lingua
+    );
 
-  const favorites =
-    getFavorites();
+  document.getElementById("detalheFavorito")
+  .innerText =
+    existe
+    ? "💚 Remover dos favoritos"
+    : "❤️ Favoritar";
 
-  if (favorites.length === 0) {
+}
 
-    container.innerHTML = `
 
-      <div class="vazio">
+function mostrarFavoritos(){
 
-        <div class="icone">
-          ❤️
-        </div>
+  const area =
+    document.getElementById("listaFavoritos");
 
-        <h3>
-          Seus favoritos estão vazios
-        </h3>
+  const favoritos =
+    JSON.parse(
+      localStorage.getItem("sinalmundo-favoritos") || "[]"
+    );
 
-        <p>
-          Pesquise um sinal e toque em
-          "Favoritar" para salvá-lo aqui.
-        </p>
+  if(favoritos.length===0){
 
-      </div>
-
-    `;
+    area.innerHTML =
+      "<p>Você ainda não adicionou sinais aos favoritos. ❤️</p>";
 
     return;
+
   }
 
-
-  container.innerHTML =
-    favorites.map(item => `
+  area.innerHTML =
+    favoritos.map(s=>`
 
       <div class="sinal-card">
 
         <div class="sinal-imagem">
-          ❤️
+          🤟🏻
         </div>
 
-        <h3>
-          ${item}
-        </h3>
+        <h3>${s.nome}</h3>
 
-        <p>
-          Sinal salvo nos seus favoritos.
-        </p>
+        <div class="sinal-lingua">
+          ${s.lingua} ${s.bandeira}
+        </div>
 
-        <button
-          class="btn-favorito"
-          onclick="toggleFavorite('${item}')">
+        <div class="sinal-categoria">
+          ${s.categoria}
+        </div>
 
-          Remover dos favoritos
+        <div class="sinal-acoes">
 
-        </button>
+          <button
+            class="btn-ver"
+            onclick="abrirDetalhe('${s.nome}','${s.lingua}')">
+            Ver sinal
+          </button>
+
+        </div>
 
       </div>
 
@@ -1401,95 +1437,20 @@ function renderFavorites() {
 }
 
 
-function openPage(pageId) {
-
-  document
-    .querySelectorAll(".page")
-    .forEach(page => {
-
-      page.style.display = "none";
-
-    });
-
-
-  const page =
-    document.getElementById(pageId);
-
-  if (page) {
-
-    page.style.display = "block";
-
-    window.scrollTo(0, 0);
-
-  }
-
-
-  if (pageId === "pesquisa") {
-
-    renderSearch();
-
-  }
-
-
-  if (pageId === "favoritos") {
-
-    renderFavorites();
-
-  }
-
-}
-
-
-function showComingSoon() {
-
-  alert(
-    "Essa função estará disponível em breve! 💚"
-  );
-
-}
-
-
-function mudarCor(cor) {
+function mudarCor(cor){
 
   document.documentElement
-    .style.setProperty(
-      "--primary",
-      cor
-    );
-
-  localStorage.setItem(
-    "sinalMundoCor",
+  .style.setProperty(
+    "--primary",
     cor
   );
 
 }
 
 
-const corSalva =
-  localStorage.getItem(
-    "sinalMundoCor"
-  );
-
-
-if (corSalva) {
-
-  document.documentElement
-    .style.setProperty(
-      "--primary",
-      corSalva
-    );
-
-}
-
-
-renderLanguages();
-
-renderSearch();
-
-renderFavorites();
+mostrarSinais();
 
 </script>
 
 </body>
-
 </html>
