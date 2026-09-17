@@ -40,6 +40,14 @@ input{
   font-family:Arial,sans-serif;
 }
 </style>
+#siteHeader,
+#inicio,
+#pesquisa,
+#favoritos,
+#perfil{
+  display:none;
+}
+
 </head>
 
 <body>
@@ -867,4 +875,35 @@ nav button:hover{
 
 </body>
 </html>
+
+<script>
+
+document.getElementById("siteHeader").style.display = "none";
+document.getElementById("inicio").style.display = "none";
+document.getElementById("pesquisa").style.display = "none";
+document.getElementById("favoritos").style.display = "none";
+document.getElementById("perfil").style.display = "none";
+
+supabaseClient.auth.onAuthStateChange(function(event, session){
+
+  if(session){
+
+    document.getElementById("authScreen").style.display = "none";
+    document.getElementById("siteHeader").style.display = "block";
+    document.getElementById("inicio").style.display = "block";
+
+  }else{
+
+    document.getElementById("authScreen").style.display = "flex";
+    document.getElementById("siteHeader").style.display = "none";
+    document.getElementById("inicio").style.display = "none";
+    document.getElementById("pesquisa").style.display = "none";
+    document.getElementById("favoritos").style.display = "none";
+    document.getElementById("perfil").style.display = "none";
+
+  }
+
+});
+
+</script>
 
