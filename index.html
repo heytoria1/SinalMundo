@@ -6,14 +6,16 @@
 
 <title>SinalMundo</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 :root{
   --primary:#6B8E23;
-  --green-light:#EEF5DF;
+  --light:#EEF5DF;
   --white:#FFFFFF;
   --dark:#202124;
   --gray:#6B7280;
-  --light:#F5F7FB;
+  --bg:#F5F7FB;
   --border:#E5E7EB;
 }
 
@@ -25,963 +27,448 @@
 
 body{
   font-family:Arial,sans-serif;
-  background:var(--light);
+  background:var(--bg);
   color:var(--dark);
 }
 
 button{
-  border:none;
+  border:0;
   cursor:pointer;
-  font-size:15px;
 }
 
-header{
-  background:white;
-  border-bottom:1px solid var(--border);
-  padding:15px 20px;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-
-.header{
-  max-width:1100px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-}
-
-.logo{
-  color:var(--primary);
-  font-size:25px;
-  font-weight:bold;
-}
-
-nav{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-nav button{
-  background:white;
-  color:#555;
-  padding:10px 13px;
-  border-radius:10px;
-}
-
-nav button:hover{
-  background:var(--green-light);
-  color:var(--primary);
-}
-
-.page{
-  display:none;
-  max-width:1100px;
-  margin:auto;
-  padding:35px 20px;
-}
-
-.page.active{
-  display:block;
-}
-
-/* INÍCIO */
-
-.hero{
-  background:var(--primary);
-  color:white;
-  border-radius:25px;
-  padding:55px 30px;
-  text-align:center;
-  margin-bottom:35px;
-}
-
-.hero h1{
-  font-size:40px;
-  margin-bottom:15px;
-}
-
-.hero p{
-  font-size:18px;
-  line-height:1.6;
-  max-width:700px;
-  margin:auto;
-}
-
-.hero-buttons{
-  margin-top:25px;
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.btn{
-  padding:13px 20px;
-  border-radius:12px;
-  font-weight:bold;
-}
-
-.btn-white{
-  background:white;
-  color:var(--primary);
-}
-
-.btn-green{
-  background:var(--primary);
-  color:white;
-}
-
-/* CRIADORA */
-
-.criadora{
-  display:flex;
-  align-items:center;
-  gap:30px;
-  background:white;
-  border-radius:24px;
-  padding:30px;
-  margin-bottom:35px;
-  box-shadow:0 8px 25px rgba(0,0,0,.06);
-}
-
-.criadora-foto{
-  width:280px;
-  flex-shrink:0;
-}
-
-.criadora-foto img{
-  width:100%;
-  height:350px;
-  object-fit:cover;
-  border-radius:22px;
-  display:block;
-}
-
-.criadora-texto{
-  flex:1;
-}
-
-.criadora-texto h2{
-  color:var(--primary);
-  font-size:28px;
-  margin-bottom:15px;
-}
-
-.criadora-texto p{
-  color:#555;
-  font-size:17px;
-  line-height:1.7;
-  margin-bottom:12px;
-}
-
-.criadora-frase{
-  margin-top:20px;
-  padding:15px;
-  background:var(--green-light);
-  color:var(--primary);
-  border-radius:14px;
-  font-weight:bold;
-}
-
-/* IDIOMAS */
-
-.titulo{
-  text-align:center;
-  margin-bottom:25px;
-}
-
-.titulo h2{
-  font-size:28px;
-  margin-bottom:8px;
-}
-
-.titulo p{
-  color:var(--gray);
-}
-
-.idiomas{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:15px;
-}
-
-.idioma{
-  background:white;
-  padding:22px;
-  border-radius:18px;
-  border:1px solid var(--border);
-  text-align:center;
-}
-
-.idioma .emoji{
-  font-size:35px;
-  margin-bottom:10px;
-}
-
-.idioma h3{
-  color:var(--primary);
-  margin-bottom:6px;
-}
-
-.idioma p{
-  color:var(--gray);
-}
-
-/* PESQUISA */
-
-.pesquisa-box{
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  margin-bottom:20px;
-}
-
-.search{
-  width:100%;
-  padding:15px;
-  border:2px solid var(--border);
-  border-radius:14px;
-  font-size:16px;
-  outline:none;
-}
-
-.search:focus{
-  border-color:var(--primary);
-}
-
-.filtros{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-.filtro{
-  padding:9px 14px;
-  background:var(--light);
-  border-radius:10px;
-  color:#555;
-}
-
-.filtro.active{
-  background:var(--primary);
-  color:white;
-}
-
-.categorias{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-.categoria{
-  padding:8px 13px;
-  background:var(--green-light);
-  color:var(--primary);
-  border-radius:10px;
-}
-
-.resultado{
-  color:var(--gray);
-  margin:20px 0;
-}
-
-.sinais{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:18px;
-}
-
-.sinal-card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:20px;
-}
-
-.sinal-imagem{
-  height:150px;
-  background:var(--green-light);
-  border-radius:15px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:60px;
-  margin-bottom:15px;
-}
-
-.sinal-card h3{
-  margin-bottom:6px;
-}
-
-.sinal-lingua{
-  color:var(--primary);
-  font-weight:bold;
-  margin-bottom:5px;
-}
-
-.sinal-categoria{
-  color:var(--gray);
-  font-size:14px;
-}
-
-.sinal-acoes{
-  display:flex;
-  gap:8px;
-  margin-top:15px;
-}
-
-.sinal-acoes button{
-  flex:1;
-  padding:10px;
-  border-radius:10px;
-}
-
-.btn-fav{
-  background:#f5f5f5;
-}
-
-.btn-ver{
-  background:var(--primary);
-  color:white;
-}
-
-/* DETALHE */
-
-.detalhe-sinal{
-  max-width:700px;
-  margin:auto;
-}
-
-.detalhe-voltar{
-  background:white;
-  color:var(--primary);
-  padding:11px 15px;
-  border-radius:12px;
-  margin-bottom:20px;
-}
-
-.detalhe-card{
-  background:white;
-  border-radius:25px;
-  padding:30px;
-  text-align:center;
-}
-
-.detalhe-imagem{
-  height:300px;
-  background:var(--green-light);
-  border-radius:20px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:100px;
-  margin-bottom:25px;
-}
-
-.detalhe-card h1{
-  font-size:32px;
-  margin-bottom:10px;
-}
-
-.detalhe-lingua{
-  color:var(--primary);
-  font-weight:bold;
-  font-size:18px;
-}
-
-.detalhe-categoria{
-  display:inline-block;
-  background:var(--green-light);
-  color:var(--primary);
-  padding:8px 13px;
-  border-radius:10px;
-  margin-top:12px;
-}
-
-.detalhe-descricao{
-  color:#555;
-  line-height:1.7;
-  margin:20px 0;
-}
-
-.detalhe-acoes button{
-  padding:13px 20px;
-  border-radius:12px;
-  background:var(--primary);
-  color:white;
-}
-
-/* FAVORITOS */
-
-.lista-favoritos{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:18px;
-}
-
-/* PERFIL */
-
-.perfil-card{
-  background:white;
-  border-radius:25px;
-  padding:30px;
-  max-width:700px;
-  margin:auto;
-}
-
-.perfil-card h2{
-  color:var(--primary);
-  margin-bottom:20px;
-}
-
-.opcao{
-  padding:18px 0;
-  border-bottom:1px solid var(--border);
-}
-
-.opcao:last-child{
-  border-bottom:none;
-}
-
-.cores{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:12px;
-}
-
-.cor{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  border:3px solid white;
-  box-shadow:0 0 0 1px #ddd;
-}
-
-.cor.verde{
-  background:#6B8E23;
-}
-
-.cor.azul{
-  background:#2563EB;
-}
-
-.cor.amarelo{
-  background:#EAB308;
-}
-
-.cor.rosa{
-  background:#EC4899;
-}
-
-.cor.roxo{
-  background:#8B5CF6;
-}
-
-.cor.laranja{
-  background:#F97316;
-}
-
-.cor.celeste{
-  background:#38BDF8;
-}
-
-.login-btn,
-.premium-btn{
-  width:100%;
-  padding:14px;
-  border-radius:12px;
-  margin-top:10px;
-}
-
-.login-btn{
-  background:var(--primary);
-  color:white;
-}
-
-.premium-btn{
-  background:#202124;
-  color:white;
-}
-
-/* RODAPÉ */
-
-footer{
-  text-align:center;
-  padding:35px 20px;
-  color:var(--gray);
-}
-
-/* CELULAR */
-
-@media(max-width:700px){
-
-  .header{
-    flex-direction:column;
-  }
-
-  nav{
-    justify-content:center;
-  }
-
-  .hero h1{
-    font-size:30px;
-  }
-
-  .criadora{
-    flex-direction:column;
-    text-align:center;
-    padding:20px;
-  }
-
-  .criadora-foto{
-    width:100%;
-    max-width:280px;
-  }
-
-  .criadora-foto img{
-    height:330px;
-  }
-
-  .criadora-texto h2{
-    font-size:23px;
-  }
-
-  .page{
-    padding:25px 15px;
-  }
+input{
+  font-family:Arial,sans-serif;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="header">
+<div id="app">
 
-    <div class="logo">🌎 SinalMundo</div>
+</div>
+
+<div id="authScreen">
+
+  <div class="auth-card">
+
+    <h1>🌎 SinalMundo</h1>
+
+    <h2 id="authTitulo">Entrar</h2>
+
+    <p id="authTexto">
+      Entre na sua conta para continuar.
+    </p>
+
+    <form id="loginForm">
+
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="Seu e-mail"
+        required
+      >
+
+      <input
+        id="loginSenha"
+        type="password"
+        placeholder="Sua senha"
+        required
+      >
+
+      <button type="submit">
+        Entrar
+      </button>
+
+    </form>
+
+    <button
+      type="button"
+      onclick="mostrarCadastro()"
+    >
+      Criar conta
+    </button>
+
+    <button
+      type="button"
+      onclick="mostrarRecuperacao()"
+    >
+      Esqueci minha senha
+    </button>
+
+    <p id="authMessage"></p>
+
+  </div>
+
+</div>
+
+<style>
+
+#authScreen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.auth-card{
+  width:100%;
+  max-width:400px;
+  background:white;
+  padding:30px;
+  border-radius:25px;
+  text-align:center;
+  box-shadow:0 10px 35px rgba(0,0,0,.10);
+}
+
+.auth-card h1{
+  color:var(--primary);
+  margin-bottom:10px;
+}
+
+.auth-card h2{
+  margin-bottom:8px;
+}
+
+.auth-card p{
+  color:var(--gray);
+  margin-bottom:18px;
+  line-height:1.5;
+}
+
+.auth-card input{
+  width:100%;
+  padding:14px;
+  margin-bottom:12px;
+  border:2px solid var(--border);
+  border-radius:12px;
+  font-size:16px;
+}
+
+.auth-card button{
+  width:100%;
+  padding:13px;
+  margin-top:8px;
+  border-radius:12px;
+  background:var(--primary);
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+}
+
+#authMessage{
+  margin-top:15px;
+  font-weight:bold;
+}
+
+</style>
+
+<script>
+
+const SUPABASE_URL =
+"https://pvafjvxdajinoxedmlsj.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_-n0hHo22n29h5Nlo-rTeHg_-dQbntHj";
+
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+const authScreen =
+document.getElementById("authScreen");
+
+const authMessage =
+document.getElementById("authMessage");
+
+function mensagem(texto){
+  authMessage.innerText = texto;
+}
+
+</script>
+
+<script>
+
+document.getElementById("loginForm")
+.addEventListener("submit", async function(e){
+
+  e.preventDefault();
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const senha =
+    document.getElementById("loginSenha").value;
+
+  mensagem("Entrando...");
+
+  const { error } =
+    await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: senha
+    });
+
+  if(error){
+    mensagem("E-mail ou senha incorretos.");
+    return;
+  }
+
+  mensagem("Login realizado! 💚");
+
+});
+
+</script>
+
+<script>
+
+async function mostrarCadastro(){
+
+  const nome = prompt("Digite seu nome:");
+
+  if(!nome) return;
+
+  const email = prompt("Digite seu e-mail:");
+
+  if(!email) return;
+
+  const senha = prompt("Crie uma senha:");
+
+  if(!senha) return;
+
+  if(senha.length < 6){
+    alert("A senha precisa ter pelo menos 6 caracteres.");
+    return;
+  }
+
+  mensagem("Criando sua conta...");
+
+  const { error } =
+    await supabaseClient.auth.signUp({
+      email: email,
+      password: senha,
+      options:{
+        data:{
+          nome: nome
+        }
+      }
+    });
+
+  if(error){
+    mensagem("Erro: " + error.message);
+    return;
+  }
+
+  mensagem(
+    "Conta criada! Verifique seu e-mail para confirmar. 📧💚"
+  );
+
+}
+
+</script>
+
+<script>
+
+async function mostrarRecuperacao(){
+
+  const email = prompt(
+    "Digite o e-mail da sua conta:"
+  );
+
+  if(!email) return;
+
+  mensagem("Enviando e-mail...");
+
+  const { error } =
+    await supabaseClient.auth
+      .resetPasswordForEmail(
+        email,
+        {
+          redirectTo:
+            "https://sinal-mundo.vercel.app/"
+        }
+      );
+
+  if(error){
+
+    mensagem(
+      "Não foi possível enviar o e-mail."
+    );
+
+    return;
+  }
+
+  mensagem(
+    "E-mail enviado! Verifique sua caixa de entrada. 📧💚"
+  );
+
+}
+
+</script>
+
+<script>
+
+async function verificarLogin(){
+
+  const { data } =
+    await supabaseClient.auth.getSession();
+
+  if(data.session){
+
+    document.getElementById("authScreen").style.display =
+      "none";
+
+  }else{
+
+    document.getElementById("authScreen").style.display =
+      "flex";
+
+  }
+
+}
+
+supabaseClient.auth.onAuthStateChange(
+  function(event, session){
+
+    if(session){
+
+      document.getElementById("authScreen").style.display =
+        "none";
+
+    }else{
+
+      document.getElementById("authScreen").style.display =
+        "flex";
+
+    }
+
+  }
+);
+
+verificarLogin();
+
+</script>
+
+<script>
+
+async function sairDaConta(){
+
+  const { error } =
+    await supabaseClient.auth.signOut();
+
+  if(error){
+
+    alert(
+      "Não foi possível sair da conta."
+    );
+
+    return;
+  }
+
+  location.reload();
+
+}
+
+</script>
+
+<header id="siteHeader">
+
+  <div class="topo">
+
+    <div class="logo">
+      🌎 SinalMundo
+    </div>
 
     <nav>
-      <button onclick="openPage('inicio')">Início</button>
-      <button onclick="openPage('pesquisa')">Pesquisa</button>
-      <button onclick="openPage('favoritos')">❤️ Favoritos</button>
-      <button onclick="openPage('perfil')">👤 Perfil</button>
+
+      <button onclick="abrirPagina('inicio')">
+        Início
+      </button>
+
+      <button onclick="abrirPagina('pesquisa')">
+        Pesquisa
+      </button>
+
+      <button onclick="abrirPagina('favoritos')">
+        ❤️ Favoritos
+      </button>
+
+      <button onclick="abrirPagina('perfil')">
+        👤 Perfil
+      </button>
+
     </nav>
 
   </div>
+
 </header>
-
-
-<!-- INÍCIO -->
 
 <main>
 
-<section id="inicio" class="page active">
+<section id="inicio" class="pagina">
 
   <div class="hero">
 
-    <h1>Mais que sinais, conexões entre pessoas e culturas. 🌎🤟🏻</h1>
+    <h1>
+      Mais que sinais, conexões entre pessoas e culturas. 🌎🤟🏻
+    </h1>
 
     <p>
       Aprenda línguas de sinais de forma simples,
       visual e acessível.
     </p>
 
-    <div class="hero-buttons">
-
-      <button class="btn btn-white"
-      onclick="openPage('pesquisa')">
-        Começar a aprender
-      </button>
-
-      <button class="btn btn-white"
-      onclick="openPage('pesquisa')">
-        Pesquisar sinais
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- CRIADORA -->
-
-  <section class="criadora">
-
-    <div class="criadora-foto">
-
-      <img
-        src="angela-vytorya-sinalmundo-1.jpg"
-        alt="Angela Vytorya, criadora do SinalMundo">
-
-    </div>
-
-    <div class="criadora-texto">
-
-      <h2>Olá, sou Angela Vytorya! 👋🏻💚</h2>
-
-      <p>
-        Que bom ter você por aqui!
-      </p>
-
-      <p>
-        Sou a criadora do <strong>SinalMundo</strong>,
-        um projeto criado para aproximar pessoas e culturas
-        por meio das línguas de sinais. 🌎🤟🏻
-      </p>
-
-      <div class="criadora-frase">
-        Mais que sinais, conexões entre pessoas e culturas. 💚
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- IDIOMAS -->
-
-  <div class="titulo">
-
-    <h2>Explore as línguas de sinais</h2>
-
-    <p>
-      Descubra diferentes formas de comunicação pelo mundo.
-    </p>
-
-  </div>
-
-
-  <div class="idiomas">
-
-    <div class="idioma">
-      <div class="emoji">🇧🇷</div>
-      <h3>Libras</h3>
-      <p>Brasil</p>
-    </div>
-
-    <div class="idioma">
-      <div class="emoji">🇺🇸</div>
-      <h3>ASL</h3>
-      <p>Estados Unidos</p>
-    </div>
-
-    <div class="idioma">
-      <div class="emoji">🇬🇧</div>
-      <h3>BSL</h3>
-      <p>Reino Unido</p>
-    </div>
-
-    <div class="idioma">
-      <div class="emoji">🇫🇷</div>
-      <h3>LSF</h3>
-      <p>França</p>
-    </div>
-
-    <div class="idioma">
-      <div class="emoji">🇩🇪</div>
-      <h3>DGS</h3>
-      <p>Alemanha</p>
-    </div>
-
-    <div class="idioma">
-      <div class="emoji">🇯🇵</div>
-      <h3>JSL</h3>
-      <p>Japão</p>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- PESQUISA -->
-
-<section id="pesquisa" class="page">
-
-  <div class="titulo">
-
-    <h2>Pesquisar sinais 🔎</h2>
-
-    <p>
-      Busque palavras, frases ou sinais.
-    </p>
-
-  </div>
-
-
-  <div class="pesquisa-box">
-
-    <input
-      id="campoBusca"
-      class="search"
-      type="text"
-      placeholder="Buscar sinais, palavras ou frases..."
-      oninput="mostrarSinais()"
-    >
-
-
-    <div class="filtros">
-
-      <button class="filtro active"
-      onclick="filtrarLingua('Todas',this)">
-        Todas
-      </button>
-
-      <button class="filtro"
-      onclick="filtrarLingua('Libras',this)">
-        Libras 🇧🇷
-      </button>
-
-      <button class="filtro"
-      onclick="filtrarLingua('ASL',this)">
-        ASL 🇺🇸
-      </button>
-
-      <button class="filtro"
-      onclick="filtrarLingua('BSL',this)">
-        BSL 🇬🇧
-      </button>
-
-    </div>
-
-
-    <div class="categorias">
-
-      <button class="categoria"
-      onclick="buscarCategoria('Saudações')">
-        Saudações
-      </button>
-
-      <button class="categoria"
-      onclick="buscarCategoria('Amor')">
-        Amor
-      </button>
-
-      <button class="categoria"
-      onclick="buscarCategoria('Dia a dia')">
-        Dia a dia
-      </button>
-
-      <button class="categoria"
-      onclick="buscarCategoria('Educação')">
-        Educação
-      </button>
-
-      <button class="categoria"
-      onclick="buscarCategoria('Família')">
-        Família
-      </button>
-
-      <button class="categoria"
-      onclick="buscarCategoria('Sentimentos')">
-        Sentimentos
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div id="resultado" class="resultado"></div>
-
-  <div id="sinais" class="sinais"></div>
-
-</section>
-
-
-<!-- DETALHE -->
-
-<section id="detalhe" class="page">
-
-  <div class="detalhe-sinal">
-
-    <button
-      class="detalhe-voltar"
-      onclick="openPage('pesquisa')">
-      ← Voltar para Pesquisa
+    <button onclick="abrirPagina('pesquisa')">
+      Começar a aprender
     </button>
 
-
-    <div class="detalhe-card">
-
-      <div class="detalhe-imagem">
-        🤟🏻
-      </div>
-
-      <h1 id="detalheNome">Olá</h1>
-
-      <div
-        id="detalheLingua"
-        class="detalhe-lingua">
-        Libras 🇧🇷
-      </div>
-
-      <div
-        id="detalheCategoria"
-        class="detalhe-categoria">
-        Saudações
-      </div>
-
-      <p
-        id="detalheDescricao"
-        class="detalhe-descricao">
-        Aprenda este sinal de forma visual e acessível.
-      </p>
-
-      <div class="detalhe-acoes">
-
-        <button
-          id="detalheFavorito"
-          onclick="favoritarDetalhe()">
-          ❤️ Favoritar
-        </button>
-
-      </div>
-
-    </div>
-
   </div>
 
-</section>
+  <div class="criadora">
 
-
-<!-- FAVORITOS -->
-
-<section id="favoritos" class="page">
-
-  <div class="titulo">
-
-    <h2>Meus favoritos ❤️</h2>
+    <h2>
+      Olá, sou Angela Vytorya! 👋🏻💚
+    </h2>
 
     <p>
-      Sinais que você salvou para estudar depois.
+      Sou a criadora do SinalMundo,
+      um projeto para aproximar pessoas e culturas
+      por meio das línguas de sinais. 🌎🤟🏻
     </p>
 
   </div>
 
-  <div id="listaFavoritos" class="lista-favoritos"></div>
-
 </section>
 
+<div class="criadora-foto">
 
-<!-- PERFIL -->
+  <img
+    src="angela-vytorya-sinalmundo-1.jpg"
+    alt="Angela Vytorya"
+  >
 
-<section id="perfil" class="page">
-
-  <div class="perfil-card">
-
-    <h2>👤 Meu Perfil</h2>
-
-
-    <div class="opcao">
-
-      <strong>Conta</strong>
-
-      <p style="color:#777;margin-top:8px;">
-        Entre ou crie sua conta para salvar seu progresso.
-      </p>
-
-      <button
-        class="login-btn"
-        onclick="alert('Área de login em desenvolvimento. 💚')">
-        Entrar / Criar conta
-      </button>
-
-    </div>
-
-
-    <div class="opcao">
-
-      <strong>🎨 Escolha a cor do SinalMundo</strong>
-
-      <div class="cores">
-
-        <button
-          class="cor verde"
-          onclick="mudarCor('#6B8E23')">
-        </button>
-
-        <button
-          class="cor azul"
-          onclick="mudarCor('#2563EB')">
-        </button>
-
-        <button
-          class="cor amarelo"
-          onclick="mudarCor('#EAB308')">
-        </button>
-
-        <button
-          class="cor rosa"
-          onclick="mudarCor('#EC4899')">
-        </button>
-
-        <button
-          class="cor roxo"
-          onclick="mudarCor('#8B5CF6')">
-        </button>
-
-        <button
-          class="cor laranja"
-          onclick="mudarCor('#F97316')">
-        </button>
-
-        <button
-          class="cor celeste"
-          onclick="mudarCor('#38BDF8')">
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="opcao">
-
-      <strong>⭐ SinalMundo Premium</strong>
-
-      <p style="color:#777;margin-top:8px;">
-        Tenha acesso completo ao SinalMundo.
-      </p>
-
-      <p style="font-size:22px;font-weight:bold;margin-top:10px;">
-        R$ 50,00
-      </p>
-
-      <p style="color:#777;">
-        Pagamento único • Vitalício
-      </p>
-
-      <button
-        class="premium-btn"
-        onclick="alert('O pagamento do Premium ainda está em desenvolvimento. ⭐')">
-        Conhecer o Premium ⭐
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
+</div>
 
 </main>
 
+<section id="pesquisa" class="pagina">
 
-<footer>
+  <h2>Pesquisar sinais 🔎</h2>
 
-  <p>
-    © 2026 SinalMundo • Mais que sinais, conexões entre pessoas e culturas. 💚
-  </p>
+  <p>Busque palavras ou sinais.</p>
 
-</footer>
+  <input
+    id="campoBusca"
+    type="text"
+    placeholder="Buscar sinais..."
+    oninput="mostrarSinais()"
+  >
 
+  <div id="sinais"></div>
+
+</section>
 
 <script>
 
@@ -989,239 +476,87 @@ const sinais = [
 
   {
     nome:"Olá",
-    lingua:"Libras",
-    bandeira:"🇧🇷",
-    categoria:"Saudações",
-    descricao:"Sinal usado para cumprimentar alguém."
+    lingua:"Libras 🇧🇷",
+    categoria:"Saudações"
   },
 
   {
     nome:"Bom dia",
-    lingua:"Libras",
-    bandeira:"🇧🇷",
-    categoria:"Saudações",
-    descricao:"Forma de cumprimentar alguém durante a manhã."
+    lingua:"Libras 🇧🇷",
+    categoria:"Saudações"
   },
 
   {
     nome:"Boa tarde",
-    lingua:"Libras",
-    bandeira:"🇧🇷",
-    categoria:"Saudações",
-    descricao:"Cumprimento utilizado durante a tarde."
+    lingua:"Libras 🇧🇷",
+    categoria:"Saudações"
   },
 
   {
     nome:"Boa noite",
-    lingua:"Libras",
-    bandeira:"🇧🇷",
-    categoria:"Saudações",
-    descricao:"Cumprimento utilizado durante a noite."
+    lingua:"Libras 🇧🇷",
+    categoria:"Saudações"
   },
 
   {
     nome:"Amor",
-    lingua:"Libras",
-    bandeira:"🇧🇷",
-    categoria:"Amor",
-    descricao:"Sinal relacionado ao sentimento de amor."
+    lingua:"Libras 🇧🇷",
+    categoria:"Amor"
   },
 
   {
     nome:"Feliz",
-    lingua:"Libras",
-    bandeira:"🇧🇷",
-    categoria:"Sentimentos",
-    descricao:"Sinal relacionado à felicidade."
+    lingua:"Libras 🇧🇷",
+    categoria:"Sentimentos"
   },
 
   {
     nome:"Triste",
-    lingua:"Libras",
-    bandeira:"🇧🇷",
-    categoria:"Sentimentos",
-    descricao:"Sinal relacionado ao sentimento de tristeza."
+    lingua:"Libras 🇧🇷",
+    categoria:"Sentimentos"
   },
 
   {
     nome:"Obrigado",
-    lingua:"Libras",
-    bandeira:"🇧🇷",
-    categoria:"Dia a dia",
-    descricao:"Sinal usado para agradecer."
+    lingua:"Libras 🇧🇷",
+    categoria:"Dia a dia"
   },
 
   {
     nome:"Mãe",
-    lingua:"Libras",
-    bandeira:"🇧🇷",
-    categoria:"Família",
-    descricao:"Sinal para mãe."
+    lingua:"Libras 🇧🇷",
+    categoria:"Família"
   },
 
   {
     nome:"Pai",
-    lingua:"Libras",
-    bandeira:"🇧🇷",
-    categoria:"Família",
-    descricao:"Sinal para pai."
-  },
-
-  {
-    nome:"Família",
-    lingua:"Libras",
-    bandeira:"🇧🇷",
-    categoria:"Família",
-    descricao:"Sinal relacionado à família."
-  },
-
-  {
-    nome:"Casa",
-    lingua:"Libras",
-    bandeira:"🇧🇷",
-    categoria:"Dia a dia",
-    descricao:"Sinal para casa."
-  },
-
-  {
-    nome:"Água",
-    lingua:"Libras",
-    bandeira:"🇧🇷",
-    categoria:"Dia a dia",
-    descricao:"Sinal para água."
-  },
-
-  {
-    nome:"Olá",
-    lingua:"ASL",
-    bandeira:"🇺🇸",
-    categoria:"Saudações",
-    descricao:"Greeting sign in American Sign Language."
-  },
-
-  {
-    nome:"Thank you",
-    lingua:"ASL",
-    bandeira:"🇺🇸",
-    categoria:"Dia a dia",
-    descricao:"Sign used to express thanks in ASL."
-  },
-
-  {
-    nome:"Hello",
-    lingua:"BSL",
-    bandeira:"🇬🇧",
-    categoria:"Saudações",
-    descricao:"Greeting sign in British Sign Language."
+    lingua:"Libras 🇧🇷",
+    categoria:"Família"
   }
 
 ];
 
-
-let linguaSelecionada = "Todas";
-let sinalAtual = null;
-
-
-function openPage(id){
-
-  document.querySelectorAll(".page")
-  .forEach(page=>{
-    page.classList.remove("active");
-  });
-
-  document.getElementById(id)
-  .classList.add("active");
-
-  window.scrollTo(0,0);
-
-  if(id==="pesquisa"){
-    mostrarSinais();
-  }
-
-  if(id==="favoritos"){
-    mostrarFavoritos();
-  }
-
-}
-
-
-function filtrarLingua(lingua,botao){
-
-  linguaSelecionada = lingua;
-
-  document.querySelectorAll(".filtro")
-  .forEach(b=>{
-    b.classList.remove("active");
-  });
-
-  botao.classList.add("active");
-
-  mostrarSinais();
-
-}
-
-
-function buscarCategoria(categoria){
-
-  document.getElementById("campoBusca").value = "";
-
-  document.querySelectorAll(".filtro")
-  .forEach(b=>{
-    b.classList.remove("active");
-  });
-
-  document.querySelector(".filtro")
-  .classList.add("active");
-
-  linguaSelecionada = "Todas";
-
-  const encontrados = sinais.filter(
-    s=>s.categoria===categoria
-  );
-
-  mostrarLista(encontrados);
-
-}
-
-
 function mostrarSinais(){
 
-  const texto =
-    document.getElementById("campoBusca")
-    .value
-    .toLowerCase();
+  const busca =
+    document
+      .getElementById("campoBusca")
+      .value
+      .toLowerCase();
 
-  let lista = sinais.filter(s=>{
+  const resultado =
+    sinais.filter(function(sinal){
 
-    const correspondeTexto =
-      s.nome.toLowerCase().includes(texto) ||
-      s.categoria.toLowerCase().includes(texto);
+      return sinal.nome
+        .toLowerCase()
+        .includes(busca);
 
-    const correspondeLingua =
-      linguaSelecionada==="Todas" ||
-      s.lingua===linguaSelecionada;
-
-    return correspondeTexto && correspondeLingua;
-
-  });
-
-  mostrarLista(lista);
-
-}
-
-
-function mostrarLista(lista){
+    });
 
   const area =
     document.getElementById("sinais");
 
-  const resultado =
-    document.getElementById("resultado");
-
-  resultado.innerText =
-    lista.length + " sinal(is) encontrado(s)";
-
-  if(lista.length===0){
+  if(resultado.length === 0){
 
     area.innerHTML =
       "<p>Nenhum sinal encontrado. 💚</p>";
@@ -1231,226 +566,305 @@ function mostrarLista(lista){
   }
 
   area.innerHTML =
-    lista.map((s,index)=>`
+    resultado.map(function(sinal){
 
-      <div class="sinal-card">
+      return `
+        <div class="sinal-card">
 
-        <div class="sinal-imagem">
-          🤟🏻
-        </div>
+          <div class="sinal-imagem">
+            🤟🏻
+          </div>
 
-        <h3>${s.nome}</h3>
+          <h3>${sinal.nome}</h3>
 
-        <div class="sinal-lingua">
-          ${s.lingua} ${s.bandeira}
-        </div>
+          <p>${sinal.lingua}</p>
 
-        <div class="sinal-categoria">
-          ${s.categoria}
-        </div>
-
-        <div class="sinal-acoes">
-
-          <button
-            class="btn-fav"
-            onclick="favoritar('${s.nome}','${s.lingua}')">
-            ❤️ Favoritar
-          </button>
-
-          <button
-            class="btn-ver"
-            onclick="abrirDetalhe('${s.nome}','${s.lingua}')">
-            Ver sinal
-          </button>
+          <small>${sinal.categoria}</small>
 
         </div>
+      `;
 
-      </div>
-
-    `).join("");
+    }).join("");
 
 }
-
-
-function abrirDetalhe(nome,lingua){
-
-  const sinal =
-    sinais.find(
-      s=>s.nome===nome &&
-      s.lingua===lingua
-    );
-
-  if(!sinal) return;
-
-  sinalAtual = sinal;
-
-  document.getElementById("detalheNome")
-  .innerText=sinal.nome;
-
-  document.getElementById("detalheLingua")
-  .innerText=
-    sinal.lingua+" "+sinal.bandeira;
-
-  document.getElementById("detalheCategoria")
-  .innerText=sinal.categoria;
-
-  document.getElementById("detalheDescricao")
-  .innerText=sinal.descricao;
-
-  atualizarBotaoDetalhe();
-
-  openPage("detalhe");
-
-}
-
-
-function favoritar(nome,lingua){
-
-  let favoritos =
-    JSON.parse(
-      localStorage.getItem("sinalmundo-favoritos") || "[]"
-    );
-
-  const existe =
-    favoritos.some(
-      s=>s.nome===nome && s.lingua===lingua
-    );
-
-  if(existe){
-
-    favoritos =
-      favoritos.filter(
-        s=>!(s.nome===nome && s.lingua===lingua)
-      );
-
-  }else{
-
-    const sinal =
-      sinais.find(
-        s=>s.nome===nome && s.lingua===lingua
-      );
-
-    favoritos.push(sinal);
-
-  }
-
-  localStorage.setItem(
-    "sinalmundo-favoritos",
-    JSON.stringify(favoritos)
-  );
-
-  mostrarSinais();
-
-}
-
-
-function favoritarDetalhe(){
-
-  if(!sinalAtual) return;
-
-  favoritar(
-    sinalAtual.nome,
-    sinalAtual.lingua
-  );
-
-  atualizarBotaoDetalhe();
-
-}
-
-
-function atualizarBotaoDetalhe(){
-
-  if(!sinalAtual) return;
-
-  const favoritos =
-    JSON.parse(
-      localStorage.getItem("sinalmundo-favoritos") || "[]"
-    );
-
-  const existe =
-    favoritos.some(
-      s=>s.nome===sinalAtual.nome &&
-      s.lingua===sinalAtual.lingua
-    );
-
-  document.getElementById("detalheFavorito")
-  .innerText =
-    existe
-    ? "💚 Remover dos favoritos"
-    : "❤️ Favoritar";
-
-}
-
-
-function mostrarFavoritos(){
-
-  const area =
-    document.getElementById("listaFavoritos");
-
-  const favoritos =
-    JSON.parse(
-      localStorage.getItem("sinalmundo-favoritos") || "[]"
-    );
-
-  if(favoritos.length===0){
-
-    area.innerHTML =
-      "<p>Você ainda não adicionou sinais aos favoritos. ❤️</p>";
-
-    return;
-
-  }
-
-  area.innerHTML =
-    favoritos.map(s=>`
-
-      <div class="sinal-card">
-
-        <div class="sinal-imagem">
-          🤟🏻
-        </div>
-
-        <h3>${s.nome}</h3>
-
-        <div class="sinal-lingua">
-          ${s.lingua} ${s.bandeira}
-        </div>
-
-        <div class="sinal-categoria">
-          ${s.categoria}
-        </div>
-
-        <div class="sinal-acoes">
-
-          <button
-            class="btn-ver"
-            onclick="abrirDetalhe('${s.nome}','${s.lingua}')">
-            Ver sinal
-          </button>
-
-        </div>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-function mudarCor(cor){
-
-  document.documentElement
-  .style.setProperty(
-    "--primary",
-    cor
-  );
-
-}
-
 
 mostrarSinais();
 
 </script>
 
+<script>
+
+function abrirPagina(id){
+
+  document
+    .querySelectorAll(".pagina")
+    .forEach(function(pagina){
+
+      pagina.style.display = "none";
+
+    });
+
+  const pagina =
+    document.getElementById(id);
+
+  if(pagina){
+
+    pagina.style.display = "block";
+
+  }
+
+  window.scrollTo(0,0);
+
+}
+
+abrirPagina("inicio");
+
+</script>
+
+<section id="favoritos" class="pagina">
+
+  <h2>Meus favoritos ❤️</h2>
+
+  <p>
+    Seus sinais favoritos aparecerão aqui.
+  </p>
+
+  <div id="listaFavoritos"></div>
+
+</section>
+
+
+<section id="perfil" class="pagina">
+
+  <h2>👤 Meu Perfil</h2>
+
+  <p id="perfilNome">
+    Nome: carregando...
+  </p>
+
+  <p id="perfilEmail">
+    E-mail: carregando...
+  </p>
+
+  <button onclick="sairDaConta()">
+    🚪 Sair da conta
+  </button>
+
+</section>
+
+<script>
+
+async function carregarPerfil(){
+
+  const { data } =
+    await supabaseClient.auth.getUser();
+
+  if(!data.user) return;
+
+  const usuario = data.user;
+
+  const nome =
+    usuario.user_metadata?.nome ||
+    "Usuário";
+
+  document.getElementById("perfilNome")
+    .innerText =
+    "Nome: " + nome;
+
+  document.getElementById("perfilEmail")
+    .innerText =
+    "E-mail: " + usuario.email;
+
+}
+
+carregarPerfil();
+
+</script>
+
+<style>
+
+.pagina{
+  max-width:1000px;
+  margin:auto;
+  padding:30px 20px;
+}
+
+.pagina h2{
+  color:var(--primary);
+  margin-bottom:10px;
+}
+
+.pagina p{
+  color:var(--gray);
+  line-height:1.6;
+  margin-bottom:15px;
+}
+
+#siteHeader{
+  background:white;
+  border-bottom:1px solid var(--border);
+  padding:15px 20px;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.topo{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.logo{
+  color:var(--primary);
+  font-size:24px;
+  font-weight:bold;
+}
+
+nav{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+nav button{
+  background:white;
+  color:#555;
+  padding:10px;
+  border-radius:10px;
+}
+
+nav button:hover{
+  background:var(--light);
+  color:var(--primary);
+}
+
+.hero{
+  background:var(--primary);
+  color:white;
+  padding:40px 25px;
+  border-radius:25px;
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.hero h1{
+  font-size:30px;
+  margin-bottom:15px;
+}
+
+.hero p{
+  color:white;
+  margin-bottom:20px;
+}
+
+.hero button{
+  background:white;
+  color:var(--primary);
+  padding:13px 20px;
+  border-radius:12px;
+  font-weight:bold;
+}
+
+.criadora{
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  margin-bottom:25px;
+}
+
+.criadora h2{
+  margin-bottom:10px;
+}
+
+.criadora-foto img{
+  width:130px;
+  height:130px;
+  object-fit:cover;
+  border-radius:50%;
+  margin-bottom:15px;
+}
+
+#campoBusca{
+  width:100%;
+  padding:15px;
+  border:2px solid var(--border);
+  border-radius:12px;
+  font-size:16px;
+  margin:15px 0 25px;
+}
+
+#sinais{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+
+.sinal-card{
+  background:white;
+  padding:20px;
+  border-radius:18px;
+  box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.sinal-imagem{
+  font-size:45px;
+  margin-bottom:10px;
+}
+
+.sinal-card h3{
+  margin-bottom:8px;
+}
+
+.sinal-card small{
+  color:var(--primary);
+}
+
+#favoritos,
+#perfil{
+  background:white;
+  border-radius:20px;
+  margin:25px auto;
+}
+
+#perfil button{
+  background:var(--primary);
+  color:white;
+  padding:13px 18px;
+  border-radius:12px;
+  margin-top:15px;
+  font-weight:bold;
+}
+
+@media(max-width:600px){
+
+  .topo{
+    justify-content:center;
+  }
+
+  .logo{
+    width:100%;
+    text-align:center;
+  }
+
+  nav{
+    justify-content:center;
+  }
+
+  .hero h1{
+    font-size:24px;
+  }
+
+}
+
+</style>
+
+</div>
+
 </body>
 </html>
+
