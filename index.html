@@ -273,9 +273,6 @@ button{
 
 <div id="app"></div>
 
-
-<!-- SUPABASE -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -291,11 +288,6 @@ window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
 );
-
-
-/* =========================
-   SINAIS DE EXEMPLO
-========================= */
 
 const sinais = [
 
@@ -333,7 +325,422 @@ const sinais = [
 
 
 /* =========================
-   TELA DE LOGIN
+   LOGIN
+========================= */
+
+function mostrarLogin(){
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="tela">
+
+      <div class="card">
+
+        <div class="conteudo">
+
+          <img
+            src="angela-vytorya-sinalmundo-1.jpg"
+            alt="Foto"
+            class="foto"
+          >
+
+          <div class="logo">
+            🌎 SinalMundo
+          </div>
+
+          <p class="sublogo">
+            Línguas de sinais aproximam pessoas ♡
+          </p>
+
+          <div class="divisor">
+            ─── ♡ ───
+          </div>
+
+          <h2>
+            Bem-vindo(a)! 💚
+          </h2>
+
+          <p class="frase">
+            Entre na sua conta para continuar.
+          </p>
+
+          <input
+            id="loginEmail"
+            type="email"
+            placeholder="✉️ Seu e-mail"
+          >
+
+          <input
+            id="loginSenha"
+            type="password"
+            placeholder="🔒 Sua senha"
+          >
+
+          <button
+            id="entrarBtn"
+            class="btn-verde"
+          >
+            ➜ Entrar
+          </button>
+
+          <button
+            id="criarContaBtn"
+            class="btn-claro"
+          >
+            ♡ Criar conta
+          </button>
+
+          <button
+            id="esqueciSenhaBtn"
+            class="btn-branco"
+          >
+            Esqueci minha senha
+          </button>
+
+          <p
+            id="loginMensagem"
+            class="mensagem"
+          ></p>
+
+          <div class="final">
+            Juntos por um mundo<br>
+            mais inclusivo! ♡
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+  document.getElementById("entrarBtn").onclick = fazerLogin;
+
+  document.getElementById("criarContaBtn").onclick = mostrarCadastro;
+
+  document.getElementById("esqueciSenhaBtn").onclick = mostrarRecuperacao;
+
+}
+
+
+/* =========================
+   FAZER LOGIN
+========================= */
+
+async function fazerLogin(){
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const senha =
+    document.getElementById("loginSenha").value;
+
+  const mensagem =
+    document.getElementById("loginMensagem");
+
+  if(!email || !senha){
+
+    mensagem.innerText =
+      "Preencha seu e-mail e sua senha.";
+
+    return;
+  }
+
+  mensagem.innerText =
+    "Entrando... 💚";
+
+  const { error } =
+    await supabaseClient.auth.signInWithPassword({
+      email:email,
+      password:senha
+    });
+
+  if(error){
+
+    mensagem.innerText =
+      "E-mail ou senha incorretos.";
+
+    return;
+  }
+
+  mostrarInicio();
+
+}
+
+/* =========================
+   CRIAR CONTA
+========================= */
+
+function mostrarCadastro(){
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="tela">
+
+      <div class="card">
+
+        <div class="conteudo">
+
+          <h1>
+            Criar conta 💚
+          </h1>
+
+          <p class="frase">
+            Faça parte do SinalMundo! 🤟🏻
+          </p>
+
+          <input
+            id="cadastroNome"
+            type="text"
+            placeholder="👤 Seu nome"
+          >
+
+          <input
+            id="cadastroEmail"
+            type="email"
+            placeholder="✉️ Seu e-mail"
+          >
+
+          <input
+            id="cadastroSenha"
+            type="password"
+            placeholder="🔒 Sua senha"
+          >
+
+          <button
+            id="confirmarCadastro"
+            class="btn-verde"
+          >
+            ♡ Criar conta
+          </button>
+
+          <button
+            id="voltarCadastro"
+            class="btn-claro"
+          >
+            ← Voltar para entrar
+          </button>
+
+          <p
+            id="cadastroMensagem"
+            class="mensagem"
+          ></p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+  document
+    .getElementById("confirmarCadastro")
+    .onclick = criarConta;
+
+  document
+    .getElementById("voltarCadastro")
+    .onclick = mostrarLogin;
+
+}
+
+
+/* =========================
+   FUNÇÃO CRIAR CONTA
+========================= */
+
+async function criarConta(){
+
+  const nome =
+    document.getElementById("cadastroNome")
+      .value.trim();
+
+  const email =
+    document.getElementById("cadastroEmail")
+      .value.trim();
+
+  const senha =
+    document.getElementById("cadastroSenha")
+      .value;
+
+  const mensagem =
+    document.getElementById("cadastroMensagem");
+
+  if(!nome || !email || !senha){
+
+    mensagem.innerText =
+      "Preencha todos os campos.";
+
+    return;
+  }
+
+  if(senha.length < 6){
+
+    mensagem.innerText =
+      "A senha precisa ter pelo menos 6 caracteres.";
+
+    return;
+  }
+
+  mensagem.innerText =
+    "Criando sua conta... 💚";
+
+  const { data, error } =
+    await supabaseClient.auth.signUp({
+
+      email:email,
+
+      password:senha,
+
+      options:{
+        data:{
+          nome:nome
+        }
+      }
+
+    });
+
+  if(error){
+
+    mensagem.innerText =
+      "Não foi possível criar a conta.";
+
+    return;
+  }
+
+  if(data.session){
+
+    mostrarInicio();
+
+    return;
+  }
+
+  mensagem.innerText =
+    "Conta criada! Verifique seu e-mail. 📧💚";
+
+}
+
+
+/* =========================
+   RECUPERAR SENHA
+========================= */
+
+function mostrarRecuperacao(){
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="tela">
+
+      <div class="card">
+
+        <div class="conteudo">
+
+          <h1>
+            Recuperar senha 💚
+          </h1>
+
+          <p class="frase">
+            Digite seu e-mail para receber
+            o link de recuperação. 📧
+          </p>
+
+          <input
+            id="recuperarEmail"
+            type="email"
+            placeholder="✉️ Seu e-mail"
+          >
+
+          <button
+            id="enviarRecuperacao"
+            class="btn-verde"
+          >
+            🔒 Enviar link
+          </button>
+
+          <button
+            id="voltarRecuperacao"
+            class="btn-claro"
+          >
+            ← Voltar para entrar
+          </button>
+
+          <p
+            id="recuperacaoMensagem"
+            class="mensagem"
+          ></p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+  document
+    .getElementById("enviarRecuperacao")
+    .onclick = enviarRecuperacao;
+
+  document
+    .getElementById("voltarRecuperacao")
+    .onclick = mostrarLogin;
+
+}
+
+
+/* =========================
+   ENVIAR RECUPERAÇÃO
+========================= */
+
+async function enviarRecuperacao(){
+
+  const email =
+    document.getElementById("recuperarEmail")
+      .value.trim();
+
+  const mensagem =
+    document.getElementById("recuperacaoMensagem");
+
+  if(!email){
+
+    mensagem.innerText =
+      "Digite seu e-mail.";
+
+    return;
+  }
+
+  mensagem.innerText =
+    "Enviando... 💚";
+
+  const { error } =
+    await supabaseClient.auth
+      .resetPasswordForEmail(
+
+        email,
+
+        {
+          redirectTo:
+            window.location.origin
+        }
+
+      );
+
+  if(error){
+
+    mensagem.innerText =
+      "Não foi possível enviar o link.";
+
+    return;
+  }
+
+  mensagem.innerText =
+    "Link enviado! Verifique seu e-mail. 📧💚";
+
+}
+
+/* =========================
+   TELA PRINCIPAL
 ========================= */
 
 function mostrarInicio(){
@@ -424,500 +831,25 @@ function mostrarInicio(){
 
   `;
 
-
   document
     .getElementById("pesquisaBtn")
     .onclick = mostrarPesquisa;
-
 
   document
     .getElementById("idiomasBtn")
     .onclick = mostrarIdiomas;
 
-
   document
     .getElementById("favoritosBtn")
     .onclick = mostrarFavoritos;
-
 
   document
     .getElementById("perfilBtn")
     .onclick = mostrarPerfil;
 
-
   document
     .getElementById("sairBtn")
     .onclick = sair;
-
-}
-
-
-/* =========================
-   LOGIN
-========================= */
-
-async function fazerLogin(){
-
-  const email =
-    document.getElementById("loginEmail")
-      .value.trim();
-
-  const senha =
-    document.getElementById("loginSenha")
-      .value;
-
-  const mensagem =
-    document.getElementById("loginMensagem");
-
-
-  if(!email || !senha){
-
-    mensagem.innerText =
-      "Preencha seu e-mail e sua senha.";
-
-    return;
-  }
-
-
-  mensagem.innerText =
-    "Entrando... 💚";
-
-
-  const { error } =
-    await supabaseClient.auth
-      .signInWithPassword({
-
-        email:email,
-        password:senha
-
-      });
-
-
-  if(error){
-
-    mensagem.innerText =
-      "E-mail ou senha incorretos.";
-
-    return;
-  }
-
-
-  mostrarInicio();
-
-}
-
-
-/* =========================
-   CRIAR CONTA
-========================= */
-
-function mostrarCadastro(){
-
-  document.getElementById("app").innerHTML = `
-
-    <div class="tela">
-
-      <div class="card">
-
-        <div class="conteudo">
-
-          <div class="folhas">
-            🌿 🍃
-          </div>
-
-          <h1>
-            Criar conta 💚
-          </h1>
-
-          <p class="frase">
-            Faça parte do SinalMundo! 🤟🏻
-          </p>
-
-          <input
-            id="cadastroNome"
-            type="text"
-            placeholder="👤 Seu nome"
-          >
-
-          <input
-            id="cadastroEmail"
-            type="email"
-            placeholder="✉️ Seu e-mail"
-          >
-
-          <input
-            id="cadastroSenha"
-            type="password"
-            placeholder="🔒 Sua senha"
-          >
-
-          <button
-            id="confirmarCadastro"
-            class="btn-verde"
-          >
-            ♡ Criar conta
-          </button>
-
-          <button
-            id="voltarCadastro"
-            class="btn-claro"
-          >
-            ← Voltar para entrar
-          </button>
-
-          <p
-            id="cadastroMensagem"
-            class="mensagem"
-          ></p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  document
-  .getElementById("confirmarCadastro")
-  .onclick = criarConta;
-
-
-  document
-  .getElementById("voltarCadastro")
-  .onclick = mostrarLogin;
-
-}
-
-
-/* =========================
-   FUNÇÃO CRIAR CONTA
-========================= */
-
-async function criarConta(){
-
-  const nome =
-    document.getElementById("cadastroNome")
-      .value.trim();
-
-  const email =
-    document.getElementById("cadastroEmail")
-      .value.trim();
-
-  const senha =
-    document.getElementById("cadastroSenha")
-      .value;
-
-  const mensagem =
-    document.getElementById("cadastroMensagem");
-
-
-  if(!nome || !email || !senha){
-
-    mensagem.innerText =
-      "Preencha todos os campos.";
-
-    return;
-  }
-
-
-  if(senha.length < 6){
-
-    mensagem.innerText =
-      "A senha precisa ter pelo menos 6 caracteres.";
-
-    return;
-  }
-
-
-  mensagem.innerText =
-    "Criando sua conta... 💚";
-
-
-  const { data, error } =
-    await supabaseClient.auth
-      .signUp({
-
-        email:email,
-
-        password:senha,
-
-        options:{
-          data:{
-            nome:nome
-          }
-        }
-
-      });
-
-
-  if(error){
-
-    mensagem.innerText =
-      "Não foi possível criar a conta.";
-
-    return;
-  }
-
-
-  if(data.session){
-
-    mostrarInicio();
-
-    return;
-  }
-
-
-  mensagem.innerText =
-    "Conta criada! Verifique seu e-mail. 📧💚";
-
-}
-
-
-/* =========================
-   RECUPERAR SENHA
-========================= */
-
-function mostrarRecuperacao(){
-
-  document.getElementById("app").innerHTML = `
-
-    <div class="tela">
-
-      <div class="card">
-
-        <div class="conteudo">
-
-          <div class="folhas">
-            🌿 🍃
-          </div>
-
-          <h1>
-            Recuperar senha 💚
-          </h1>
-
-          <p class="frase">
-            Digite seu e-mail para receber
-            o link de recuperação. 📧
-          </p>
-
-          <input
-            id="recuperarEmail"
-            type="email"
-            placeholder="✉️ Seu e-mail"
-          >
-
-          <button
-            id="enviarRecuperacao"
-            class="btn-verde"
-          >
-            🔒 Enviar link
-          </button>
-
-          <button
-            id="voltarRecuperacao"
-            class="btn-claro"
-          >
-            ← Voltar para entrar
-          </button>
-
-          <p
-            id="recuperacaoMensagem"
-            class="mensagem"
-          ></p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  document
-  .getElementById("enviarRecuperacao")
-  .onclick = enviarRecuperacao;
-
-
-  document
-  .getElementById("voltarRecuperacao")
-  .onclick = mostrarLogin;
-
-}
-
-
-/* =========================
-   ENVIAR RECUPERAÇÃO
-========================= */
-
-async function enviarRecuperacao(){
-
-  const email =
-    document.getElementById("recuperarEmail")
-      .value.trim();
-
-  const mensagem =
-    document.getElementById("recuperacaoMensagem");
-
-
-  if(!email){
-
-    mensagem.innerText =
-      "Digite seu e-mail.";
-
-    return;
-  }
-
-
-  mensagem.innerText =
-    "Enviando... 💚";
-
-
-  const { error } =
-    await supabaseClient.auth
-      .resetPasswordForEmail(
-
-        email,
-
-        {
-          redirectTo:
-            window.location.origin
-        }
-
-      );
-
-
-  if(error){
-
-    mensagem.innerText =
-      "Não foi possível enviar o link.";
-
-    return;
-  }
-
-
-  mensagem.innerText =
-    "Link enviado! Verifique seu e-mail. 📧💚";
-
-}
-
-
-/* =========================
-   TELA PRINCIPAL
-========================= */
-
-function mostrarInicio(){
-
-  document.getElementById("app").innerHTML = `
-
-    <div class="tela">
-
-      <div class="card">
-
-        <div class="conteudo">
-
-          <div class="folhas">
-            🌿 🍃
-          </div>
-
-          <div class="logo">
-            🌎 SinalMundo
-          </div>
-
-          <p class="sublogo">
-            Línguas de sinais aproximam pessoas ♡
-          </p>
-
-          <div class="divisor">
-            ─── ♡ ───
-          </div>
-
-          <h2>
-            Seja bem-vindo(a)! 💚
-          </h2>
-
-          <p class="frase">
-            Que bom ter você aqui! 🤟🏻
-          </p>
-
-          <div class="menu">
-
-            <button
-              id="pesquisaBtn"
-              class="item"
-            >
-              🔎 Pesquisar sinais
-            </button>
-
-            <button
-              id="idiomasBtn"
-              class="item"
-            >
-              🌎 Línguas de sinais
-            </button>
-
-            <button
-              id="favoritosBtn"
-              class="item"
-            >
-              ♡ Meus favoritos
-            </button>
-
-            <button
-              id="perfilBtn"
-              class="item"
-            >
-              👤 Meu perfil
-            </button>
-
-            <button
-              id="sairBtn"
-              class="btn-branco"
-            >
-              🚪 Sair
-            </button>
-
-          </div>
-
-          <div class="final">
-            Juntos por um mundo<br>
-            mais inclusivo! ♡
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  document
-  .getElementById("pesquisaBtn")
-  .onclick = mostrarPesquisa;
-
-
-  document
-  .getElementById("idiomasBtn")
-  .onclick = mostrarIdiomas;
-
-
-  document
-  .getElementById("favoritosBtn")
-  .onclick = mostrarFavoritos;
-
-
-  document
-  .getElementById("perfilBtn")
-  .onclick = mostrarPerfil;
-
-
-  document
-  .getElementById("sairBtn")
-  .onclick = sair;
 
 }
 
@@ -935,14 +867,6 @@ function mostrarPesquisa(){
       <div class="card">
 
         <div class="conteudo">
-
-          <div class="folhas">
-            🌿 🍃
-          </div>
-
-          <div class="logo">
-            🌎 SinalMundo
-          </div>
 
           <h2>
             🔎 Pesquisar sinais
@@ -987,21 +911,19 @@ function mostrarPesquisa(){
 
   `;
 
+  document
+    .getElementById("buscarSinal")
+    .onclick = pesquisar;
 
   document
-  .getElementById("buscarSinal")
-  .onclick = pesquisar;
-
-
-  document
-  .getElementById("voltarPesquisa")
-  .onclick = mostrarInicio;
+    .getElementById("voltarPesquisa")
+    .onclick = mostrarInicio;
 
 }
 
 
 /* =========================
-   FUNÇÃO PESQUISAR
+   PESQUISAR
 ========================= */
 
 function pesquisar(){
@@ -1014,7 +936,6 @@ function pesquisar(){
   const resultado =
     document.getElementById("resultadoPesquisa");
 
-
   if(!palavra){
 
     resultado.innerText =
@@ -1022,7 +943,6 @@ function pesquisar(){
 
     return;
   }
-
 
   const encontrados =
     sinais.filter(function(sinal){
@@ -1033,23 +953,17 @@ function pesquisar(){
 
     });
 
-
   if(encontrados.length === 0){
 
     resultado.innerHTML = `
-      <strong>
-        Nenhum sinal encontrado.
-      </strong>
-
+      <strong>Nenhum sinal encontrado.</strong>
       <br><br>
-
       Em breve vamos adicionar
       muitos sinais reais ao SinalMundo. 🤟🏻💚
     `;
 
     return;
   }
-
 
   resultado.innerHTML =
     encontrados.map(function(sinal){
@@ -1076,7 +990,6 @@ function pesquisar(){
 
 }
 
-
 /* =========================
    LÍNGUAS DE SINAIS
 ========================= */
@@ -1090,14 +1003,6 @@ function mostrarIdiomas(){
       <div class="card">
 
         <div class="conteudo">
-
-          <div class="folhas">
-            🌿 🍃
-          </div>
-
-          <div class="logo">
-            🌎 SinalMundo
-          </div>
 
           <h2>
             Línguas de sinais
@@ -1146,10 +1051,9 @@ function mostrarIdiomas(){
 
   `;
 
-
   document
-  .getElementById("voltarIdiomas")
-  .onclick = mostrarInicio;
+    .getElementById("voltarIdiomas")
+    .onclick = mostrarInicio;
 
 }
 
@@ -1167,14 +1071,6 @@ function mostrarFavoritos(){
       <div class="card">
 
         <div class="conteudo">
-
-          <div class="folhas">
-            🌿 🍃
-          </div>
-
-          <div class="logo">
-            🌎 SinalMundo
-          </div>
 
           <h2>
             ♡ Meus favoritos
@@ -1199,10 +1095,9 @@ function mostrarFavoritos(){
 
   `;
 
-
   document
-  .getElementById("voltarFavoritos")
-  .onclick = mostrarInicio;
+    .getElementById("voltarFavoritos")
+    .onclick = mostrarInicio;
 
 }
 
@@ -1216,17 +1111,13 @@ async function mostrarPerfil(){
   const {
     data
   } =
-    await supabaseClient.auth
-      .getUser();
-
+    await supabaseClient.auth.getUser();
 
   const user =
     data.user;
 
-
-  let nome =
+  const nome =
     user?.user_metadata?.nome || "Usuário";
-
 
   document.getElementById("app").innerHTML = `
 
@@ -1235,14 +1126,6 @@ async function mostrarPerfil(){
       <div class="card">
 
         <div class="conteudo">
-
-          <div class="folhas">
-            🌿 🍃
-          </div>
-
-          <div class="logo">
-            🌎 SinalMundo
-          </div>
 
           <h2>
             👤 Meu perfil
@@ -1275,10 +1158,9 @@ async function mostrarPerfil(){
 
   `;
 
-
   document
-  .getElementById("voltarPerfil")
-  .onclick = mostrarInicio;
+    .getElementById("voltarPerfil")
+    .onclick = mostrarInicio;
 
 }
 
@@ -1295,6 +1177,7 @@ async function sair(){
 
 }
 
+
 /* =========================
    VERIFICAR LOGIN
 ========================= */
@@ -1304,9 +1187,7 @@ async function verificarSessao(){
   const {
     data
   } =
-    await supabaseClient.auth
-      .getSession();
-
+    await supabaseClient.auth.getSession();
 
   if(data.session){
 
@@ -1320,35 +1201,7 @@ async function verificarSessao(){
 
 }
 
-
-/* =========================
-   INICIAR SINALMUNDO
-========================= */
-
 verificarSessao();
-
-
-/* =========================
-   OBSERVAR LOGIN E SAÍDA
-========================= */
-
-supabaseClient.auth.onAuthStateChange(
-  function(event, session){
-
-    if(event === "SIGNED_IN" && session){
-
-      mostrarInicio();
-
-    }
-
-    if(event === "SIGNED_OUT"){
-
-      mostrarLogin();
-
-    }
-
-  }
-);
 
 </script>
 
