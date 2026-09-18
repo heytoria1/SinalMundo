@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>SinalMundo</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 :root{
   --primary:#6B8E23;
   --light:#EEF5DF;
@@ -34,132 +34,12 @@ body{
 button{
   border:0;
   cursor:pointer;
+  font-size:15px;
 }
 
 input{
   font-family:Arial,sans-serif;
 }
-</style>
-
-</head>
-
-<body>
-
-<div id="app">
-
-</div>
-
-<div id="authScreen">
-
-  <div class="auth-card">
-
-    <img
-      src="angela-vytorya-sinalmundo-1.jpg"
-      alt="Angela Vytorya"
-      class="auth-foto"
-    >
-
-    <h1>🌎 SinalMundo</h1>
-
-    <h2 id="authTitulo">Entrar</h2>
-
-    <p id="authTexto">
-      Entre na sua conta para continuar.
-    </p>
-
-    <form id="loginForm">
-
-      <input
-        id="loginEmail"
-        type="email"
-        placeholder="Seu e-mail"
-        required
-      >
-
-      <input
-        id="loginSenha"
-        type="password"
-        placeholder="Sua senha"
-        required
-      >
-
-      <button type="submit">
-        Entrar
-      </button>
-
-    </form>
-
-    <button
-      type="button"
-      onclick="mostrarCadastro()">
-      Criar conta
-    </button>
-
-    <button
-      type="button"
-      onclick="mostrarRecuperacao()">
-      Esqueci minha senha
-    </button>
-
-    <p id="authMessage"></p>
-
-  </div>
-
-</div>
-
-  <div class="auth-card">
-
-    <h1>🌎 SinalMundo</h1>
-
-    <h2 id="authTitulo">Entrar</h2>
-
-    <p id="authTexto">
-      Entre na sua conta para continuar.
-    </p>
-
-    <form id="loginForm">
-
-      <input
-        id="loginEmail"
-        type="email"
-        placeholder="Seu e-mail"
-        required
-      >
-
-      <input
-        id="loginSenha"
-        type="password"
-        placeholder="Sua senha"
-        required
-      >
-
-      <button type="submit">
-        Entrar
-      </button>
-
-    </form>
-
-    <button
-      type="button"
-      onclick="mostrarCadastro()"
-    >
-      Criar conta
-    </button>
-
-    <button
-      type="button"
-      onclick="mostrarRecuperacao()"
-    >
-      Esqueci minha senha
-    </button>
-
-    <p id="authMessage"></p>
-
-  </div>
-
-</div>
-
-<style>
 
 #authScreen{
   min-height:100vh;
@@ -179,9 +59,18 @@ input{
   box-shadow:0 10px 35px rgba(0,0,0,.10);
 }
 
+.auth-foto{
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  border-radius:50%;
+  display:block;
+  margin:0 auto 18px;
+}
+
 .auth-card h1{
   color:var(--primary);
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
 
 .auth-card h2{
@@ -190,8 +79,8 @@ input{
 
 .auth-card p{
   color:var(--gray);
-  margin-bottom:18px;
   line-height:1.5;
+  margin-bottom:18px;
 }
 
 .auth-card input{
@@ -205,21 +94,76 @@ input{
 
 .auth-card button{
   width:100%;
-  padding:13px;
+  padding:14px;
   margin-top:8px;
   border-radius:12px;
   background:var(--primary);
   color:white;
-  font-size:15px;
   font-weight:bold;
 }
 
 #authMessage{
   margin-top:15px;
-  font-weight:bold;
 }
 
 </style>
+</head>
+
+<body>
+
+<div id="authScreen">
+
+  <div class="auth-card">
+
+    <img
+      src="angela-vytorya-sinalmundo-1.jpg"
+      alt="Angela Vytorya"
+      class="auth-foto"
+    >
+
+    <h1>🌎 SinalMundo</h1>
+
+    <h2>Entrar</h2>
+
+    <p>
+      Entre na sua conta para continuar.
+    </p>
+
+    <form id="loginForm">
+
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="Seu e-mail"
+        required
+      >
+
+      <input
+        id="loginSenha"
+        type="password"
+        placeholder="Sua senha"
+        required
+      >
+
+      <button type="submit">
+        Entrar
+      </button>
+
+    </form>
+
+    <button type="button" id="cadastroBtn">
+      Criar conta
+    </button>
+
+    <button type="button" id="recuperacaoBtn">
+      Esqueci minha senha
+    </button>
+
+    <p id="authMessage"></p>
+
+  </div>
+
+</div>
 
 <script>
 
@@ -234,9 +178,6 @@ window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
 );
-
-const authScreen =
-document.getElementById("authScreen");
 
 const authMessage =
 document.getElementById("authMessage");
@@ -281,7 +222,8 @@ document.getElementById("loginForm")
 
 <script>
 
-async function mostrarCadastro(){
+document.getElementById("cadastroBtn")
+.addEventListener("click", async function(){
 
   const nome = prompt("Digite seu nome:");
 
@@ -308,7 +250,7 @@ async function mostrarCadastro(){
       password: senha,
       options:{
         data:{
-          nome: nome
+          nome:nome
         }
       }
     });
@@ -319,16 +261,17 @@ async function mostrarCadastro(){
   }
 
   mensagem(
-    "Conta criada! Verifique seu e-mail para confirmar. 📧💚"
+    "Conta criada! Verifique seu e-mail. 📧💚"
   );
 
-}
+});
 
 </script>
 
 <script>
 
-async function mostrarRecuperacao(){
+document.getElementById("recuperacaoBtn")
+.addEventListener("click", async function(){
 
   const email = prompt(
     "Digite o e-mail da sua conta:"
@@ -339,21 +282,18 @@ async function mostrarRecuperacao(){
   mensagem("Enviando e-mail...");
 
   const { error } =
-    await supabaseClient.auth
-      .resetPasswordForEmail(
-        email,
-        {
-          redirectTo:
-            "https://sinal-mundo.vercel.app/"
-        }
-      );
+    await supabaseClient.auth.resetPasswordForEmail(
+      email,
+      {
+        redirectTo:
+        "https://sinal-mundo.vercel.app/"
+      }
+    );
 
   if(error){
-
     mensagem(
       "Não foi possível enviar o e-mail."
     );
-
     return;
   }
 
@@ -361,7 +301,7 @@ async function mostrarRecuperacao(){
     "E-mail enviado! Verifique sua caixa de entrada. 📧💚"
   );
 
-}
+});
 
 </script>
 
@@ -374,13 +314,13 @@ async function verificarLogin(){
 
   if(data.session){
 
-    document.getElementById("authScreen").style.display =
-      "none";
+    document.getElementById("authScreen")
+      .style.display = "none";
 
   }else{
 
-    document.getElementById("authScreen").style.display =
-      "flex";
+    document.getElementById("authScreen")
+      .style.display = "flex";
 
   }
 
@@ -391,13 +331,13 @@ supabaseClient.auth.onAuthStateChange(
 
     if(session){
 
-      document.getElementById("authScreen").style.display =
-        "none";
+      document.getElementById("authScreen")
+        .style.display = "none";
 
     }else{
 
-      document.getElementById("authScreen").style.display =
-        "flex";
+      document.getElementById("authScreen")
+        .style.display = "flex";
 
     }
 
@@ -408,29 +348,9 @@ verificarLogin();
 
 </script>
 
-<script>
+<div id="app" style="display:none;">
 
-async function sairDaConta(){
-
-  const { error } =
-    await supabaseClient.auth.signOut();
-
-  if(error){
-
-    alert(
-      "Não foi possível sair da conta."
-    );
-
-    return;
-  }
-
-  location.reload();
-
-}
-
-</script>
-
-<header id="siteHeader">
+<header>
 
   <div class="topo">
 
@@ -485,30 +405,29 @@ async function sairDaConta(){
 
   <div class="criadora">
 
-    <h2>
-      Olá, sou Angela Vytorya! 👋🏻💚
-    </h2>
+    <img
+      src="angela-vytorya-sinalmundo-1.jpg"
+      alt="Angela Vytorya"
+      class="foto-criadora"
+    >
 
-    <p>
-      Sou a criadora do SinalMundo,
-      um projeto para aproximar pessoas e culturas
-      por meio das línguas de sinais. 🌎🤟🏻
-    </p>
+    <div>
+
+      <h2>
+        Olá, sou Angela Vytorya! 👋🏻💚
+      </h2>
+
+      <p>
+        Sou a criadora do SinalMundo, um projeto para
+        aproximar pessoas e culturas por meio das
+        línguas de sinais. 🌎🤟🏻
+      </p>
+
+    </div>
 
   </div>
 
 </section>
-
-<div class="criadora-foto">
-
-  <img
-    src="angela-vytorya-sinalmundo-1.jpg"
-    alt="Angela Vytorya"
-  >
-
-</div>
-
-</main>
 
 <section id="pesquisa" class="pagina">
 
@@ -526,157 +445,6 @@ async function sairDaConta(){
   <div id="sinais"></div>
 
 </section>
-
-<script>
-
-const sinais = [
-
-  {
-    nome:"Olá",
-    lingua:"Libras 🇧🇷",
-    categoria:"Saudações"
-  },
-
-  {
-    nome:"Bom dia",
-    lingua:"Libras 🇧🇷",
-    categoria:"Saudações"
-  },
-
-  {
-    nome:"Boa tarde",
-    lingua:"Libras 🇧🇷",
-    categoria:"Saudações"
-  },
-
-  {
-    nome:"Boa noite",
-    lingua:"Libras 🇧🇷",
-    categoria:"Saudações"
-  },
-
-  {
-    nome:"Amor",
-    lingua:"Libras 🇧🇷",
-    categoria:"Amor"
-  },
-
-  {
-    nome:"Feliz",
-    lingua:"Libras 🇧🇷",
-    categoria:"Sentimentos"
-  },
-
-  {
-    nome:"Triste",
-    lingua:"Libras 🇧🇷",
-    categoria:"Sentimentos"
-  },
-
-  {
-    nome:"Obrigado",
-    lingua:"Libras 🇧🇷",
-    categoria:"Dia a dia"
-  },
-
-  {
-    nome:"Mãe",
-    lingua:"Libras 🇧🇷",
-    categoria:"Família"
-  },
-
-  {
-    nome:"Pai",
-    lingua:"Libras 🇧🇷",
-    categoria:"Família"
-  }
-
-];
-
-function mostrarSinais(){
-
-  const busca =
-    document
-      .getElementById("campoBusca")
-      .value
-      .toLowerCase();
-
-  const resultado =
-    sinais.filter(function(sinal){
-
-      return sinal.nome
-        .toLowerCase()
-        .includes(busca);
-
-    });
-
-  const area =
-    document.getElementById("sinais");
-
-  if(resultado.length === 0){
-
-    area.innerHTML =
-      "<p>Nenhum sinal encontrado. 💚</p>";
-
-    return;
-
-  }
-
-  area.innerHTML =
-    resultado.map(function(sinal){
-
-      return `
-        <div class="sinal-card">
-
-          <div class="sinal-imagem">
-            🤟🏻
-          </div>
-
-          <h3>${sinal.nome}</h3>
-
-          <p>${sinal.lingua}</p>
-
-          <small>${sinal.categoria}</small>
-
-        </div>
-      `;
-
-    }).join("");
-
-}
-
-mostrarSinais();
-
-</script>
-
-<script>
-
-function abrirPagina(id){
-
-  document
-    .querySelectorAll(".pagina")
-    .forEach(function(pagina){
-
-      pagina.style.display = "none";
-
-    });
-
-  const pagina =
-    document.getElementById(id);
-
-  if(pagina){
-
-    pagina.style.display = "block";
-
-  }
-
-  window.scrollTo(0,0);
-
-}
-
-abrirPagina("inicio");
-
-</script>
 
 <section id="favoritos" class="pagina">
 
@@ -709,7 +477,187 @@ abrirPagina("inicio");
 
 </section>
 
+</main>
+
+</div>
+
+<style>
+
+header{
+  background:white;
+  border-bottom:1px solid var(--border);
+  padding:15px 20px;
+}
+
+.topo{
+  max-width:1000px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.logo{
+  color:var(--primary);
+  font-size:21px;
+  font-weight:bold;
+}
+
+nav{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+nav button{
+  background:var(--light);
+  color:var(--primary);
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+main{
+  max-width:1000px;
+  margin:auto;
+  padding:25px 20px;
+}
+
+.pagina{
+  display:none;
+}
+
+.hero{
+  background:var(--light);
+  padding:40px 25px;
+  border-radius:25px;
+  text-align:center;
+}
+
+.hero h1{
+  color:var(--primary);
+  font-size:30px;
+  line-height:1.2;
+  margin-bottom:15px;
+}
+
+.hero p{
+  color:var(--gray);
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.hero button{
+  background:var(--primary);
+  color:white;
+  padding:14px 20px;
+  border-radius:12px;
+  font-weight:bold;
+}
+
+.criadora{
+  margin-top:25px;
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.06);
+}
+
+.foto-criadora{
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  border-radius:50%;
+  flex-shrink:0;
+}
+
+.criadora h2{
+  color:var(--primary);
+  margin-bottom:10px;
+}
+
+.criadora p{
+  color:var(--gray);
+  line-height:1.6;
+}
+
+#pesquisa h2,
+#favoritos h2,
+#perfil h2{
+  color:var(--primary);
+  margin-bottom:10px;
+}
+
+#pesquisa > p,
+#favoritos > p{
+  color:var(--gray);
+  margin-bottom:18px;
+}
+
+#campoBusca{
+  width:100%;
+  padding:14px;
+  border:2px solid var(--border);
+  border-radius:12px;
+  font-size:16px;
+  margin-bottom:20px;
+}
+
+#perfil button{
+  background:var(--primary);
+  color:white;
+  padding:14px 20px;
+  border-radius:12px;
+  font-weight:bold;
+  margin-top:15px;
+}
+
+@media(max-width:650px){
+
+  .topo{
+    flex-direction:column;
+  }
+
+  nav{
+    justify-content:center;
+  }
+
+  .hero h1{
+    font-size:25px;
+  }
+
+  .criadora{
+    flex-direction:column;
+    text-align:center;
+  }
+
+}
+
+</style>
+
 <script>
+
+function abrirPagina(id){
+
+  document.querySelectorAll(".pagina")
+    .forEach(function(pagina){
+      pagina.style.display = "none";
+    });
+
+  const pagina =
+    document.getElementById(id);
+
+  if(pagina){
+    pagina.style.display = "block";
+  }
+
+  window.scrollTo(0,0);
+}
+
 
 async function carregarPerfil(){
 
@@ -721,250 +669,143 @@ async function carregarPerfil(){
   const usuario = data.user;
 
   const nome =
-    usuario.user_metadata?.nome ||
-    "Usuário";
+    usuario.user_metadata?.nome || "Usuário";
 
   document.getElementById("perfilNome")
-    .innerText =
-    "Nome: " + nome;
+    .innerText = "Nome: " + nome;
 
   document.getElementById("perfilEmail")
-    .innerText =
-    "E-mail: " + usuario.email;
+    .innerText = "E-mail: " + usuario.email;
 
 }
 
-carregarPerfil();
+
+async function sairDaConta(){
+
+  const { error } =
+    await supabaseClient.auth.signOut();
+
+  if(error){
+
+    alert("Não foi possível sair da conta.");
+    return;
+
+  }
+
+  location.reload();
+
+}
+
+
+supabaseClient.auth.onAuthStateChange(
+  function(event, session){
+
+    const app =
+      document.getElementById("app");
+
+    const auth =
+      document.getElementById("authScreen");
+
+    if(session){
+
+      auth.style.display = "none";
+      app.style.display = "block";
+
+      abrirPagina("inicio");
+      carregarPerfil();
+
+    }else{
+
+      auth.style.display = "flex";
+      app.style.display = "none";
+
+    }
+
+  }
+);
+
+
+verificarLogin();
 
 </script>
-
-<style>
-
-.pagina{
-  max-width:1000px;
-  margin:auto;
-  padding:30px 20px;
-}
-
-.pagina h2{
-  color:var(--primary);
-  margin-bottom:10px;
-}
-
-.pagina p{
-  color:var(--gray);
-  line-height:1.6;
-  margin-bottom:15px;
-}
-
-#siteHeader{
-  background:white;
-  border-bottom:1px solid var(--border);
-  padding:15px 20px;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-
-.topo{
-  max-width:1100px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  flex-wrap:wrap;
-}
-
-.logo{
-  color:var(--primary);
-  font-size:24px;
-  font-weight:bold;
-}
-
-nav{
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
-}
-
-nav button{
-  background:white;
-  color:#555;
-  padding:10px;
-  border-radius:10px;
-}
-
-nav button:hover{
-  background:var(--light);
-  color:var(--primary);
-}
-
-.hero{
-  background:var(--primary);
-  color:white;
-  padding:40px 25px;
-  border-radius:25px;
-  text-align:center;
-  margin-bottom:25px;
-}
-
-.hero h1{
-  font-size:30px;
-  margin-bottom:15px;
-}
-
-.hero p{
-  color:white;
-  margin-bottom:20px;
-}
-
-.hero button{
-  background:white;
-  color:var(--primary);
-  padding:13px 20px;
-  border-radius:12px;
-  font-weight:bold;
-}
-
-.criadora{
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  margin-bottom:25px;
-}
-
-.criadora h2{
-  margin-bottom:10px;
-}
-
-.criadora-foto img{
-  width:130px;
-  height:130px;
-  object-fit:cover;
-  border-radius:50%;
-  margin-bottom:15px;
-}
-
-#campoBusca{
-  width:100%;
-  padding:15px;
-  border:2px solid var(--border);
-  border-radius:12px;
-  font-size:16px;
-  margin:15px 0 25px;
-}
-
-#sinais{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
-}
-
-.sinal-card{
-  background:white;
-  padding:20px;
-  border-radius:18px;
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
-}
-
-.sinal-imagem{
-  font-size:45px;
-  margin-bottom:10px;
-}
-
-.sinal-card h3{
-  margin-bottom:8px;
-}
-
-.sinal-card small{
-  color:var(--primary);
-}
-
-#favoritos,
-#perfil{
-  background:white;
-  border-radius:20px;
-  margin:25px auto;
-}
-
-#perfil button{
-  background:var(--primary);
-  color:white;
-  padding:13px 18px;
-  border-radius:12px;
-  margin-top:15px;
-  font-weight:bold;
-}
-
-@media(max-width:600px){
-
-  .topo{
-    justify-content:center;
-  }
-
-  .logo{
-    width:100%;
-    text-align:center;
-  }
-
-  nav{
-    justify-content:center;
-  }
-
-  .hero h1{
-    font-size:24px;
-  }
-
-}
-
-</style>
-
-</div>
-
-</body>
-<style>
-
-.auth-foto{
-  width:120px;
-  height:120px;
-  object-fit:cover;
-  border-radius:50%;
-  display:block;
-  margin:0 auto 18px;
-}
-
-</style>
-</html>
 
 <script>
 
-document.getElementById("siteHeader").style.display = "none";
-document.getElementById("inicio").style.display = "none";
-document.getElementById("pesquisa").style.display = "none";
-document.getElementById("favoritos").style.display = "none";
-document.getElementById("perfil").style.display = "none";
-
-supabaseClient.auth.onAuthStateChange(function(event, session){
-
-  if(session){
-
-    document.getElementById("authScreen").style.display = "none";
-    document.getElementById("siteHeader").style.display = "block";
-    document.getElementById("inicio").style.display = "block";
-
-  }else{
-
-    document.getElementById("authScreen").style.display = "flex";
-    document.getElementById("siteHeader").style.display = "none";
-    document.getElementById("inicio").style.display = "none";
-    document.getElementById("pesquisa").style.display = "none";
-    document.getElementById("favoritos").style.display = "none";
-    document.getElementById("perfil").style.display = "none";
-
+const sinais = [
+  {
+    palavra:"Oi",
+    descricao:"Saudação em Libras."
+  },
+  {
+    palavra:"Obrigado",
+    descricao:"Agradecimento em Libras."
+  },
+  {
+    palavra:"Amor",
+    descricao:"Expressão de carinho."
+  },
+  {
+    palavra:"Amigo",
+    descricao:"Pessoa próxima e querida."
+  },
+  {
+    palavra:"Família",
+    descricao:"Grupo de pessoas da família."
+  },
+  {
+    palavra:"Água",
+    descricao:"Sinal relacionado à água."
   }
+];
 
-});
+
+function mostrarSinais(){
+
+  const busca =
+    document.getElementById("campoBusca")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const area =
+    document.getElementById("sinais");
+
+  const encontrados =
+    sinais.filter(function(sinal){
+
+      return sinal.palavra
+        .toLowerCase()
+        .includes(busca);
+
+    });
+
+  area.innerHTML = "";
+
+  encontrados.forEach(function(sinal){
+
+    const card =
+      document.createElement("div");
+
+    card.style.background = "white";
+    card.style.padding = "18px";
+    card.style.marginBottom = "12px";
+    card.style.borderRadius = "15px";
+
+    card.innerHTML =
+      "<h3>" + sinal.palavra + "</h3>" +
+      "<p>" + sinal.descricao + "</p>";
+
+    area.appendChild(card);
+
+  });
+
+}
+
+
+mostrarSinais();
 
 </script>
+
+</body>
+</html>
 
