@@ -336,7 +336,7 @@ const sinais = [
    TELA DE LOGIN
 ========================= */
 
-function mostrarLogin(){
+function mostrarInicio(){
 
   document.getElementById("app").innerHTML = `
 
@@ -352,76 +352,68 @@ function mostrarLogin(){
             class="foto"
           >
 
-          <h1>
-            Bem-vindo(a)! 💚
-          </h1>
-
-          <p class="frase">
-            Aqui, cada sinal é uma ponte<br>
-            para um mundo mais conectado! 🤟🏻
-          </p>
-
           <div class="logo">
             🌎 SinalMundo
           </div>
 
-          <div class="sublogo">
+          <p class="sublogo">
             Línguas de sinais aproximam pessoas ♡
-          </div>
+          </p>
 
           <div class="divisor">
             ─── ♡ ───
           </div>
 
+          <h2>
+            Seja bem-vindo(a)! 💚
+          </h2>
+
           <p class="frase">
-            Entre na sua conta para continuar.
+            Que bom ter você aqui! 🤟🏻
           </p>
 
-          <input
-            id="loginEmail"
-            type="email"
-            placeholder="✉️ Seu e-mail"
-          >
+          <div class="menu">
 
-          <input
-            id="loginSenha"
-            type="password"
-            placeholder="🔒 Sua senha"
-          >
+            <button
+              id="pesquisaBtn"
+              class="item"
+            >
+              🔎 Pesquisar sinais
+            </button>
 
-          <button
-            id="loginBtn"
-            class="btn-verde"
-          >
-            ➜ Entrar
-          </button>
+            <button
+              id="idiomasBtn"
+              class="item"
+            >
+              🌎 Línguas de sinais
+            </button>
 
-          <button
-            id="cadastroBtn"
-            class="btn-claro"
-          >
-            ♡ Criar conta
-          </button>
+            <button
+              id="favoritosBtn"
+              class="item"
+            >
+              ♡ Meus favoritos
+            </button>
 
-          <button
-            id="recuperacaoBtn"
-            class="btn-branco"
-          >
-            🔒 Esqueci minha senha
-          </button>
+            <button
+              id="perfilBtn"
+              class="item"
+            >
+              👤 Meu perfil
+            </button>
 
-          <p
-            id="loginMensagem"
-            class="mensagem"
-          ></p>
+            <button
+              id="sairBtn"
+              class="btn-branco"
+            >
+              🚪 Sair
+            </button>
+
+          </div>
 
           <div class="final">
             Juntos por um mundo<br>
             mais inclusivo! ♡
-          </div>
-
-          <div class="folhas">
-            🌿 🍃
           </div>
 
         </div>
@@ -434,18 +426,28 @@ function mostrarLogin(){
 
 
   document
-  .getElementById("loginBtn")
-  .onclick = fazerLogin;
+    .getElementById("pesquisaBtn")
+    .onclick = mostrarPesquisa;
 
 
   document
-  .getElementById("cadastroBtn")
-  .onclick = mostrarCadastro;
+    .getElementById("idiomasBtn")
+    .onclick = mostrarIdiomas;
 
 
   document
-  .getElementById("recuperacaoBtn")
-  .onclick = mostrarRecuperacao;
+    .getElementById("favoritosBtn")
+    .onclick = mostrarFavoritos;
+
+
+  document
+    .getElementById("perfilBtn")
+    .onclick = mostrarPerfil;
+
+
+  document
+    .getElementById("sairBtn")
+    .onclick = sair;
 
 }
 
