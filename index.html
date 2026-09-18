@@ -804,8 +804,157 @@ function mostrarSinais(){
 
 mostrarSinais();
 
+<script>  
+  
+<script>
+
+const botaoAntigo =
+document.getElementById("cadastroBtn");
+
+if(botaoAntigo){
+
+  const botaoNovo =
+    botaoAntigo.cloneNode(true);
+
+  botaoAntigo.replaceWith(botaoNovo);
+
+
+  botaoNovo.addEventListener("click", function(){
+
+    document.getElementById("authScreen").innerHTML = `
+
+      <div class="auth-card">
+
+        <img
+          src="angela-vytorya-sinalmundo-1.jpg"
+          alt="Angela Vytorya"
+          class="auth-foto"
+        >
+
+        <h1>🌎 SinalMundo</h1>
+
+        <h2>Criar conta</h2>
+
+        <p>
+          Crie sua conta para começar.
+        </p>
+
+        <input
+          id="cadastroNome"
+          type="text"
+          placeholder="Seu nome"
+        >
+
+        <input
+          id="cadastroEmail"
+          type="email"
+          placeholder="Seu e-mail"
+        >
+
+        <input
+          id="cadastroSenha"
+          type="password"
+          placeholder="Sua senha"
+        >
+
+        <button id="confirmarCadastro">
+          Criar conta
+        </button>
+
+        <button id="voltarLogin">
+          Voltar para entrar
+        </button>
+
+        <p id="cadastroMessage"></p>
+
+      </div>
+
+    `;
+
+
+    document.getElementById("confirmarCadastro")
+    .addEventListener("click", async function(){
+
+      const nome =
+        document.getElementById("cadastroNome").value.trim();
+
+      const email =
+        document.getElementById("cadastroEmail").value.trim();
+
+      const senha =
+        document.getElementById("cadastroSenha").value;
+
+      const msg =
+        document.getElementById("cadastroMessage");
+
+
+      if(!nome || !email || !senha){
+
+        msg.innerText =
+          "Preencha todos os campos.";
+
+        return;
+      }
+
+
+      if(senha.length < 6){
+
+        msg.innerText =
+          "A senha precisa ter pelo menos 6 caracteres.";
+
+        return;
+      }
+
+
+      msg.innerText =
+        "Criando sua conta...";
+
+
+      const { error } =
+        await supabaseClient.auth.signUp({
+
+          email: email,
+
+          password: senha,
+
+          options:{
+            data:{
+              nome: nome
+            }
+          }
+
+        });
+
+
+      if(error){
+
+        msg.innerText =
+          "Erro: " + error.message;
+
+        return;
+      }
+
+
+      msg.innerText =
+        "Conta criada! Verifique seu e-mail. 📧💚";
+
+    });
+
+
+    document.getElementById("voltarLogin")
+    .addEventListener("click", function(){
+
+      location.reload();
+
+    });
+
+  });
+
+}
+
 </script>
 
 </body>
 </html>
+
 
