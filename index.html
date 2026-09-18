@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SinalMundo</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>SinalMundo</title>
 
 <style>
 
 :root{
-  --primary:#6B8E23;
-  --light:#EEF5DF;
-  --white:#FFFFFF;
-  --dark:#202124;
-  --gray:#6B7280;
-  --bg:#F5F7FB;
-  --border:#E5E7EB;
+  --verde:#6B8E23;
+  --verde-escuro:#315D36;
+  --verde-claro:#EEF5DF;
+  --fundo:#F5F8F1;
+  --branco:#FFFFFF;
+  --cinza:#66757F;
+  --borda:#AFC19F;
 }
 
 *{
@@ -27,143 +30,253 @@
 
 body{
   font-family:Arial,sans-serif;
-  background:var(--bg);
-  color:var(--dark);
+  background:var(--fundo);
+  color:var(--verde-escuro);
 }
 
-button{
-  border:0;
-  cursor:pointer;
-  font-size:15px;
-}
-
+button,
 input{
-  font-family:Arial,sans-serif;
+  font-family:inherit;
 }
 
-#authScreen{
+#app{
   min-height:100vh;
+}
+
+.tela{
+  min-height:100vh;
+  padding:20px 14px;
   display:flex;
-  align-items:center;
   justify-content:center;
-  padding:20px;
+  align-items:center;
 }
 
-.auth-card{
+.card{
   width:100%;
-  max-width:400px;
-  background:white;
-  padding:30px;
-  border-radius:25px;
+  max-width:500px;
+  background:var(--branco);
+  border-radius:32px;
+  padding:30px 24px;
   text-align:center;
-  box-shadow:0 10px 35px rgba(0,0,0,.10);
+  box-shadow:0 12px 40px rgba(49,93,54,.12);
+  position:relative;
+  overflow:hidden;
 }
 
-.auth-foto{
-  width:120px;
-  height:120px;
+.card:before{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  left:-100px;
+  top:120px;
+  background:#E7F0D8;
+  border-radius:50%;
+  opacity:.7;
+}
+
+.card:after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  right:-100px;
+  bottom:20px;
+  background:#E7F0D8;
+  border-radius:50%;
+  opacity:.7;
+}
+
+.conteudo{
+  position:relative;
+  z-index:2;
+}
+
+.foto{
+  width:125px;
+  height:125px;
   object-fit:cover;
   border-radius:50%;
+  border:4px solid var(--verde);
   display:block;
   margin:0 auto 18px;
 }
 
-.auth-card h1{
-  color:var(--primary);
-  margin-bottom:8px;
+h1{
+  font-size:34px;
+  color:var(--verde-escuro);
+  margin-bottom:15px;
 }
 
-.auth-card h2{
-  margin-bottom:8px;
+h2{
+  font-size:27px;
+  margin-bottom:15px;
 }
 
-.auth-card p{
-  color:var(--gray);
+.frase{
+  font-size:18px;
   line-height:1.5;
-  margin-bottom:18px;
+  margin-bottom:22px;
 }
 
-.auth-card input{
-  width:100%;
-  padding:14px;
-  margin-bottom:12px;
-  border:2px solid var(--border);
-  border-radius:12px;
-  font-size:16px;
-}
-
-.auth-card button{
-  width:100%;
-  padding:14px;
-  margin-top:8px;
-  border-radius:12px;
-  background:var(--primary);
-  color:white;
+.logo{
+  font-size:38px;
   font-weight:bold;
+  color:var(--verde);
+  margin-bottom:8px;
 }
 
-#authMessage{
+.sublogo{
+  font-size:18px;
+  margin-bottom:20px;
+}
+
+.divisor{
+  color:var(--verde);
+  font-size:24px;
+  margin-bottom:15px;
+}
+
+input{
+  width:100%;
+  padding:17px;
+  margin-bottom:14px;
+  border:2px solid var(--borda);
+  border-radius:18px;
+  font-size:16px;
+  outline:none;
+}
+
+input:focus{
+  border-color:var(--verde);
+}
+
+button{
+  width:100%;
+  padding:17px;
+  margin-top:7px;
+  border-radius:18px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.btn-verde{
+  border:0;
+  background:var(--verde);
+  color:white;
+}
+
+.btn-claro{
+  border:0;
+  background:var(--verde-claro);
+  color:var(--verde-escuro);
+}
+
+.btn-branco{
+  background:white;
+  color:var(--verde-escuro);
+  border:2px solid var(--verde);
+}
+
+.mensagem{
   margin-top:15px;
+  font-size:16px;
+  line-height:1.5;
+}
+
+.final{
+  margin-top:28px;
+  font-size:18px;
+  line-height:1.5;
+}
+
+.folhas{
+  font-size:30px;
+  margin-bottom:12px;
+}
+
+.menu{
+  display:grid;
+  gap:10px;
+  margin-top:20px;
+}
+
+.item{
+  padding:18px;
+  border-radius:20px;
+  background:var(--verde-claro);
+  color:var(--verde-escuro);
+  font-size:17px;
+  font-weight:bold;
+  border:0;
+}
+
+.resultado{
+  margin-top:20px;
+  padding:18px;
+  border-radius:20px;
+  background:var(--verde-claro);
+  font-size:17px;
+  line-height:1.5;
+}
+
+.lista{
+  display:grid;
+  gap:12px;
+  margin-top:20px;
+}
+
+.idioma{
+  padding:18px;
+  background:var(--verde-claro);
+  border:2px solid transparent;
+  border-radius:20px;
+  text-align:left;
+  cursor:pointer;
+}
+
+.idioma strong{
+  display:block;
+  font-size:19px;
+  margin-bottom:5px;
+}
+
+.idioma span{
+  color:var(--cinza);
+}
+
+.sinal{
+  padding:18px;
+  background:white;
+  border:2px solid var(--borda);
+  border-radius:20px;
+  margin-top:12px;
+}
+
+.sinal strong{
+  color:var(--verde);
+  font-size:20px;
+}
+
+.vazio{
+  margin-top:20px;
+  color:var(--cinza);
+  line-height:1.5;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div id="authScreen">
+<div id="app"></div>
 
-  <div class="auth-card">
 
-    <img
-      src="angela-vytorya-sinalmundo-1.jpg"
-      alt="Angela Vytorya"
-      class="auth-foto"
-    >
+<!-- SUPABASE -->
 
-    <h1>🌎 SinalMundo</h1>
-
-    <h2>Entrar</h2>
-
-    <p>
-      Entre na sua conta para continuar.
-    </p>
-
-    <form id="loginForm">
-
-      <input
-        id="loginEmail"
-        type="email"
-        placeholder="Seu e-mail"
-        required
-      >
-
-      <input
-        id="loginSenha"
-        type="password"
-        placeholder="Sua senha"
-        required
-      >
-
-      <button type="submit">
-        Entrar
-      </button>
-
-    </form>
-
-    <button type="button" id="cadastroBtn">
-      Criar conta
-    </button>
-
-    <button type="button" id="recuperacaoBtn">
-      Esqueci minha senha
-    </button>
-
-    <p id="authMessage"></p>
-
-  </div>
-
-</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
@@ -179,782 +292,1067 @@ window.supabase.createClient(
   SUPABASE_PUBLISHABLE_KEY
 );
 
-const authMessage =
-document.getElementById("authMessage");
 
-function mensagem(texto){
-  authMessage.innerText = texto;
-}
-
-</script>
-
-<script>
-
-document.getElementById("loginForm")
-.addEventListener("submit", async function(e){
-
-  e.preventDefault();
-
-  const email =
-    document.getElementById("loginEmail").value.trim();
-
-  const senha =
-    document.getElementById("loginSenha").value;
-
-  mensagem("Entrando...");
-
-  const { error } =
-    await supabaseClient.auth.signInWithPassword({
-      email: email,
-      password: senha
-    });
-
-  if(error){
-    mensagem("E-mail ou senha incorretos.");
-    return;
-  }
-
-  mensagem("Login realizado! 💚");
-
-});
-
-</script>
-
-<script>
-
-document.getElementById("cadastroBtn")
-.addEventListener("click", async function(){
-
-  const nome = prompt("Digite seu nome:");
-
-  if(!nome) return;
-
-  const email = prompt("Digite seu e-mail:");
-
-  if(!email) return;
-
-  const senha = prompt("Crie uma senha:");
-
-  if(!senha) return;
-
-  if(senha.length < 6){
-    alert("A senha precisa ter pelo menos 6 caracteres.");
-    return;
-  }
-
-  mensagem("Criando sua conta...");
-
-  const { error } =
-    await supabaseClient.auth.signUp({
-      email: email,
-      password: senha,
-      options:{
-        data:{
-          nome:nome
-        }
-      }
-    });
-
-  if(error){
-    mensagem("Erro: " + error.message);
-    return;
-  }
-
-  mensagem(
-    "Conta criada! Verifique seu e-mail. 📧💚"
-  );
-
-});
-
-</script>
-
-<script>
-
-document.getElementById("recuperacaoBtn")
-.addEventListener("click", async function(){
-
-  const email = prompt(
-    "Digite o e-mail da sua conta:"
-  );
-
-  if(!email) return;
-
-  mensagem("Enviando e-mail...");
-
-  const { error } =
-    await supabaseClient.auth.resetPasswordForEmail(
-      email,
-      {
-        redirectTo:
-        "https://sinal-mundo.vercel.app/"
-      }
-    );
-
-  if(error){
-    mensagem(
-      "Não foi possível enviar o e-mail."
-    );
-    return;
-  }
-
-  mensagem(
-    "E-mail enviado! Verifique sua caixa de entrada. 📧💚"
-  );
-
-});
-
-</script>
-
-<script>
-
-async function verificarLogin(){
-
-  const { data } =
-    await supabaseClient.auth.getSession();
-
-  if(data.session){
-
-    document.getElementById("authScreen")
-      .style.display = "none";
-
-  }else{
-
-    document.getElementById("authScreen")
-      .style.display = "flex";
-
-  }
-
-}
-
-supabaseClient.auth.onAuthStateChange(
-  function(event, session){
-
-    if(session){
-
-      document.getElementById("authScreen")
-        .style.display = "none";
-
-    }else{
-
-      document.getElementById("authScreen")
-        .style.display = "flex";
-
-    }
-
-  }
-);
-
-verificarLogin();
-
-</script>
-
-<div id="app" style="display:none;">
-
-<header>
-
-  <div class="topo">
-
-    <div class="logo">
-      🌎 SinalMundo
-    </div>
-
-    <nav>
-
-      <button onclick="abrirPagina('inicio')">
-        Início
-      </button>
-
-      <button onclick="abrirPagina('pesquisa')">
-        Pesquisa
-      </button>
-
-      <button onclick="abrirPagina('favoritos')">
-        ❤️ Favoritos
-      </button>
-
-      <button onclick="abrirPagina('perfil')">
-        👤 Perfil
-      </button>
-
-    </nav>
-
-  </div>
-
-</header>
-
-<main>
-
-<section id="inicio" class="pagina">
-
-  <div class="hero">
-
-    <h1>
-      Mais que sinais, conexões entre pessoas e culturas. 🌎🤟🏻
-    </h1>
-
-    <p>
-      Aprenda línguas de sinais de forma simples,
-      visual e acessível.
-    </p>
-
-    <button onclick="abrirPagina('pesquisa')">
-      Começar a aprender
-    </button>
-
-  </div>
-
-  <div class="criadora">
-
-    <img
-      src="angela-vytorya-sinalmundo-1.jpg"
-      alt="Angela Vytorya"
-      class="foto-criadora"
-    >
-
-    <div>
-
-      <h2>
-        Olá, sou Angela Vytorya! 👋🏻💚
-      </h2>
-
-      <p>
-        Sou a criadora do SinalMundo, um projeto para
-        aproximar pessoas e culturas por meio das
-        línguas de sinais. 🌎🤟🏻
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section id="pesquisa" class="pagina">
-
-  <h2>Pesquisar sinais 🔎</h2>
-
-  <p>Busque palavras ou sinais.</p>
-
-  <input
-    id="campoBusca"
-    type="text"
-    placeholder="Buscar sinais..."
-    oninput="mostrarSinais()"
-  >
-
-  <div id="sinais"></div>
-
-</section>
-
-<section id="favoritos" class="pagina">
-
-  <h2>Meus favoritos ❤️</h2>
-
-  <p>
-    Seus sinais favoritos aparecerão aqui.
-  </p>
-
-  <div id="listaFavoritos"></div>
-
-</section>
-
-
-<section id="perfil" class="pagina">
-
-  <h2>👤 Meu Perfil</h2>
-
-  <p id="perfilNome">
-    Nome: carregando...
-  </p>
-
-  <p id="perfilEmail">
-    E-mail: carregando...
-  </p>
-
-  <button onclick="sairDaConta()">
-    🚪 Sair da conta
-  </button>
-
-</section>
-
-</main>
-
-</div>
-
-<style>
-
-header{
-  background:white;
-  border-bottom:1px solid var(--border);
-  padding:15px 20px;
-}
-
-.topo{
-  max-width:1000px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-}
-
-.logo{
-  color:var(--primary);
-  font-size:21px;
-  font-weight:bold;
-}
-
-nav{
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
-}
-
-nav button{
-  background:var(--light);
-  color:var(--primary);
-  padding:9px 12px;
-  border-radius:10px;
-  font-weight:bold;
-}
-
-main{
-  max-width:1000px;
-  margin:auto;
-  padding:25px 20px;
-}
-
-.pagina{
-  display:none;
-}
-
-.hero{
-  background:var(--light);
-  padding:40px 25px;
-  border-radius:25px;
-  text-align:center;
-}
-
-.hero h1{
-  color:var(--primary);
-  font-size:30px;
-  line-height:1.2;
-  margin-bottom:15px;
-}
-
-.hero p{
-  color:var(--gray);
-  line-height:1.6;
-  margin-bottom:20px;
-}
-
-.hero button{
-  background:var(--primary);
-  color:white;
-  padding:14px 20px;
-  border-radius:12px;
-  font-weight:bold;
-}
-
-.criadora{
-  margin-top:25px;
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  display:flex;
-  align-items:center;
-  gap:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.06);
-}
-
-.foto-criadora{
-  width:120px;
-  height:120px;
-  object-fit:cover;
-  border-radius:50%;
-  flex-shrink:0;
-}
-
-.criadora h2{
-  color:var(--primary);
-  margin-bottom:10px;
-}
-
-.criadora p{
-  color:var(--gray);
-  line-height:1.6;
-}
-
-#pesquisa h2,
-#favoritos h2,
-#perfil h2{
-  color:var(--primary);
-  margin-bottom:10px;
-}
-
-#pesquisa > p,
-#favoritos > p{
-  color:var(--gray);
-  margin-bottom:18px;
-}
-
-#campoBusca{
-  width:100%;
-  padding:14px;
-  border:2px solid var(--border);
-  border-radius:12px;
-  font-size:16px;
-  margin-bottom:20px;
-}
-
-#perfil button{
-  background:var(--primary);
-  color:white;
-  padding:14px 20px;
-  border-radius:12px;
-  font-weight:bold;
-  margin-top:15px;
-}
-
-@media(max-width:650px){
-
-  .topo{
-    flex-direction:column;
-  }
-
-  nav{
-    justify-content:center;
-  }
-
-  .hero h1{
-    font-size:25px;
-  }
-
-  .criadora{
-    flex-direction:column;
-    text-align:center;
-  }
-
-}
-
-</style>
-
-<script>
-
-function abrirPagina(id){
-
-  document.querySelectorAll(".pagina")
-    .forEach(function(pagina){
-      pagina.style.display = "none";
-    });
-
-  const pagina =
-    document.getElementById(id);
-
-  if(pagina){
-    pagina.style.display = "block";
-  }
-
-  window.scrollTo(0,0);
-}
-
-
-async function carregarPerfil(){
-
-  const { data } =
-    await supabaseClient.auth.getUser();
-
-  if(!data.user) return;
-
-  const usuario = data.user;
-
-  const nome =
-    usuario.user_metadata?.nome || "Usuário";
-
-  document.getElementById("perfilNome")
-    .innerText = "Nome: " + nome;
-
-  document.getElementById("perfilEmail")
-    .innerText = "E-mail: " + usuario.email;
-
-}
-
-
-async function sairDaConta(){
-
-  const { error } =
-    await supabaseClient.auth.signOut();
-
-  if(error){
-
-    alert("Não foi possível sair da conta.");
-    return;
-
-  }
-
-  location.reload();
-
-}
-
-
-supabaseClient.auth.onAuthStateChange(
-  function(event, session){
-
-    const app =
-      document.getElementById("app");
-
-    const auth =
-      document.getElementById("authScreen");
-
-    if(session){
-
-      auth.style.display = "none";
-      app.style.display = "block";
-
-      abrirPagina("inicio");
-      carregarPerfil();
-
-    }else{
-
-      auth.style.display = "flex";
-      app.style.display = "none";
-
-    }
-
-  }
-);
-
-
-verificarLogin();
-
-</script>
-
-<script>
+/* =========================
+   SINAIS DE EXEMPLO
+========================= */
 
 const sinais = [
+
   {
-    palavra:"Oi",
-    descricao:"Saudação em Libras."
+    palavra:"amor",
+    idioma:"Libras",
+    descricao:"Sinal de amor em Libras."
   },
+
   {
-    palavra:"Obrigado",
-    descricao:"Agradecimento em Libras."
+    palavra:"oi",
+    idioma:"Libras",
+    descricao:"Sinal de cumprimento em Libras."
   },
+
   {
-    palavra:"Amor",
-    descricao:"Expressão de carinho."
+    palavra:"obrigado",
+    idioma:"Libras",
+    descricao:"Sinal de agradecimento em Libras."
   },
+
   {
-    palavra:"Amigo",
-    descricao:"Pessoa próxima e querida."
+    palavra:"família",
+    idioma:"Libras",
+    descricao:"Sinal relacionado à família."
   },
+
   {
-    palavra:"Família",
-    descricao:"Grupo de pessoas da família."
-  },
-  {
-    palavra:"Água",
-    descricao:"Sinal relacionado à água."
+    palavra:"amizade",
+    idioma:"Libras",
+    descricao:"Sinal relacionado à amizade."
   }
+
 ];
 
 
-function mostrarSinais(){
+/* =========================
+   TELA DE LOGIN
+========================= */
 
-  const busca =
-    document.getElementById("campoBusca")
-      .value
-      .toLowerCase()
-      .trim();
+function mostrarLogin(){
 
-  const area =
-    document.getElementById("sinais");
+  document.getElementById("app").innerHTML = `
+
+    <div class="tela">
+
+      <div class="card">
+
+        <div class="conteudo">
+
+          <img
+            src="angela-vytorya-sinalmundo-1.jpg"
+            alt="Foto"
+            class="foto"
+          >
+
+          <h1>
+            Bem-vindo(a)! 💚
+          </h1>
+
+          <p class="frase">
+            Aqui, cada sinal é uma ponte<br>
+            para um mundo mais conectado! 🤟🏻
+          </p>
+
+          <div class="logo">
+            🌎 SinalMundo
+          </div>
+
+          <div class="sublogo">
+            Línguas de sinais aproximam pessoas ♡
+          </div>
+
+          <div class="divisor">
+            ─── ♡ ───
+          </div>
+
+          <p class="frase">
+            Entre na sua conta para continuar.
+          </p>
+
+          <input
+            id="loginEmail"
+            type="email"
+            placeholder="✉️ Seu e-mail"
+          >
+
+          <input
+            id="loginSenha"
+            type="password"
+            placeholder="🔒 Sua senha"
+          >
+
+          <button
+            id="loginBtn"
+            class="btn-verde"
+          >
+            ➜ Entrar
+          </button>
+
+          <button
+            id="cadastroBtn"
+            class="btn-claro"
+          >
+            ♡ Criar conta
+          </button>
+
+          <button
+            id="recuperacaoBtn"
+            class="btn-branco"
+          >
+            🔒 Esqueci minha senha
+          </button>
+
+          <p
+            id="loginMensagem"
+            class="mensagem"
+          ></p>
+
+          <div class="final">
+            Juntos por um mundo<br>
+            mais inclusivo! ♡
+          </div>
+
+          <div class="folhas">
+            🌿 🍃
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document
+  .getElementById("loginBtn")
+  .onclick = fazerLogin;
+
+
+  document
+  .getElementById("cadastroBtn")
+  .onclick = mostrarCadastro;
+
+
+  document
+  .getElementById("recuperacaoBtn")
+  .onclick = mostrarRecuperacao;
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+async function fazerLogin(){
+
+  const email =
+    document.getElementById("loginEmail")
+      .value.trim();
+
+  const senha =
+    document.getElementById("loginSenha")
+      .value;
+
+  const mensagem =
+    document.getElementById("loginMensagem");
+
+
+  if(!email || !senha){
+
+    mensagem.innerText =
+      "Preencha seu e-mail e sua senha.";
+
+    return;
+  }
+
+
+  mensagem.innerText =
+    "Entrando... 💚";
+
+
+  const { error } =
+    await supabaseClient.auth
+      .signInWithPassword({
+
+        email:email,
+        password:senha
+
+      });
+
+
+  if(error){
+
+    mensagem.innerText =
+      "E-mail ou senha incorretos.";
+
+    return;
+  }
+
+
+  mostrarInicio();
+
+}
+
+
+/* =========================
+   CRIAR CONTA
+========================= */
+
+function mostrarCadastro(){
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="tela">
+
+      <div class="card">
+
+        <div class="conteudo">
+
+          <div class="folhas">
+            🌿 🍃
+          </div>
+
+          <h1>
+            Criar conta 💚
+          </h1>
+
+          <p class="frase">
+            Faça parte do SinalMundo! 🤟🏻
+          </p>
+
+          <input
+            id="cadastroNome"
+            type="text"
+            placeholder="👤 Seu nome"
+          >
+
+          <input
+            id="cadastroEmail"
+            type="email"
+            placeholder="✉️ Seu e-mail"
+          >
+
+          <input
+            id="cadastroSenha"
+            type="password"
+            placeholder="🔒 Sua senha"
+          >
+
+          <button
+            id="confirmarCadastro"
+            class="btn-verde"
+          >
+            ♡ Criar conta
+          </button>
+
+          <button
+            id="voltarCadastro"
+            class="btn-claro"
+          >
+            ← Voltar para entrar
+          </button>
+
+          <p
+            id="cadastroMensagem"
+            class="mensagem"
+          ></p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document
+  .getElementById("confirmarCadastro")
+  .onclick = criarConta;
+
+
+  document
+  .getElementById("voltarCadastro")
+  .onclick = mostrarLogin;
+
+}
+
+
+/* =========================
+   FUNÇÃO CRIAR CONTA
+========================= */
+
+async function criarConta(){
+
+  const nome =
+    document.getElementById("cadastroNome")
+      .value.trim();
+
+  const email =
+    document.getElementById("cadastroEmail")
+      .value.trim();
+
+  const senha =
+    document.getElementById("cadastroSenha")
+      .value;
+
+  const mensagem =
+    document.getElementById("cadastroMensagem");
+
+
+  if(!nome || !email || !senha){
+
+    mensagem.innerText =
+      "Preencha todos os campos.";
+
+    return;
+  }
+
+
+  if(senha.length < 6){
+
+    mensagem.innerText =
+      "A senha precisa ter pelo menos 6 caracteres.";
+
+    return;
+  }
+
+
+  mensagem.innerText =
+    "Criando sua conta... 💚";
+
+
+  const { data, error } =
+    await supabaseClient.auth
+      .signUp({
+
+        email:email,
+
+        password:senha,
+
+        options:{
+          data:{
+            nome:nome
+          }
+        }
+
+      });
+
+
+  if(error){
+
+    mensagem.innerText =
+      "Não foi possível criar a conta.";
+
+    return;
+  }
+
+
+  if(data.session){
+
+    mostrarInicio();
+
+    return;
+  }
+
+
+  mensagem.innerText =
+    "Conta criada! Verifique seu e-mail. 📧💚";
+
+}
+
+
+/* =========================
+   RECUPERAR SENHA
+========================= */
+
+function mostrarRecuperacao(){
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="tela">
+
+      <div class="card">
+
+        <div class="conteudo">
+
+          <div class="folhas">
+            🌿 🍃
+          </div>
+
+          <h1>
+            Recuperar senha 💚
+          </h1>
+
+          <p class="frase">
+            Digite seu e-mail para receber
+            o link de recuperação. 📧
+          </p>
+
+          <input
+            id="recuperarEmail"
+            type="email"
+            placeholder="✉️ Seu e-mail"
+          >
+
+          <button
+            id="enviarRecuperacao"
+            class="btn-verde"
+          >
+            🔒 Enviar link
+          </button>
+
+          <button
+            id="voltarRecuperacao"
+            class="btn-claro"
+          >
+            ← Voltar para entrar
+          </button>
+
+          <p
+            id="recuperacaoMensagem"
+            class="mensagem"
+          ></p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document
+  .getElementById("enviarRecuperacao")
+  .onclick = enviarRecuperacao;
+
+
+  document
+  .getElementById("voltarRecuperacao")
+  .onclick = mostrarLogin;
+
+}
+
+
+/* =========================
+   ENVIAR RECUPERAÇÃO
+========================= */
+
+async function enviarRecuperacao(){
+
+  const email =
+    document.getElementById("recuperarEmail")
+      .value.trim();
+
+  const mensagem =
+    document.getElementById("recuperacaoMensagem");
+
+
+  if(!email){
+
+    mensagem.innerText =
+      "Digite seu e-mail.";
+
+    return;
+  }
+
+
+  mensagem.innerText =
+    "Enviando... 💚";
+
+
+  const { error } =
+    await supabaseClient.auth
+      .resetPasswordForEmail(
+
+        email,
+
+        {
+          redirectTo:
+            window.location.origin
+        }
+
+      );
+
+
+  if(error){
+
+    mensagem.innerText =
+      "Não foi possível enviar o link.";
+
+    return;
+  }
+
+
+  mensagem.innerText =
+    "Link enviado! Verifique seu e-mail. 📧💚";
+
+}
+
+
+/* =========================
+   TELA PRINCIPAL
+========================= */
+
+function mostrarInicio(){
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="tela">
+
+      <div class="card">
+
+        <div class="conteudo">
+
+          <div class="folhas">
+            🌿 🍃
+          </div>
+
+          <div class="logo">
+            🌎 SinalMundo
+          </div>
+
+          <p class="sublogo">
+            Línguas de sinais aproximam pessoas ♡
+          </p>
+
+          <div class="divisor">
+            ─── ♡ ───
+          </div>
+
+          <h2>
+            Seja bem-vindo(a)! 💚
+          </h2>
+
+          <p class="frase">
+            Que bom ter você aqui! 🤟🏻
+          </p>
+
+          <div class="menu">
+
+            <button
+              id="pesquisaBtn"
+              class="item"
+            >
+              🔎 Pesquisar sinais
+            </button>
+
+            <button
+              id="idiomasBtn"
+              class="item"
+            >
+              🌎 Línguas de sinais
+            </button>
+
+            <button
+              id="favoritosBtn"
+              class="item"
+            >
+              ♡ Meus favoritos
+            </button>
+
+            <button
+              id="perfilBtn"
+              class="item"
+            >
+              👤 Meu perfil
+            </button>
+
+            <button
+              id="sairBtn"
+              class="btn-branco"
+            >
+              🚪 Sair
+            </button>
+
+          </div>
+
+          <div class="final">
+            Juntos por um mundo<br>
+            mais inclusivo! ♡
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document
+  .getElementById("pesquisaBtn")
+  .onclick = mostrarPesquisa;
+
+
+  document
+  .getElementById("idiomasBtn")
+  .onclick = mostrarIdiomas;
+
+
+  document
+  .getElementById("favoritosBtn")
+  .onclick = mostrarFavoritos;
+
+
+  document
+  .getElementById("perfilBtn")
+  .onclick = mostrarPerfil;
+
+
+  document
+  .getElementById("sairBtn")
+  .onclick = sair;
+
+}
+
+
+/* =========================
+   PESQUISA
+========================= */
+
+function mostrarPesquisa(){
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="tela">
+
+      <div class="card">
+
+        <div class="conteudo">
+
+          <div class="folhas">
+            🌿 🍃
+          </div>
+
+          <div class="logo">
+            🌎 SinalMundo
+          </div>
+
+          <h2>
+            🔎 Pesquisar sinais
+          </h2>
+
+          <p class="frase">
+            Encontre um sinal para aprender. 🤟🏻
+          </p>
+
+          <input
+            id="campoPesquisa"
+            type="text"
+            placeholder="🔎 Digite um sinal..."
+          >
+
+          <button
+            id="buscarSinal"
+            class="btn-verde"
+          >
+            🔎 Pesquisar
+          </button>
+
+          <div
+            id="resultadoPesquisa"
+            class="resultado"
+          >
+            Digite uma palavra para pesquisar. 💚
+          </div>
+
+          <button
+            id="voltarPesquisa"
+            class="btn-claro"
+          >
+            ← Voltar
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document
+  .getElementById("buscarSinal")
+  .onclick = pesquisar;
+
+
+  document
+  .getElementById("voltarPesquisa")
+  .onclick = mostrarInicio;
+
+}
+
+
+/* =========================
+   FUNÇÃO PESQUISAR
+========================= */
+
+function pesquisar(){
+
+  const palavra =
+    document.getElementById("campoPesquisa")
+      .value.trim()
+      .toLowerCase();
+
+  const resultado =
+    document.getElementById("resultadoPesquisa");
+
+
+  if(!palavra){
+
+    resultado.innerText =
+      "Digite um sinal para pesquisar. 🔎";
+
+    return;
+  }
+
 
   const encontrados =
     sinais.filter(function(sinal){
 
       return sinal.palavra
         .toLowerCase()
-        .includes(busca);
+        .includes(palavra);
 
     });
 
-  area.innerHTML = "";
 
-  encontrados.forEach(function(sinal){
+  if(encontrados.length === 0){
 
-    const card =
-      document.createElement("div");
+    resultado.innerHTML = `
+      <strong>
+        Nenhum sinal encontrado.
+      </strong>
 
-    card.style.background = "white";
-    card.style.padding = "18px";
-    card.style.marginBottom = "12px";
-    card.style.borderRadius = "15px";
+      <br><br>
 
-    card.innerHTML =
-      "<h3>" + sinal.palavra + "</h3>" +
-      "<p>" + sinal.descricao + "</p>";
+      Em breve vamos adicionar
+      muitos sinais reais ao SinalMundo. 🤟🏻💚
+    `;
 
-    area.appendChild(card);
+    return;
+  }
 
-  });
+
+  resultado.innerHTML =
+    encontrados.map(function(sinal){
+
+      return `
+        <div class="sinal">
+
+          <strong>
+            ${sinal.palavra}
+          </strong>
+
+          <br>
+
+          ${sinal.idioma}
+
+          <br><br>
+
+          ${sinal.descricao}
+
+        </div>
+      `;
+
+    }).join("");
 
 }
 
 
-mostrarSinais();
+/* =========================
+   LÍNGUAS DE SINAIS
+========================= */
 
-<script>  
-  
-<script>
+function mostrarIdiomas(){
 
-const botaoAntigo =
-document.getElementById("cadastroBtn");
+  document.getElementById("app").innerHTML = `
 
-if(botaoAntigo){
+    <div class="tela">
 
-  const botaoNovo =
-    botaoAntigo.cloneNode(true);
+      <div class="card">
 
-  botaoAntigo.replaceWith(botaoNovo);
+        <div class="conteudo">
 
+          <div class="folhas">
+            🌿 🍃
+          </div>
 
-  botaoNovo.addEventListener("click", function(){
+          <div class="logo">
+            🌎 SinalMundo
+          </div>
 
-    document.getElementById("authScreen").innerHTML = `
+          <h2>
+            Línguas de sinais
+          </h2>
 
-      <div class="auth-card">
+          <p class="frase">
+            Explore diferentes línguas de sinais. 🤟🏻
+          </p>
 
-        <img
-          src="angela-vytorya-sinalmundo-1.jpg"
-          alt="Angela Vytorya"
-          class="auth-foto"
-        >
+          <div class="lista">
 
-        <h1>🌎 SinalMundo</h1>
+            <div class="idioma">
+              <strong>🇧🇷 Libras</strong>
+              <span>Língua Brasileira de Sinais</span>
+            </div>
 
-        <h2>Criar conta</h2>
+            <div class="idioma">
+              <strong>🇺🇸 ASL</strong>
+              <span>American Sign Language</span>
+            </div>
 
-        <p>
-          Crie sua conta para começar.
-        </p>
+            <div class="idioma">
+              <strong>🇬🇧 BSL</strong>
+              <span>British Sign Language</span>
+            </div>
 
-        <input
-          id="cadastroNome"
-          type="text"
-          placeholder="Seu nome"
-        >
+            <div class="idioma">
+              <strong>🌎 Outras línguas</strong>
+              <span>Mais línguas serão adicionadas.</span>
+            </div>
 
-        <input
-          id="cadastroEmail"
-          type="email"
-          placeholder="Seu e-mail"
-        >
+          </div>
 
-        <input
-          id="cadastroSenha"
-          type="password"
-          placeholder="Sua senha"
-        >
+          <button
+            id="voltarIdiomas"
+            class="btn-claro"
+          >
+            ← Voltar
+          </button>
 
-        <button id="confirmarCadastro">
-          Criar conta
-        </button>
-
-        <button id="voltarLogin">
-          Voltar para entrar
-        </button>
-
-        <p id="cadastroMessage"></p>
+        </div>
 
       </div>
 
-    `;
+    </div>
+
+  `;
 
 
-    document.getElementById("confirmarCadastro")
-    .addEventListener("click", async function(){
-
-      const nome =
-        document.getElementById("cadastroNome").value.trim();
-
-      const email =
-        document.getElementById("cadastroEmail").value.trim();
-
-      const senha =
-        document.getElementById("cadastroSenha").value;
-
-      const msg =
-        document.getElementById("cadastroMessage");
-
-
-      if(!nome || !email || !senha){
-
-        msg.innerText =
-          "Preencha todos os campos.";
-
-        return;
-      }
-
-
-      if(senha.length < 6){
-
-        msg.innerText =
-          "A senha precisa ter pelo menos 6 caracteres.";
-
-        return;
-      }
-
-
-      msg.innerText =
-        "Criando sua conta...";
-
-
-      const { error } =
-        await supabaseClient.auth.signUp({
-
-          email: email,
-
-          password: senha,
-
-          options:{
-            data:{
-              nome: nome
-            }
-          }
-
-        });
-
-
-      if(error){
-
-        msg.innerText =
-          "Erro: " + error.message;
-
-        return;
-      }
-
-
-      msg.innerText =
-        "Conta criada! Verifique seu e-mail. 📧💚";
-
-    });
-
-
-    document.getElementById("voltarLogin")
-    .addEventListener("click", function(){
-
-      location.reload();
-
-    });
-
-  });
+  document
+  .getElementById("voltarIdiomas")
+  .onclick = mostrarInicio;
 
 }
+
+
+/* =========================
+   FAVORITOS
+========================= */
+
+function mostrarFavoritos(){
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="tela">
+
+      <div class="card">
+
+        <div class="conteudo">
+
+          <div class="folhas">
+            🌿 🍃
+          </div>
+
+          <div class="logo">
+            🌎 SinalMundo
+          </div>
+
+          <h2>
+            ♡ Meus favoritos
+          </h2>
+
+          <p class="vazio">
+            Seus sinais favoritos aparecerão aqui. 💚
+          </p>
+
+          <button
+            id="voltarFavoritos"
+            class="btn-claro"
+          >
+            ← Voltar
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document
+  .getElementById("voltarFavoritos")
+  .onclick = mostrarInicio;
+
+}
+
+
+/* =========================
+   PERFIL
+========================= */
+
+async function mostrarPerfil(){
+
+  const {
+    data
+  } =
+    await supabaseClient.auth
+      .getUser();
+
+
+  const user =
+    data.user;
+
+
+  let nome =
+    user?.user_metadata?.nome || "Usuário";
+
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="tela">
+
+      <div class="card">
+
+        <div class="conteudo">
+
+          <div class="folhas">
+            🌿 🍃
+          </div>
+
+          <div class="logo">
+            🌎 SinalMundo
+          </div>
+
+          <h2>
+            👤 Meu perfil
+          </h2>
+
+          <div class="resultado">
+
+            <strong>
+              ${nome}
+            </strong>
+
+            <br><br>
+
+            ${user?.email || ""}
+
+          </div>
+
+          <button
+            id="voltarPerfil"
+            class="btn-claro"
+          >
+            ← Voltar
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document
+  .getElementById("voltarPerfil")
+  .onclick = mostrarInicio;
+
+}
+
+
+/* =========================
+   SAIR
+========================= */
+
+async function sair(){
+
+  await supabaseClient.auth.signOut();
+
+  mostrarLogin();
+
+}
+
+
+<script>
+
+/* =========================
+   VERIFICAR LOGIN
+========================= */
+
+async function verificarSessao(){
+
+  const {
+    data
+  } =
+    await supabaseClient.auth
+      .getSession();
+
+
+  if(data.session){
+
+    mostrarInicio();
+
+  }else{
+
+    mostrarLogin();
+
+  }
+
+}
+
+
+/* =========================
+   INICIAR SINALMUNDO
+========================= */
+
+verificarSessao();
+
+
+/* =========================
+   OBSERVAR LOGIN E SAÍDA
+========================= */
+
+supabaseClient.auth.onAuthStateChange(
+  function(event, session){
+
+    if(event === "SIGNED_IN" && session){
+
+      mostrarInicio();
+
+    }
+
+    if(event === "SIGNED_OUT"){
+
+      mostrarLogin();
+
+    }
+
+  }
+);
 
 </script>
 
 </body>
+
 </html>
-
-
