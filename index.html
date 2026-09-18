@@ -647,9 +647,7 @@ Copie a chave Pix abaixo e faça o pagamento de R$ 50,00.
 ${PIX_PREMIUM}
 </div>
 
-<button id="copiarPix" class="btn-verde">
-📋 Copiar chave Pix
-</button>
+<input value="${PIX_PREMIUM}" readonly onclick="this.select()">
 
 <button id="comprovanteBtn" class="btn-claro">
 📸 Enviar comprovante
@@ -671,7 +669,7 @@ Após o pagamento, envie o comprovante para a administração do SinalMundo para
 </div>
 </div>`;
 
-document.getElementById("copiarPix").onclick=async()=>{
+document.getElementById("comprovanteBtn").onclick=()=>{
 try{
 await navigator.clipboard.writeText(PIX_PREMIUM);
 document.getElementById("premiumMensagem").innerText=
