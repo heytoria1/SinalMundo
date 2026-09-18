@@ -670,17 +670,6 @@ Após o pagamento, envie o comprovante para a administração do SinalMundo para
 </div>`;
 
 document.getElementById("comprovanteBtn").onclick=()=>{
-try{
-await navigator.clipboard.writeText(PIX_PREMIUM);
-document.getElementById("premiumMensagem").innerText=
-"Chave Pix copiada! 💚";
-}catch(e){
-document.getElementById("premiumMensagem").innerText=
-"Selecione e copie a chave Pix manualmente.";
-}
-};
-
-document.getElementById("comprovanteBtn").onclick=()=>{
 document.getElementById("premiumMensagem").innerText=
 "Envie o comprovante pelo canal de atendimento do SinalMundo. 💚";
 };
