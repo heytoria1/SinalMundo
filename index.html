@@ -525,18 +525,22 @@ document.getElementById("voltarPerfil").onclick=mostrarInicio;
 }
 
 async function salvarAvatar(avatar){
-const{data}=await supabaseClient.auth.getUser(),user=data.user;
-if(!user)return;
+const{data}=await supabaseClient.auth.getUser();
+const user=data.user;
+const m=document.getElementById("perfilMensagem");
+
+if(!user){
+if(m)m.innerText="Usuário não encontrado.";
+return;
+}
 
 const{error}=await supabaseClient
 .from("perfis")
 .update({avatar:avatar})
 .eq("id",user.id);
 
-const m=document.getElementById("perfilMensagem");
-
 if(error){
-if(m)m.innerText="Não foi possível salvar a figurinha.";
+if(m)m.innerText="Erro ao salvar: "+error.message;
 return;
 }
 
