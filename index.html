@@ -567,67 +567,76 @@ document.getElementById("app").innerHTML=`
 
 <div class="logo">🌎 SinalMundo</div>
 
-<h2>💚 Premium</h2>
+<div style="font-size:55px;margin:10px">💚✨</div>
+
+<h2>Premium</h2>
 
 <p class="frase">
 Tenha acesso vitalício aos recursos Premium do SinalMundo.
 </p>
 
 <div class="preco">
-R$ 50,00<br>
-<span style="font-size:16px">
-pagamento único • vitalício
-</span>
+R$ 50,00
+<br>
+<span style="font-size:15px">pagamento único • vitalício</span>
 </div>
 
-<div class="premium-box">
+<button id="queroPremium" class="btn-verde">
+✨ Quero ser Premium
+</button>
 
-<h3>✨ Benefícios Premium</h3>
+<div id="premiumArea" style="display:none;margin-top:20px">
+
+<div class="premium-box">
+<h3>🌟 Benefícios Premium</h3>
 
 <ul class="premium-lista">
-<li>Acesso a mais línguas de sinais</li>
-<li>Pesquisa completa de sinais</li>
-<li>Meus favoritos</li>
-<li>Biblioteca de conteúdos</li>
-<li>Vídeos exclusivos</li>
-<li>Quizzes e exercícios</li>
-<li>Comparação entre línguas</li>
-<li>Desafios e conquistas</li>
-<li>Novidades antecipadas</li>
-<li>Grupo exclusivo Premium</li>
-<li>Suporte prioritário</li>
+<li>🤟🏻 Mais línguas de sinais</li>
+<li>🔎 Pesquisa completa</li>
+<li>❤️ Meus favoritos</li>
+<li>📚 Biblioteca de conteúdos</li>
+<li>🎬 Vídeos exclusivos</li>
+<li>🧠 Quizzes e exercícios</li>
+<li>🌎 Comparação entre línguas</li>
+<li>🏆 Desafios e conquistas</li>
+<li>🔔 Novidades antecipadas</li>
+<li>💚 Grupo exclusivo Premium</li>
+<li>⭐ Suporte prioritário</li>
 </ul>
 
 </div>
 
 <div class="premium-box">
 
-<h3>💳 Pagamento por Pix</h3>
+<h3>💳 Pagamento</h3>
 
 <p>
-Copie a chave Pix abaixo e faça o pagamento de R$ 50,00.
+Faça o pagamento de <strong>R$ 50,00</strong> pelo Pix.
 </p>
 
 <div class="pix">
-<strong>Chave Pix:</strong><br>
-${PIX_PREMIUM}
+<strong>🔐 Pix Copia e Cola</strong>
+<br>
+<span style="font-size:14px">R$ 50,00 • SinalMundo Premium</span>
 </div>
 
 <button id="copiarPix" class="btn-verde">
-📋 Copiar chave Pix
+📋 Copiar Pix
 </button>
+
+<p id="premiumMensagem" class="mensagem"></p>
 
 <button id="comprovanteBtn" class="btn-claro">
 📸 Enviar comprovante
 </button>
 
 <div class="aviso">
-Após o pagamento, envie o comprovante para a administração do SinalMundo para conferência e ativação do Premium. A aprovação ainda é manual nesta versão.
+Após o pagamento, envie o comprovante para a administração do SinalMundo para conferência e ativação do Premium. 💚
 </div>
 
 </div>
 
-<p id="premiumMensagem" class="mensagem"></p>
+</div>
 
 <button id="voltarPremium" class="btn-claro">
 ← Voltar
@@ -637,17 +646,22 @@ Após o pagamento, envie o comprovante para a administração do SinalMundo para
 </div>
 </div>`;
 
+document.getElementById("queroPremium").onclick=()=>{
+document.getElementById("premiumArea").style.display="block";
+document.getElementById("queroPremium").style.display="none";
+};
+
 document.getElementById("copiarPix").onclick=async()=>{
 try{
 await navigator.clipboard.writeText(PIX_PREMIUM);
-document.getElementById("premiumMensagem").innerText="Chave Pix copiada! 💚";
+document.getElementById("premiumMensagem").innerText="✅ Pix copiado! 💚";
 }catch(e){
-document.getElementById("premiumMensagem").innerText="Selecione e copie a chave Pix manualmente.";
+document.getElementById("premiumMensagem").innerText="Copie o Pix manualmente.";
 }
 };
 
 document.getElementById("comprovanteBtn").onclick=()=>{
-document.getElementById("premiumMensagem").innerText="Envie o comprovante pelo canal de atendimento do SinalMundo. 💚";
+document.getElementById("premiumMensagem").innerText="📸 Envie o comprovante pelo canal de atendimento do SinalMundo. 💚";
 };
 
 document.getElementById("voltarPremium").onclick=mostrarInicio;
