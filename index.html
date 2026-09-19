@@ -525,17 +525,13 @@ document.getElementById("voltarPerfil").onclick=mostrarInicio;
 }
 
 async function salvarAvatar(avatar){
-const{data}=await supabaseClient.auth.getUser();
-const user=data.user;
-
+const{data}=await supabaseClient.auth.getUser(),user=data.user;
 if(!user)return;
 
 const{error}=await supabaseClient
 .from("perfis")
-.upsert(
-{id:user.id,avatar},
-{onConflict:"id"}
-);
+.update({avatar:avatar})
+.eq("id",user.id);
 
 const m=document.getElementById("perfilMensagem");
 
@@ -545,7 +541,6 @@ return;
 }
 
 if(m)m.innerText="Figurinha salva! 💚";
-
 setTimeout(mostrarPerfil,500);
 }
 
