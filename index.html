@@ -417,21 +417,15 @@ document.getElementById("app").innerHTML=`
 document.getElementById("voltarIdiomas").onclick=mostrarInicio;
 }
 
-async function adicionarFavorito(sinal){
-const{data}=await supabaseClient.auth.getUser();
-const user=data.user;
-
-if(!user){
-mostrarLogin();
-return;
+document.getElementById("voltarFavoritos").onclick=mostrarInicio;
 }
 
-const{error}=await supabaseClient
-.from("favoritos")
-.insert({
-sinal:sinal,
-usuario_id:user.id
-});
+async function garantirPerfil(user){
+let{data:perfil}=await supabaseClient
+.from("perfis")
+.select("avatar")
+.eq("id",user.id)
+.maybeSingle();
 
 if(error){
 alert("Não foi possível salvar o favorito.");
