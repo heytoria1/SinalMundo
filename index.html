@@ -4,126 +4,541 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SinalMundo</title>
+
 <style>
-:root{--verde:#6B8E23;--verde-escuro:#315D36;--verde-claro:#EEF5DF;--fundo:#F5F8F1;--branco:#FFF;--cinza:#66757F;--borda:#AFC19F}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:var(--fundo);color:var(--verde-escuro)}
-button,input{font-family:inherit}
-#app{min-height:100vh}
-.tela{min-height:100vh;padding:20px 14px;display:flex;justify-content:center;align-items:center}
-.card{width:100%;max-width:500px;background:#fff;border-radius:32px;padding:30px 24px;text-align:center;box-shadow:0 12px 40px rgba(49,93,54,.12);position:relative;overflow:hidden}
-.card:before,.card:after{content:"";position:absolute;width:180px;height:180px;background:#E7F0D8;border-radius:50%;opacity:.7}
-.card:before{left:-100px;top:120px}
-.card:after{right:-100px;bottom:20px}
-.conteudo{position:relative;z-index:2}
-.foto{width:125px;height:125px;object-fit:cover;border-radius:50%;border:4px solid var(--verde);display:block;margin:0 auto 18px}
-h1{font-size:34px;color:var(--verde-escuro);margin-bottom:15px}
-h2{font-size:27px;margin-bottom:15px}
-.frase{font-size:18px;line-height:1.5;margin-bottom:22px}
-.logo{font-size:38px;font-weight:bold;color:var(--verde);margin-bottom:8px}
-.sublogo{font-size:18px;margin-bottom:20px}
-.divisor{color:var(--verde);font-size:24px;margin-bottom:15px}
-input{width:100%;padding:17px;margin-bottom:14px;border:2px solid var(--borda);border-radius:18px;font-size:16px;outline:none}
-input:focus{border-color:var(--verde)}
-button{width:100%;padding:17px;margin-top:7px;border-radius:18px;font-size:17px;font-weight:bold;cursor:pointer}
-.btn-verde{border:0;background:var(--verde);color:#fff}
-.btn-claro{border:0;background:var(--verde-claro);color:var(--verde-escuro)}
-.btn-branco{background:#fff;color:var(--verde-escuro);border:2px solid var(--verde)}
-.mensagem{margin-top:15px;font-size:16px;line-height:1.5}
-.final{margin-top:28px;font-size:18px;line-height:1.5}
-.menu{display:grid;gap:10px;margin-top:20px}
-.item{padding:18px;border-radius:20px;background:var(--verde-claro);color:var(--verde-escuro);font-size:17px;font-weight:bold;border:0}
-.resultado{margin-top:20px;padding:18px;border-radius:20px;background:var(--verde-claro);font-size:17px;line-height:1.5}
-.lista{display:grid;gap:12px;margin-top:20px}
-.idioma{padding:18px;background:var(--verde-claro);border:2px solid transparent;border-radius:20px;text-align:left}
-.idioma strong{display:block;font-size:19px;margin-bottom:5px}
-.idioma span{color:var(--cinza)}
-.sinal{padding:18px;background:#fff;border:2px solid var(--borda);border-radius:20px;margin-top:12px}
-.sinal strong{color:var(--verde);font-size:20px}
-.vazio{margin-top:20px;color:var(--cinza);line-height:1.5}
-.avatar-atual{font-size:80px;margin:15px 0}
-.avatar-lista{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:15px}
-.avatar-btn{width:60px;height:60px;padding:5px;margin:0;font-size:30px;background:var(--verde-claro);color:var(--verde-escuro);border:2px solid var(--borda);border-radius:18px}
-.cores{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:15px}
-.cor-btn{width:48px;height:48px;padding:0;margin:0;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--borda);font-size:0}
-.premium-box{margin-top:18px;padding:22px;border:2px solid var(--borda);border-radius:24px;background:var(--verde-claro);text-align:left}
-.premium-box h3{font-size:24px;color:var(--verde);margin-bottom:10px}
-.premium-box p{line-height:1.5;margin-bottom:12px}
-.premium-lista{padding-left:20px;line-height:1.8}
-.pix{margin-top:15px;padding:15px;background:#fff;border-radius:16px;word-break:break-all;border:2px dashed var(--borda)}
-.preco{font-size:28px;font-weight:bold;color:var(--verde);text-align:center;margin:12px 0}
-.pequeno{font-size:14px;color:var(--cinza);margin-top:10px;line-height:1.4}
-.aviso{margin-top:15px;padding:14px;border-radius:16px;background:#fff8df;color:#705d1b;font-size:14px;line-height:1.5}
+:root{
+--verde:#6B8E23;
+--verde-escuro:#315D36;
+--verde-claro:#EEF5DF;
+--fundo:#F5F8F1;
+--branco:#FFF;
+--cinza:#66757F;
+--borda:#AFC19F
+}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0
+}
+
+body{
+font-family:Arial,sans-serif;
+background:var(--fundo);
+color:var(--verde-escuro)
+}
+
+button,input{
+font-family:inherit
+}
+
+#app{
+min-height:100vh
+}
+
+.tela{
+min-height:100vh;
+padding:20px 14px;
+display:flex;
+justify-content:center;
+align-items:center
+}
+
+.card{
+width:100%;
+max-width:500px;
+background:#fff;
+border-radius:32px;
+padding:30px 24px;
+text-align:center;
+box-shadow:0 12px 40px rgba(49,93,54,.12);
+position:relative;
+overflow:hidden
+}
+
+.card:before,
+.card:after{
+content:"";
+position:absolute;
+width:180px;
+height:180px;
+background:#E7F0D8;
+border-radius:50%;
+opacity:.7
+}
+
+.card:before{
+left:-100px;
+top:120px
+}
+
+.card:after{
+right:-100px;
+bottom:20px
+}
+
+.conteudo{
+position:relative;
+z-index:2
+}
+
+.foto{
+width:125px;
+height:125px;
+object-fit:cover;
+border-radius:50%;
+border:4px solid var(--verde);
+display:block;
+margin:0 auto 18px
+}
+
+h1{
+font-size:34px;
+color:var(--verde-escuro);
+margin-bottom:15px
+}
+
+h2{
+font-size:27px;
+margin-bottom:15px
+}
+
+.frase{
+font-size:18px;
+line-height:1.5;
+margin-bottom:22px
+}
+
+.logo{
+font-size:38px;
+font-weight:bold;
+color:var(--verde);
+margin-bottom:8px
+}
+
+.sublogo{
+font-size:18px;
+margin-bottom:20px
+}
+
+.divisor{
+color:var(--verde);
+font-size:24px;
+margin-bottom:15px
+}
+
+input{
+width:100%;
+padding:17px;
+margin-bottom:14px;
+border:2px solid var(--borda);
+border-radius:18px;
+font-size:16px;
+outline:none
+}
+
+input:focus{
+border-color:var(--verde)
+}
+
+button{
+width:100%;
+padding:17px;
+margin-top:7px;
+border-radius:18px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer
+}
+
+.btn-verde{
+border:0;
+background:var(--verde);
+color:#fff
+}
+
+.btn-claro{
+border:0;
+background:var(--verde-claro);
+color:var(--verde-escuro)
+}
+
+.btn-branco{
+background:#fff;
+color:var(--verde-escuro);
+border:2px solid var(--verde)
+}
+
+.mensagem{
+margin-top:15px;
+font-size:16px;
+line-height:1.5
+}
+
+.final{
+margin-top:28px;
+font-size:18px;
+line-height:1.5
+}
+
+.menu{
+display:grid;
+gap:10px;
+margin-top:20px
+}
+
+.item{
+padding:18px;
+border-radius:20px;
+background:var(--verde-claro);
+color:var(--verde-escuro);
+font-size:17px;
+font-weight:bold;
+border:0
+}
+
+.resultado{
+margin-top:20px;
+padding:18px;
+border-radius:20px;
+background:var(--verde-claro);
+font-size:17px;
+line-height:1.5
+}
+
+.lista{
+display:grid;
+gap:12px;
+margin-top:20px
+}
+
+.idioma{
+padding:18px;
+background:var(--verde-claro);
+border:2px solid transparent;
+border-radius:20px;
+text-align:left
+}
+
+.idioma strong{
+display:block;
+font-size:19px;
+margin-bottom:5px
+}
+
+.idioma span{
+color:var(--cinza)
+}
+
+.sinal{
+padding:18px;
+background:#fff;
+border:2px solid var(--borda);
+border-radius:20px;
+margin-top:12px
+}
+
+.sinal strong{
+color:var(--verde);
+font-size:20px
+}
+
+.vazio{
+margin-top:20px;
+color:var(--cinza);
+line-height:1.5
+}
+
+.avatar-atual{
+font-size:80px;
+margin:15px 0
+}
+
+.avatar-lista{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+justify-content:center;
+margin-top:15px
+}
+
+.avatar-btn{
+width:60px;
+height:60px;
+padding:5px;
+margin:0;
+font-size:30px;
+background:var(--verde-claro);
+color:var(--verde-escuro);
+border:2px solid var(--borda);
+border-radius:18px
+}
+
+.cores{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+justify-content:center;
+margin-top:15px
+}
+
+.cor-btn{
+width:48px;
+height:48px;
+padding:0;
+margin:0;
+border-radius:50%;
+border:3px solid #fff;
+box-shadow:0 0 0 2px var(--borda);
+font-size:0
+}
+
+.premium-box{
+margin-top:18px;
+padding:22px;
+border:2px solid var(--borda);
+border-radius:24px;
+background:var(--verde-claro);
+text-align:left
+}
+
+.premium-box h3{
+font-size:24px;
+color:var(--verde);
+margin-bottom:10px
+}
+
+.premium-box p{
+line-height:1.5;
+margin-bottom:12px
+}
+
+.premium-lista{
+padding-left:20px;
+line-height:1.8
+}
+
+.pix{
+margin-top:15px;
+padding:15px;
+background:#fff;
+border-radius:16px;
+word-break:break-all;
+border:2px dashed var(--borda)
+}
+
+.preco{
+font-size:28px;
+font-weight:bold;
+color:var(--verde);
+text-align:center;
+margin:12px 0
+}
+
+.pequeno{
+font-size:14px;
+color:var(--cinza);
+margin-top:10px;
+line-height:1.4
+}
+
+.aviso{
+margin-top:15px;
+padding:14px;
+border-radius:16px;
+background:#fff8df;
+color:#705d1b;
+font-size:14px;
+line-height:1.5
+}
 </style>
 </head>
 
 <body>
+
 <div id="app"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
 const SUPABASE_URL="https://pvafjvxdajinoxedmlsj.supabase.co";
+
 const SUPABASE_PUBLISHABLE_KEY="sb_publishable_-n0hHo22n29h5Nlo-rTeHg_-dQbntHj";
-const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+
+const supabaseClient=window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
+);
 
 const PIX_PREMIUM="00020126520014BR.GOV.BCB.PIX0130vicky.araujo.silva20@gmail.com520400005303986540550.005802BR5924Angela Vytorya Araujo da6009SAO PAULO62140510NJqMFNxFAx6304BEB3";
 
 const sinais=[
-{palavra:"amor",idioma:"Libras",descricao:"Sinal de amor em Libras."},
-{palavra:"oi",idioma:"Libras",descricao:"Sinal de cumprimento em Libras."},
-{palavra:"obrigado",idioma:"Libras",descricao:"Sinal de agradecimento em Libras."},
-{palavra:"família",idioma:"Libras",descricao:"Sinal relacionado à família."},
-{palavra:"amizade",idioma:"Libras",descricao:"Sinal relacionado à amizade."}
+{
+palavra:"amor",
+idioma:"Libras",
+descricao:"Sinal de amor em Libras."
+},
+{
+palavra:"oi",
+idioma:"Libras",
+descricao:"Sinal de cumprimento em Libras."
+},
+{
+palavra:"obrigado",
+idioma:"Libras",
+descricao:"Sinal de agradecimento em Libras."
+},
+{
+palavra:"família",
+idioma:"Libras",
+descricao:"Sinal relacionado à família."
+},
+{
+palavra:"amizade",
+idioma:"Libras",
+descricao:"Sinal relacionado à amizade."
+}
 ];
 
-const avatares=["😊","🌸","🌻","🦋","🐼","🦄","🌈","🤟🏻","💚","🐱"];
+const avatares=[
+"😊","🌸","🌻","🦋","🐼",
+"🦄","🌈","🤟🏻","💚","🐱"
+];
 
 const cores=[
-{nome:"Verde-oliva",cor:"#6B8E23",claro:"#EEF5DF"},
-{nome:"Azul",cor:"#2F6F9F",claro:"#EAF4FB"},
-{nome:"Amarelo",cor:"#C59A00",claro:"#FFF8D9"},
-{nome:"Roxo",cor:"#7651A9",claro:"#F1EAFE"},
-{nome:"Rosa",cor:"#C65A7A",claro:"#FDEBF1"}
+{
+nome:"Verde-oliva",
+cor:"#6B8E23",
+claro:"#EEF5DF"
+},
+{
+nome:"Azul",
+cor:"#2F6F9F",
+claro:"#EAF4FB"
+},
+{
+nome:"Amarelo",
+cor:"#C59A00",
+claro:"#FFF8D9"
+},
+{
+nome:"Roxo",
+cor:"#7651A9",
+claro:"#F1EAFE"
+},
+{
+nome:"Rosa",
+cor:"#C65A7A",
+claro:"#FDEBF1"
+}
 ];
 
 function aplicarCor(cor,claro){
-document.documentElement.style.setProperty("--verde",cor);
-document.documentElement.style.setProperty("--verde-claro",claro);
-localStorage.setItem("sinalMundoCor",cor);
-localStorage.setItem("sinalMundoCorClaro",claro);
+
+document.documentElement.style.setProperty(
+"--verde",
+cor
+);
+
+document.documentElement.style.setProperty(
+"--verde-claro",
+claro
+);
+
+localStorage.setItem(
+"sinalMundoCor",
+cor
+);
+
+localStorage.setItem(
+"sinalMundoCorClaro",
+claro
+);
 }
 
 function carregarCor(){
+
 const c=localStorage.getItem("sinalMundoCor");
 const l=localStorage.getItem("sinalMundoCorClaro");
-if(c&&l)aplicarCor(c,l);
+
+if(c&&l){
+aplicarCor(c,l);
+}
+
 }
 
 function mostrarLogin(){
+
 document.getElementById("app").innerHTML=`
+
 <div class="tela">
 <div class="card">
 <div class="conteudo">
 
-<img src="angela-vytorya-sinalmundo-1.jpg" alt="Foto" class="foto">
+<img
+src="angela-vytorya-sinalmundo-1.jpg"
+alt="Foto"
+class="foto"
+>
 
-<div class="logo">🌎 SinalMundo</div>
-<p class="sublogo">Línguas de sinais aproximam pessoas ♡</p>
+<div class="logo">
+🌎 SinalMundo
+</div>
 
-<div class="divisor">─── ♡ ───</div>
+<p class="sublogo">
+Línguas de sinais aproximam pessoas ♡
+</p>
 
-<h2>Bem-vindo(a)! 💚</h2>
-<p class="frase">Entre na sua conta para continuar.</p>
+<div class="divisor">
+─── ♡ ───
+</div>
 
-<input id="loginEmail" type="email" placeholder="✉️ Seu e-mail">
-<input id="loginSenha" type="password" placeholder="🔒 Sua senha">
+<h2>
+Bem-vindo(a)! 💚
+</h2>
 
-<button id="entrarBtn" class="btn-verde">➜ Entrar</button>
-<button id="criarContaBtn" class="btn-claro">♡ Criar conta</button>
-<button id="esqueciSenhaBtn" class="btn-branco">Esqueci minha senha</button>
+<p class="frase">
+Entre na sua conta para continuar.
+</p>
 
-<p id="loginMensagem" class="mensagem"></p>
+<input
+id="loginEmail"
+type="email"
+placeholder="✉️ Seu e-mail"
+>
+
+<input
+id="loginSenha"
+type="password"
+placeholder="🔒 Sua senha"
+>
+
+<button
+id="entrarBtn"
+class="btn-verde"
+>
+➜ Entrar
+</button>
+
+<button
+id="criarContaBtn"
+class="btn-claro"
+>
+♡ Criar conta
+</button>
+
+<button
+id="esqueciSenhaBtn"
+class="btn-branco"
+>
+Esqueci minha senha
+</button>
+
+<p
+id="loginMensagem"
+class="mensagem"
+></p>
 
 <div class="final">
 Juntos por um mundo<br>
@@ -132,177 +547,368 @@ mais inclusivo! ♡
 
 </div>
 </div>
-</div>`;
+</div>
+`;
 
 document.getElementById("entrarBtn").onclick=fazerLogin;
+
 document.getElementById("criarContaBtn").onclick=mostrarCadastro;
+
 document.getElementById("esqueciSenhaBtn").onclick=mostrarRecuperacao;
+
 }
 
 async function fazerLogin(){
-const email=document.getElementById("loginEmail").value.trim();
-const senha=document.getElementById("loginSenha").value;
-const m=document.getElementById("loginMensagem");
+
+const email=
+document.getElementById("loginEmail")
+.value.trim();
+
+const senha=
+document.getElementById("loginSenha")
+.value;
+
+const m=
+document.getElementById("loginMensagem");
 
 if(!email||!senha){
-m.innerText="Preencha seu e-mail e sua senha.";
+
+m.innerText=
+"Preencha seu e-mail e sua senha.";
+
 return;
 }
 
 m.innerText="Entrando... 💚";
 
-const{error}=await supabaseClient.auth.signInWithPassword({
+const{error}=
+await supabaseClient.auth.signInWithPassword({
 email,
 password:senha
 });
 
 if(error){
-m.innerText="E-mail ou senha incorretos.";
+
+m.innerText=
+"E-mail ou senha incorretos.";
+
 return;
 }
 
 mostrarInicio();
+
 }
 
 function mostrarCadastro(){
+
 document.getElementById("app").innerHTML=`
+
 <div class="tela">
 <div class="card">
 <div class="conteudo">
 
-<h1>Criar conta 💚</h1>
-<p class="frase">Faça parte do SinalMundo! 🤟🏻</p>
+<h1>
+Criar conta 💚
+</h1>
 
-<input id="cadastroNome" type="text" placeholder="👤 Seu nome">
-<input id="cadastroEmail" type="email" placeholder="✉️ Seu e-mail">
-<input id="cadastroSenha" type="password" placeholder="🔒 Sua senha">
+<p class="frase">
+Faça parte do SinalMundo! 🤟🏻
+</p>
 
-<button id="confirmarCadastro" class="btn-verde">♡ Criar conta</button>
-<button id="voltarCadastro" class="btn-claro">← Voltar para entrar</button>
+<input
+id="cadastroNome"
+type="text"
+placeholder="👤 Seu nome"
+>
 
-<p id="cadastroMensagem" class="mensagem"></p>
+<input
+id="cadastroEmail"
+type="email"
+placeholder="✉️ Seu e-mail"
+>
+
+<input
+id="cadastroSenha"
+type="password"
+placeholder="🔒 Sua senha"
+>
+
+<button
+id="confirmarCadastro"
+class="btn-verde"
+>
+♡ Criar conta
+</button>
+
+<button
+id="voltarCadastro"
+class="btn-claro"
+>
+← Voltar para entrar
+</button>
+
+<p
+id="cadastroMensagem"
+class="mensagem"
+></p>
 
 </div>
 </div>
-</div>`;
+</div>
+`;
 
-document.getElementById("confirmarCadastro").onclick=criarConta;
-document.getElementById("voltarCadastro").onclick=mostrarLogin;
+document.getElementById(
+"confirmarCadastro"
+).onclick=criarConta;
+
+document.getElementById(
+"voltarCadastro"
+).onclick=mostrarLogin;
+
 }
 
 async function criarConta(){
-const nome=document.getElementById("cadastroNome").value.trim();
-const email=document.getElementById("cadastroEmail").value.trim();
-const senha=document.getElementById("cadastroSenha").value;
-const m=document.getElementById("cadastroMensagem");
+
+const nome=
+document.getElementById("cadastroNome")
+.value.trim();
+
+const email=
+document.getElementById("cadastroEmail")
+.value.trim();
+
+const senha=
+document.getElementById("cadastroSenha")
+.value;
+
+const m=
+document.getElementById("cadastroMensagem");
 
 if(!nome||!email||!senha){
-m.innerText="Preencha todos os campos.";
+
+m.innerText=
+"Preencha todos os campos.";
+
 return;
 }
 
 if(senha.length<6){
-m.innerText="A senha precisa ter pelo menos 6 caracteres.";
+
+m.innerText=
+"A senha precisa ter pelo menos 6 caracteres.";
+
 return;
 }
 
-m.innerText="Criando sua conta... 💚";
+m.innerText=
+"Criando sua conta... 💚";
 
-const{data,error}=await supabaseClient.auth.signUp({
+const{data,error}=
+await supabaseClient.auth.signUp({
 email,
 password:senha,
-options:{data:{nome}}
+options:{
+data:{
+nome
+}
+}
 });
 
 if(error){
-m.innerText="Não foi possível criar a conta.";
+
+m.innerText=
+"Não foi possível criar a conta.";
+
 return;
 }
 
 if(data.session){
+
 mostrarInicio();
+
 return;
 }
 
-m.innerText="Conta criada! Verifique seu e-mail. 📧💚";
+m.innerText=
+"Conta criada! Verifique seu e-mail. 📧💚";
+
 }
 
 function mostrarRecuperacao(){
+
 document.getElementById("app").innerHTML=`
+
 <div class="tela">
 <div class="card">
 <div class="conteudo">
 
-<h1>Recuperar senha 💚</h1>
+<h1>
+Recuperar senha 💚
+</h1>
 
 <p class="frase">
 Digite seu e-mail para receber<br>
 o link de recuperação. 📧
 </p>
 
-<input id="recuperarEmail" type="email" placeholder="✉️ Seu e-mail">
+<input
+id="recuperarEmail"
+type="email"
+placeholder="✉️ Seu e-mail"
+>
 
-<button id="enviarRecuperacao" class="btn-verde">🔒 Enviar link</button>
-<button id="voltarRecuperacao" class="btn-claro">← Voltar para entrar</button>
+<button
+id="enviarRecuperacao"
+class="btn-verde"
+>
+🔒 Enviar link
+</button>
 
-<p id="recuperacaoMensagem" class="mensagem"></p>
+<button
+id="voltarRecuperacao"
+class="btn-claro"
+>
+← Voltar para entrar
+</button>
+
+<p
+id="recuperacaoMensagem"
+class="mensagem"
+></p>
 
 </div>
 </div>
-</div>`;
+</div>
+`;
 
-document.getElementById("enviarRecuperacao").onclick=enviarRecuperacao;
-document.getElementById("voltarRecuperacao").onclick=mostrarLogin;
+document.getElementById(
+"enviarRecuperacao"
+).onclick=enviarRecuperacao;
+
+document.getElementById(
+"voltarRecuperacao"
+).onclick=mostrarLogin;
+
 }
 
 async function enviarRecuperacao(){
-const email=document.getElementById("recuperarEmail").value.trim();
-const m=document.getElementById("recuperacaoMensagem");
+
+const email=
+document.getElementById("recuperarEmail")
+.value.trim();
+
+const m=
+document.getElementById("recuperacaoMensagem");
 
 if(!email){
-m.innerText="Digite seu e-mail.";
+
+m.innerText=
+"Digite seu e-mail.";
+
 return;
 }
 
-m.innerText="Enviando... 💚";
+m.innerText=
+"Enviando... 💚";
 
-const{error}=await supabaseClient.auth.resetPasswordForEmail(
+const{error}=
+await supabaseClient.auth.resetPasswordForEmail(
 email,
-{redirectTo:window.location.origin}
+{
+redirectTo:window.location.origin
+}
 );
 
 if(error){
-m.innerText="Não foi possível enviar o link.";
+
+m.innerText=
+"Não foi possível enviar o link.";
+
 return;
 }
 
-m.innerText="Link enviado! Verifique seu e-mail. 📧💚";
+m.innerText=
+"Link enviado! Verifique seu e-mail. 📧💚";
+
 }
 
 function mostrarInicio(){
+
 document.getElementById("app").innerHTML=`
+
 <div class="tela">
 <div class="card">
 <div class="conteudo">
 
-<img src="angela-vytorya-sinalmundo-1.jpg" alt="Foto" class="foto">
+<img
+src="angela-vytorya-sinalmundo-1.jpg"
+alt="Foto"
+class="foto"
+>
 
-<div class="logo">🌎 SinalMundo</div>
-<p class="sublogo">Línguas de sinais aproximam pessoas ♡</p>
+<div class="logo">
+🌎 SinalMundo
+</div>
 
-<div class="divisor">─── ♡ ───</div>
+<p class="sublogo">
+Línguas de sinais aproximam pessoas ♡
+</p>
 
-<h2>Seja bem-vindo(a)! 💚</h2>
-<p class="frase">Que bom ter você aqui! 🤟🏻</p>
+<div class="divisor">
+─── ♡ ───
+</div>
+
+<h2>
+Seja bem-vindo(a)! 💚
+</h2>
+
+<p class="frase">
+Que bom ter você aqui! 🤟🏻
+</p>
 
 <div class="menu">
 
-<button id="pesquisaBtn" class="item">🔎 Pesquisar sinais</button>
-<button id="idiomasBtn" class="item">🌎 Línguas de sinais</button>
-<button id="favoritosBtn" class="item">♡ Meus favoritos</button>
-<button id="perfilBtn" class="item">👤 Meu perfil</button>
-<button id="premiumBtn" class="item">💚 SinalMundo Premium</button>
-<button id="sairBtn" class="btn-branco">🚪 Sair</button>
+<button
+id="pesquisaBtn"
+class="item"
+>
+🔎 Pesquisar sinais
+</button>
+
+<button
+id="idiomasBtn"
+class="item"
+>
+🌎 Línguas de sinais
+</button>
+
+<button
+id="favoritosBtn"
+class="item"
+>
+♡ Meus favoritos
+</button>
+
+<button
+id="perfilBtn"
+class="item"
+>
+👤 Meu perfil
+</button>
+
+<button
+id="premiumBtn"
+class="item"
+>
+💚 SinalMundo Premium
+</button>
+
+<button
+id="sairBtn"
+class="btn-branco"
+>
+🚪 Sair
+</button>
 
 </div>
 
@@ -313,193 +919,244 @@ mais inclusivo! ♡
 
 </div>
 </div>
-</div>`;
+</div>
+`;
 
-document.getElementById("pesquisaBtn").onclick=mostrarPesquisa;
-document.getElementById("idiomasBtn").onclick=mostrarIdiomas;
-document.getElementById("favoritosBtn").onclick=mostrarFavoritos;
-document.getElementById("perfilBtn").onclick=mostrarPerfil;
-document.getElementById("premiumBtn").onclick=mostrarPremium;
-document.getElementById("sairBtn").onclick=sair;
+document.getElementById("pesquisaBtn").onclick=
+mostrarPesquisa;
+
+document.getElementById("idiomasBtn").onclick=
+mostrarIdiomas;
+
+document.getElementById("favoritosBtn").onclick=
+mostrarFavoritos;
+
+document.getElementById("perfilBtn").onclick=
+mostrarPerfil;
+
+document.getElementById("premiumBtn").onclick=
+mostrarPremium;
+
+document.getElementById("sairBtn").onclick=
+sair;
+
 }
 
 function mostrarPesquisa(){
+
 document.getElementById("app").innerHTML=`
+
 <div class="tela">
 <div class="card">
 <div class="conteudo">
 
-<h2>🔎 Pesquisar sinais</h2>
-<p class="frase">Encontre um sinal para aprender. 🤟🏻</p>
+<h2>
+🔎 Pesquisar sinais
+</h2>
 
-<input id="campoPesquisa" type="text" placeholder="🔎 Digite um sinal...">
+<p class="frase">
+Encontre um sinal para aprender. 🤟🏻
+</p>
 
-<button id="buscarSinal" class="btn-verde">🔎 Pesquisar</button>
+<input
+id="campoPesquisa"
+type="text"
+placeholder="🔎 Digite um sinal..."
+>
 
-<div id="resultadoPesquisa" class="resultado">
+<button
+id="buscarSinal"
+class="btn-verde"
+>
+🔎 Pesquisar
+</button>
+
+<div
+id="resultadoPesquisa"
+class="resultado"
+>
 Digite uma palavra para pesquisar. 💚
 </div>
 
-<button id="voltarPesquisa" class="btn-claro">← Voltar</button>
-
-</div>
-</div>
-</div>`;
-
-document.getElementById("buscarSinal").onclick=pesquisar;
-document.getElementById("voltarPesquisa").onclick=mostrarInicio;
-}
-
-function pesquisar(){
-const palavra=document.getElementById("campoPesquisa").value.trim().toLowerCase();
-const r=document.getElementById("resultadoPesquisa");
-
-if(!palavra){
-r.innerText="Digite um sinal para pesquisar. 🔎";
-return;
-}
-
-const e=sinais.filter(s=>s.palavra.toLowerCase().includes(palavra));
-
-if(!e.length){
-r.innerHTML="<strong>Nenhum sinal encontrado.</strong><br><br>Em breve vamos adicionar muitos sinais reais ao SinalMundo. 🤟🏻💚";
-return;
-}
-
-r.innerHTML=e.map(s=>`
-<div class="sinal">
-<strong>${s.palavra}</strong><br>
-${s.idioma}<br><br>
-${s.descricao}
-</div>
-`).join("");
-}
-
-function mostrarIdiomas(){
-document.getElementById("app").innerHTML=`
-<div class="tela">
-<div class="card">
-<div class="conteudo">
-
-<h2>Línguas de sinais</h2>
-<p class="frase">Explore diferentes línguas de sinais. 🤟🏻</p>
-
-<div class="lista">
-
-<div class="idioma">
-<strong>🇧🇷 Libras</strong>
-<span>Língua Brasileira de Sinais</span>
-</div>
-
-<div class="idioma">
-<strong>🇺🇸 ASL</strong>
-<span>American Sign Language</span>
-</div>
-
-<div class="idioma">
-<strong>🇬🇧 BSL</strong>
-<span>British Sign Language</span>
-</div>
-
-<div class="idioma">
-<strong>🌎 Outras línguas</strong>
-<span>Mais línguas serão adicionadas.</span>
-</div>
-
-</div>
-
-<button id="voltarIdiomas" class="btn-claro">← Voltar</button>
-
-</div>
-</div>
-</div>`;
-
-document.getElementById("voltarIdiomas").onclick=mostrarInicio;
-}
-
-document.getElementById("voltarFavoritos").onclick=mostrarInicio;
-}
-
-async function garantirPerfil(user){
-let{data:perfil}=await supabaseClient
-.from("perfis")
-.select("avatar")
-.eq("id",user.id)
-.maybeSingle();
-
-if(error){
-alert("Não foi possível salvar o favorito.");
-return;
-}
-
-alert("❤️ Sinal salvo nos favoritos!");
-}
-
-async function mostrarFavoritos(){
-const{data}=await supabaseClient.auth.getUser();
-const user=data.user;
-
-if(!user){
-mostrarLogin();
-return;
-}
-
-const{data:favoritos,error}=await supabaseClient
-.from("favoritos")
-.select("sinal")
-.eq("usuario_id",user.id);
-
-if(error){
-alert("Não foi possível carregar os favoritos.");
-return;
-}
-
-document.getElementById("app").innerHTML=`
-<div class="tela">
-<div class="card">
-<div class="conteudo">
-
-<h2>❤️ Meus favoritos</h2>
-
-${
-favoritos.length
-? favoritos.map(f=>`
-<div class="sinal">
-<strong>${f.sinal}</strong>
-
 <button
+id="voltarPesquisa"
 class="btn-claro"
-onclick="removerFavorito('${f.sinal}')">
-❌ Remover dos favoritos
-</button>
-
-</div>
-`).join("")
-: `<p class="vazio">
-Você ainda não tem sinais favoritos. 💚
-</p>`
-}
-
-<button id="voltarFavoritos" class="btn-claro">
+>
 ← Voltar
 </button>
 
 </div>
 </div>
-</div>`;
+</div>
+`;
 
-document.getElementById("voltarFavoritos").onclick=mostrarInicio;
+document.getElementById("buscarSinal").onclick=
+pesquisar;
+
+document.getElementById("voltarPesquisa").onclick=
+mostrarInicio;
+
 }
 
-const{data}=await supabaseClient.auth.getUser();
-const user=data.user;
+function pesquisar(){
 
-if(!user){
-mostrarLogin();
+const palavra=
+document.getElementById("campoPesquisa")
+.value.trim()
+.toLowerCase();
+
+const r=
+document.getElementById("resultadoPesquisa");
+
+if(!palavra){
+
+r.innerText=
+"Digite um sinal para pesquisar. 🔎";
+
 return;
 }
 
-const{error}=await supabaseClient
+const encontrados=
+sinais.filter(
+s=>s.palavra
+.toLowerCase()
+.includes(palavra)
+);
+
+if(!encontrados.length){
+
+r.innerHTML=
+"<strong>Nenhum sinal encontrado.</strong><br><br>"+
+"Em breve vamos adicionar muitos sinais reais ao SinalMundo. 🤟🏻💚";
+
+return;
+}
+
+r.innerHTML=
+encontrados.map(s=>`
+
+<div class="sinal">
+
+<strong>
+${s.palavra}
+</strong>
+
+<br>
+
+${s.idioma}
+
+<br><br>
+
+${s.descricao}
+
+<button
+class="btn-verde"
+onclick="adicionarFavorito('${s.palavra}')"
+>
+❤️ Adicionar aos favoritos
+</button>
+
+</div>
+
+`).join("");
+
+}
+
+function mostrarIdiomas(){
+
+document.getElementById("app").innerHTML=`
+
+<div class="tela">
+<div class="card">
+<div class="conteudo">
+
+<h2>
+Línguas de sinais
+</h2>
+
+<p class="frase">
+Explore diferentes línguas de sinais. 🤟🏻
+</p>
+
+<div class="lista">
+
+<div class="idioma">
+<strong>🇧🇷 Libras</strong>
+<span>
+Língua Brasileira de Sinais
+</span>
+</div>
+
+<div class="idioma">
+<strong>🇺🇸 ASL</strong>
+<span>
+American Sign Language
+</span>
+</div>
+
+<div class="idioma">
+<strong>🇬🇧 BSL</strong>
+<span>
+British Sign Language
+</span>
+</div>
+
+<div class="idioma">
+<strong>🌎 Outras línguas</strong>
+<span>
+Mais línguas serão adicionadas.
+</span>
+</div>
+
+</div>
+
+<button
+id="voltarIdiomas"
+class="btn-claro"
+>
+← Voltar
+</button>
+
+</div>
+</div>
+</div>
+`;
+
+document.getElementById(
+"voltarIdiomas"
+).onclick=mostrarInicio;
+
+}
+
+async function adicionarFavorito(sinal){
+
+const{data}=await supabaseClient.auth.getUser();
+
+const user=data.user;
+
+if(!user){
+
+mostrarLogin();
+
+return;
+}
+
+const{data:existente}=await supabaseClient
+.from("favoritos")
+.select("sinal")
+.eq("usuario_id",user.id)
+.eq("sinal",sinal)
+.maybeSingle();
+
+if(existente){
+
+alert("❤️ Esse sinal já está nos seus favoritos!");
+
+return;
+}
+
+const{error}=
+await supabaseClient
 .from("favoritos")
 .insert({
 sinal:sinal,
@@ -507,330 +1164,657 @@ usuario_id:user.id
 });
 
 if(error){
-alert("Não foi possível salvar o favorito.");
+
+alert(
+"Não foi possível salvar o favorito."
+);
+
 return;
 }
 
-alert("❤️ Sinal salvo nos favoritos!");
+alert(
+"❤️ Sinal salvo nos favoritos!"
+);
+
 }
 
 async function mostrarFavoritos(){
 
-async function mostrarFavoritos(){
 const{data}=await supabaseClient.auth.getUser();
+
 const user=data.user;
 
 if(!user){
+
 mostrarLogin();
+
 return;
 }
 
-const{data:favoritos,error}=await supabaseClient
+const{data:favoritos,error}=
+await supabaseClient
 .from("favoritos")
 .select("sinal")
 .eq("usuario_id",user.id);
 
 if(error){
-alert("Não foi possível carregar os favoritos.");
+
+alert(
+"Não foi possível carregar os favoritos."
+);
+
 return;
 }
 
 document.getElementById("app").innerHTML=`
+
 <div class="tela">
 <div class="card">
 <div class="conteudo">
 
-<h2>❤️ Meus favoritos</h2>
+<h2>
+❤️ Meus favoritos
+</h2>
 
 ${
 favoritos.length
-? favoritos.map(f=>`
+
+?
+
+favoritos.map(f=>`
+
 <div class="sinal">
-<strong>${f.sinal}</strong>
+
+<strong>
+${f.sinal}
+</strong>
 
 <button
 class="btn-claro"
-onclick="removerFavorito('${f.sinal}')">
+onclick="removerFavorito('${f.sinal}')"
+>
 ❌ Remover dos favoritos
 </button>
 
 </div>
+
 `).join("")
-: `<p class="vazio">
+
+:
+
+`<p class="vazio">
 Você ainda não tem sinais favoritos. 💚
 </p>`
+
 }
 
-<button id="voltarFavoritos" class="btn-claro">
+<button
+id="voltarFavoritos"
+class="btn-claro"
+>
 ← Voltar
 </button>
 
 </div>
 </div>
-</div>`;
+</div>
+`;
 
-document.getElementById("voltarFavoritos").onclick=mostrarInicio;
+document.getElementById(
+"voltarFavoritos"
+).onclick=mostrarInicio;
+
+}
+
+async function removerFavorito(sinal){
+
+const{data}=await supabaseClient.auth.getUser();
+
+const user=data.user;
+
+if(!user){
+
+mostrarLogin();
+
+return;
+}
+
+const{error}=
+await supabaseClient
+.from("favoritos")
+.delete()
+.eq("usuario_id",user.id)
+.eq("sinal",sinal);
+
+if(error){
+
+alert(
+"Não foi possível remover o favorito."
+);
+
+return;
+}
+
+mostrarFavoritos();
+
 }
 
 async function garantirPerfil(user){
-let{data:perfil}=await supabaseClient
+
+let{data:perfil}=
+await supabaseClient
 .from("perfis")
 .select("avatar")
 .eq("id",user.id)
 .maybeSingle();
 
 if(!perfil){
-const{data:novo,error}=await supabaseClient
+
+const{data:novo,error}=
+await supabaseClient
 .from("perfis")
-.insert({id:user.id,avatar:"😊"})
+.insert({
+id:user.id,
+avatar:"😊"
+})
 .select()
 .single();
 
-if(!error)perfil=novo;
+if(!error){
+perfil=novo;
+}
+
 }
 
 return perfil;
+
 }
 
 async function mostrarPerfil(){
-const{data}=await supabaseClient.auth.getUser();
+
+const{data}=
+await supabaseClient.auth.getUser();
+
 const user=data.user;
 
 if(!user){
+
 mostrarLogin();
+
 return;
 }
 
-const perfil=await garantirPerfil(user);
-const avatar=perfil?.avatar||"😊";
-const nome=user.user_metadata?.nome||"Usuário";
+const perfil=
+await garantirPerfil(user);
+
+const avatar=
+perfil?.avatar||"😊";
+
+const nome=
+user.user_metadata?.nome||"Usuário";
 
 document.getElementById("app").innerHTML=`
+
 <div class="tela">
 <div class="card">
 <div class="conteudo">
 
-<h2>👤 Meu perfil</h2>
+<h2>
+👤 Meu perfil
+</h2>
 
-<div class="avatar-atual">${avatar}</div>
+<div class="avatar-atual">
+${avatar}
+</div>
 
 <div class="resultado">
-<strong>${nome}</strong><br><br>
+
+<strong>
+${nome}
+</strong>
+
+<br><br>
+
 ${user.email||""}
+
 </div>
 
-<p class="frase">Escolha sua figurinha 💚</p>
+<p class="frase">
+Escolha sua figurinha 💚
+</p>
 
 <div class="avatar-lista">
+
 ${avatares.map(a=>`
-<button class="avatar-btn" onclick="salvarAvatar('${a}')">
+
+<button
+class="avatar-btn"
+onclick="salvarAvatar('${a}')"
+>
 ${a}
 </button>
+
 `).join("")}
+
 </div>
 
-<p class="frase" style="margin-top:25px;margin-bottom:10px">
+<p
+class="frase"
+style="margin-top:25px;margin-bottom:10px"
+>
 Escolha a cor do seu SinalMundo 🎨
 </p>
 
 <div class="cores">
+
 ${cores.map(c=>`
+
 <button
 class="cor-btn"
 title="${c.nome}"
 aria-label="${c.nome}"
 style="background:${c.cor}"
-onclick="salvarCor('${c.cor}','${c.claro}')">
+onclick="salvarCor('${c.cor}','${c.claro}')"
+>
 </button>
+
 `).join("")}
+
 </div>
 
-<p id="perfilMensagem" class="mensagem"></p>
+<p
+id="perfilMensagem"
+class="mensagem"
+></p>
 
-<button id="voltarPerfil" class="btn-claro">
+<button
+id="voltarPerfil"
+class="btn-claro"
+>
 ← Voltar
 </button>
 
 </div>
 </div>
-</div>`;
+</div>
+`;
 
-document.getElementById("voltarPerfil").onclick=mostrarInicio;
+document.getElementById(
+"voltarPerfil"
+).onclick=mostrarInicio;
+
 }
 
 async function salvarAvatar(avatar){
-const{data}=await supabaseClient.auth.getUser();
+
+const{data}=
+await supabaseClient.auth.getUser();
+
 const user=data.user;
-const m=document.getElementById("perfilMensagem");
+
+const m=
+document.getElementById("perfilMensagem");
 
 if(!user){
-if(m)m.innerText="Usuário não encontrado.";
+
+if(m){
+m.innerText=
+"Usuário não encontrado.";
+}
+
 return;
 }
 
-const{error}=await supabaseClient
+const{error}=
+await supabaseClient
 .from("perfis")
-.update({avatar:avatar})
+.update({
+avatar:avatar
+})
 .eq("id",user.id);
 
 if(error){
-if(m)m.innerText="Erro ao salvar: "+error.message;
+
+if(m){
+m.innerText=
+"Erro ao salvar: "+error.message;
+}
+
 return;
 }
 
-if(m)m.innerText="Figurinha salva! 💚";
-setTimeout(mostrarPerfil,500);
+if(m){
+m.innerText=
+"Figurinha salva! 💚";
+}
+
+setTimeout(
+mostrarPerfil,
+500
+);
+
 }
 
 function salvarCor(cor,claro){
+
 aplicarCor(cor,claro);
 
-const m=document.getElementById("perfilMensagem");
+const m=
+document.getElementById("perfilMensagem");
 
-if(m)m.innerText="Cor salva neste aparelho! 💚";
+if(m){
 
-setTimeout(mostrarPerfil,500);
+m.innerText=
+"Cor salva neste aparelho! 💚";
+
+}
+
+setTimeout(
+mostrarPerfil,
+500
+);
+
 }
 
 function mostrarPremium(){
+
 document.getElementById("app").innerHTML=`
+
 <div class="tela">
 <div class="card">
 <div class="conteudo">
 
-<div class="logo">🌎 SinalMundo</div>
+<div class="logo">
+🌎 SinalMundo
+</div>
 
-<div style="font-size:55px;margin:10px">💚✨</div>
+<div
+style="font-size:55px;margin:10px"
+>
+💚✨
+</div>
 
-<h2>Premium</h2>
+<h2>
+Premium
+</h2>
 
 <p class="frase">
 Tenha acesso vitalício aos recursos Premium do SinalMundo.
 </p>
 
 <div class="preco">
+
 R$ 50,00
+
 <br>
-<span style="font-size:15px">pagamento único • vitalício</span>
+
+<span
+style="font-size:15px"
+>
+pagamento único • vitalício
+</span>
+
 </div>
 
-<button id="queroPremium" class="btn-verde">
+<button
+id="queroPremium"
+class="btn-verde"
+>
 ✨ Quero ser Premium
 </button>
 
-<div id="premiumArea" style="display:none;margin-top:20px">
+<div
+id="premiumArea"
+style="display:none;margin-top:20px"
+>
 
 <div class="premium-box">
-<h3>🌟 Benefícios Premium</h3>
+
+<h3>
+🌟 Benefícios Premium
+</h3>
 
 <ul class="premium-lista">
-<li>🤟🏻 Mais línguas de sinais</li>
-<li>🔎 Pesquisa completa</li>
-<li>❤️ Meus favoritos</li>
-<li>📚 Biblioteca de conteúdos</li>
-<li>🎬 Vídeos exclusivos</li>
-<li>🧠 Quizzes e exercícios</li>
-<li>🌎 Comparação entre línguas</li>
-<li>🏆 Desafios e conquistas</li>
-<li>🔔 Novidades antecipadas</li>
-<li>💚 Grupo exclusivo Premium</li>
-<li>⭐ Suporte prioritário</li>
+
+<li>
+🤟🏻 Mais línguas de sinais
+</li>
+
+<li>
+🔎 Pesquisa completa
+</li>
+
+<li>
+❤️ Meus favoritos
+</li>
+
+<li>
+📚 Biblioteca de conteúdos
+</li>
+
+<li>
+🎬 Vídeos exclusivos
+</li>
+
+<li>
+🧠 Quizzes e exercícios
+</li>
+
+<li>
+🌎 Comparação entre línguas
+</li>
+
+<li>
+🏆 Desafios e conquistas
+</li>
+
+<li>
+🔔 Novidades antecipadas
+</li>
+
+<li>
+💚 Grupo exclusivo Premium
+</li>
+
+<li>
+⭐ Suporte prioritário
+</li>
+
 </ul>
 
-<div style="margin-top:20px;padding:18px;border-radius:20px;background:#fff;text-align:center">
-<h3>💎 Grupo Premium</h3>
+<div
+style="margin-top:20px;padding:18px;border-radius:20px;background:#fff;text-align:center"
+>
+
+<h3>
+💎 Grupo Premium
+</h3>
 
 <p>
 Entre no grupo exclusivo do SinalMundo após a confirmação do Premium. 💚
 </p>
 
-<button id="grupoPremium" class="btn-verde">
+<button
+id="grupoPremium"
+class="btn-verde"
+>
 💬 Entrar no Grupo Premium
 </button>
+
 </div>
 
 <div class="premium-box">
 
-<h3>💳 Pagamento</h3>
+<h3>
+💳 Pagamento
+</h3>
 
 <p>
-Faça o pagamento de <strong>R$ 50,00</strong> pelo Pix.
+Faça o pagamento de
+<strong>R$ 50,00</strong>
+pelo Pix.
 </p>
 
 <div class="pix">
-<strong>🔐 Pix Copia e Cola</strong>
+
+<strong>
+🔐 Pix Copia e Cola
+</strong>
+
 <br>
-<span style="font-size:14px">R$ 50,00 • SinalMundo Premium</span>
+
+<span style="font-size:14px">
+R$ 50,00 • SinalMundo Premium
+</span>
+
+<br><br>
+
+<span style="font-size:12px">
+${PIX_PREMIUM}
+</span>
+
 </div>
 
-<button id="copiarPix" class="btn-verde">
+<button
+id="copiarPix"
+class="btn-verde"
+>
 📋 Copiar Pix
 </button>
 
-<p id="premiumMensagem" class="mensagem"></p>
+<p
+id="premiumMensagem"
+class="mensagem"
+></p>
 
-<button id="comprovanteBtn" class="btn-claro">
+<button
+id="comprovanteBtn"
+class="btn-claro"
+>
 📸 Enviar comprovante
 </button>
 
 <div class="aviso">
+
 Após o pagamento, envie o comprovante para a administração do SinalMundo para conferência e ativação do Premium. 💚
-</div>
 
 </div>
 
 </div>
 
-<button id="voltarPremium" class="btn-claro">
+</div>
+
+<button
+id="voltarPremium"
+class="btn-claro"
+>
 ← Voltar
 </button>
 
 </div>
 </div>
-</div>`;
+</div>
+`;
 
-document.getElementById("queroPremium").onclick=()=>{
-document.getElementById("premiumArea").style.display="block";
-document.getElementById("queroPremium").style.display="none";
-};
-document.getElementById("grupoPremium").onclick=()=>{
-window.open("https://chat.whatsapp.com/CYUEJt1JxpFAAidfchlRzP?s=cl&p=a&mlu=4","_blank");
+document.getElementById(
+"queroPremium"
+).onclick=()=>{
+
+document.getElementById(
+"premiumArea"
+).style.display="block";
+
+document.getElementById(
+"queroPremium"
+).style.display="none";
+
 };
 
-document.getElementById("copiarPix").onclick=async()=>{
+document.getElementById(
+"grupoPremium"
+).onclick=()=>{
+
+window.open(
+"https://chat.whatsapp.com/CYUEJt1JxpFAAidfchlRzP?s=cl&p=a&mlu=4",
+"_blank"
+);
+
+};
+
+document.getElementById(
+"copiarPix"
+).onclick=async()=>{
+
 try{
-await navigator.clipboard.writeText(PIX_PREMIUM);
-document.getElementById("premiumMensagem").innerText="✅ Pix copiado! 💚";
+
+await navigator.clipboard.writeText(
+PIX_PREMIUM
+);
+
+document.getElementById(
+"premiumMensagem"
+).innerText=
+"✅ Pix copiado! 💚";
+
 }catch(e){
-document.getElementById("premiumMensagem").innerText="Copie o Pix manualmente.";
+
+document.getElementById(
+"premiumMensagem"
+).innerText=
+"Copie o Pix manualmente.";
+
 }
+
 };
 
-document.getElementById("comprovanteBtn").onclick=()=>{
-window.open("https://chat.whatsapp.com/CYUEJt1JxpFAAidfchlRzP?s=cl&p=a&mlu=4","_blank");
+document.getElementById(
+"comprovanteBtn"
+).onclick=()=>{
+
+window.open(
+"https://chat.whatsapp.com/CYUEJt1JxpFAAidfchlRzP?s=cl&p=a&mlu=4",
+"_blank"
+);
+
 };
 
-document.getElementById("voltarPremium").onclick=mostrarInicio;
+document.getElementById(
+"voltarPremium"
+).onclick=
+mostrarInicio;
+
 }
 
 async function sair(){
+
 await supabaseClient.auth.signOut();
+
 mostrarLogin();
+
 }
 
 async function verificarSessao(){
-const{data}=await supabaseClient.auth.getSession();
 
-if(data.session)
+const{data}=
+await supabaseClient.auth.getSession();
+
+if(data.session){
+
 mostrarInicio();
-else
+
+}else{
+
 mostrarLogin();
+
+}
+
 }
 
 carregarCor();
+
 verificarSessao();
+
 </script>
 
 </body>
 </html>
-
