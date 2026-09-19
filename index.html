@@ -417,19 +417,55 @@ document.getElementById("app").innerHTML=`
 document.getElementById("voltarIdiomas").onclick=mostrarInicio;
 }
 
-function mostrarFavoritos(){
+async function mostrarFavoritos(){
+const{data}=await supabaseClient.auth.getUser();
+const user=data.user;
+
+if(!user){
+mostrarLogin();
+return;
+}
+
+const{data:favoritos,error}=await supabaseClient
+.from("favoritos")
+.select("sinal")
+.eq("usuario_id",user.id)
+.order("id",{ascending:false});
+
+if(error){
+alert("Não foi possível carregar os favoritos.");
+return;
+}
+
 document.getElementById("app").innerHTML=`
 <div class="tela">
 <div class="card">
 <div class="conteudo">
 
-<h2>♡ Meus favoritos</h2>
+<h2>❤️ Meus favoritos</h2>
 
-<p class="vazio">
-Seus sinais favoritos aparecerão aqui. 💚
-</p>
+${
+favoritos.length
+? favoritos.map(f=>`
+<div class="sinal">
+<strong>${f.sinal}</strong>
 
-<button id="voltarFavoritos" class="btn-claro">← Voltar</button>
+<button
+class="btn-claro"
+onclick="removerFavorito('${f.sinal}')">
+❌ Remover dos favoritos
+</button>
+
+</div>
+`).join("")
+: `<p class="vazio">
+Você ainda não tem sinais favoritos. 💚
+</p>`
+}
+
+<button id="voltarFavoritos" class="btn-claro">
+← Voltar
+</button>
 
 </div>
 </div>
