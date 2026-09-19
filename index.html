@@ -429,8 +429,7 @@ return;
 const{data:favoritos,error}=await supabaseClient
 .from("favoritos")
 .select("sinal")
-.eq("usuario_id",user.id)
-.order("id",{ascending:false});
+.eq("usuario_id",user.id);
 
 if(error){
 alert("Não foi possível carregar os favoritos.");
