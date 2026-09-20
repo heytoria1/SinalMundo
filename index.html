@@ -1062,6 +1062,7 @@ style="width:100%;border-radius:18px;margin:15px 0"
 
 <button
 class="btn-verde"
+data-favorito="${s.palavra}"
 onclick="adicionarFavorito('${s.palavra}')"
 >
 ❤️ Adicionar aos favoritos
@@ -1156,12 +1157,13 @@ const{data:existente}=await supabaseClient
 .eq("sinal",sinal)
 .maybeSingle();
 
-const mensagem=document.getElementById("mensagemFavorito");
-
 if(existente){
+const botao=document.querySelector(
+`button[data-favorito="${sinal}"]`
+);
 
-if(mensagem){
-mensagem.innerText="❤️ Esse sinal já está nos seus favoritos!";
+if(botao){
+botao.innerText="❤️ Já está nos favoritos";
 }
 
 return;
@@ -1175,16 +1177,15 @@ usuario_id:user.id
 });
 
 if(error){
-
-if(mensagem){
-mensagem.innerText="Não foi possível salvar o favorito.";
-}
-
 return;
 }
 
-if(mensagem){
-mensagem.innerText="❤️ Sinal salvo nos favoritos!";
+const botao=document.querySelector(
+`button[data-favorito="${sinal}"]`
+);
+
+if(botao){
+botao.innerText="❤️ Salvo nos favoritos!";
 }
 
 }
@@ -1196,9 +1197,7 @@ const{data}=await supabaseClient.auth.getUser();
 const user=data.user;
 
 if(!user){
-
 mostrarLogin();
-
 return;
 }
 
@@ -1209,11 +1208,6 @@ await supabaseClient
 .eq("usuario_id",user.id);
 
 if(error){
-
-alert(
-"Não foi possível carregar os favoritos."
-);
-
 return;
 }
 
@@ -1232,13 +1226,50 @@ favoritos.length
 
 ?
 
-favoritos.map(f=>`
+favoritos.map(f=>{
+
+const sinalEncontrado=
+sinais.find(s=>s.palavra===f.sinal);
+
+return`
 
 <div class="sinal">
 
 <strong>
 ${f.sinal}
 </strong>
+
+${
+sinalEncontrado?.imagem
+?
+
+`
+<img
+src="${sinalEncontrado.imagem}"
+alt="Sinal de ${f.sinal}"
+style="width:100%;border-radius:18px;margin:15px 0"
+>
+`
+
+:
+
+""
+}
+
+${
+sinalEncontrado?.descricao
+?
+
+`
+<p style="margin:10px 0">
+${sinalEncontrado.descricao}
+</p>
+`
+
+:
+
+""
+}
 
 <button
 class="btn-claro"
@@ -1249,13 +1280,17 @@ onclick="removerFavorito('${f.sinal}')"
 
 </div>
 
-`).join("")
+`;
+
+}).join("")
 
 :
 
-`<p class="vazio">
+`
+<p class="vazio">
 Você ainda não tem sinais favoritos. 💚
-</p>`
+</p>
+`
 
 }
 
