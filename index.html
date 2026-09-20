@@ -1142,13 +1142,10 @@ document.getElementById(
 async function adicionarFavorito(sinal){
 
 const{data}=await supabaseClient.auth.getUser();
-
 const user=data.user;
 
 if(!user){
-
 mostrarLogin();
-
 return;
 }
 
@@ -1159,15 +1156,18 @@ const{data:existente}=await supabaseClient
 .eq("sinal",sinal)
 .maybeSingle();
 
+const mensagem=document.getElementById("mensagemFavorito");
+
 if(existente){
 
-alert("❤️ Esse sinal já está nos seus favoritos!");
+if(mensagem){
+mensagem.innerText="❤️ Esse sinal já está nos seus favoritos!";
+}
 
 return;
 }
 
-const{error}=
-await supabaseClient
+const{error}=await supabaseClient
 .from("favoritos")
 .insert({
 sinal:sinal,
@@ -1176,16 +1176,16 @@ usuario_id:user.id
 
 if(error){
 
-alert(
-"Não foi possível salvar o favorito."
-);
+if(mensagem){
+mensagem.innerText="Não foi possível salvar o favorito.";
+}
 
 return;
 }
 
-alert(
-"❤️ Sinal salvo nos favoritos!"
-);
+if(mensagem){
+mensagem.innerText="❤️ Sinal salvo nos favoritos!";
+}
 
 }
 
